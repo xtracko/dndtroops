@@ -1,3 +1,6 @@
+/**
+ * @author Jiří Novotný
+ */
 package cz.muni.fi.pa165.dndtroops;
 
 import cz.muni.fi.pa165.dndtroops.dao.HeroDao;
