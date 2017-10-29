@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.dndtroops.entities;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 /*
 
@@ -12,23 +11,19 @@ Creted by: Vojtech Duchon (UCO:410007)
 
 
 @Entity
-@Table (name = "troop")
 public class Troop {
 
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column (name= "id")
-    private long id;
+    private Long id;
 
-    @Column(name= "name")
+    @Column(unique = true)
     private String name;
 
-    @Column (name= "mission")
     private String mission;
 
-    @Column (name= "goldenMoney")
-    private long goldenMoney;
+    private Long goldenMoney;
 
     /*
     No argument constructor.
@@ -43,19 +38,16 @@ public class Troop {
      */
 
 
-    public Troop(long id, String name, String mission, long goldenMoney)
+    public Troop(String name, String mission, Long goldenMoney)
     {
-        this.id = id;
         this.name=name;
         this.mission=mission;
         this.goldenMoney=goldenMoney;
-
     }
 
     /*
     Override of default Object.equals() method
      */
-
 
     @Override
     public boolean equals(Object o) {
@@ -64,10 +56,8 @@ public class Troop {
 
         Troop troop = (Troop) o;
 
-        if (getId() != troop.getId()) return false;
-        if (getGoldenMoney() != troop.getGoldenMoney()) return false;
-        if (getName() != null ? !getName().equals(troop.getName()) : troop.getName() != null) return false;
-        return getMission() != null ? getMission().equals(troop.getMission()) : troop.getMission() == null;
+        if (!getName().equals(troop.getName())) return false;
+        return (getMission().equals(troop.getMission()));
     }
 
     /*
@@ -77,9 +67,8 @@ public class Troop {
     @Override
     public int hashCode() {
         int hash = 1;
-        hash = hash * 17 + Objects.hashCode(getId());
-        hash = hash * 31 + Objects.hashCode(getGoldenMoney());
-        hash = hash * 13 + Objects.hashCode(getName());
+        hash = hash * 17 + getName().hashCode();
+        hash = hash * 31 + getMission().hashCode();
         return hash;
     }
 
@@ -88,11 +77,11 @@ public class Troop {
     --- BEGIN ---
      */
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -112,11 +101,11 @@ public class Troop {
         this.mission = mission;
     }
 
-    public long getGoldenMoney() {
+    public Long getGoldenMoney() {
         return goldenMoney;
     }
 
-    public void setGoldenMoney(long goldenMoney) {
+    public void setGoldenMoney(Long goldenMoney) {
         this.goldenMoney = goldenMoney;
     }
 

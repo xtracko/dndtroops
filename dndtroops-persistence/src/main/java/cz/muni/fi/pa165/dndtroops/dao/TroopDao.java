@@ -16,7 +16,7 @@ public interface TroopDao {
     public void create (Troop t );
     public void delete (Troop t );
     public void update (Troop t );
-    public Troop findById (long id);
+    public Troop findById (Long id);
     public Troop findByName (String name);
     public List<Troop> findAll();
 
