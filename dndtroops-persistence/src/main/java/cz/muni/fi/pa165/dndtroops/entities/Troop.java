@@ -3,6 +3,14 @@ package cz.muni.fi.pa165.dndtroops.entities;
 import javax.persistence.*;
 import java.util.Objects;
 
+/*
+
+Entity class for entity Troop.
+Creted by: Vojtech Duchon (UCO:410007)
+
+ */
+
+
 @Entity
 @Table (name = "troop")
 public class Troop {
@@ -22,9 +30,18 @@ public class Troop {
     @Column (name= "goldenMoney")
     private long goldenMoney;
 
+    /*
+    No argument constructor.
+     */
+
     public Troop(){
 
     }
+
+    /*
+    Constructor with specified attributes.
+     */
+
 
     public Troop(long id, String name, String mission, long goldenMoney)
     {
@@ -34,6 +51,11 @@ public class Troop {
         this.goldenMoney=goldenMoney;
 
     }
+
+    /*
+    Override of default Object.equals() method
+     */
+
 
     @Override
     public boolean equals(Object o) {
@@ -48,6 +70,10 @@ public class Troop {
         return getMission() != null ? getMission().equals(troop.getMission()) : troop.getMission() == null;
     }
 
+    /*
+    Override of default Object method for generation of instance hashcode.
+     */
+
     @Override
     public int hashCode() {
         int hash = 1;
@@ -56,6 +82,11 @@ public class Troop {
         hash = hash * 13 + Objects.hashCode(getName());
         return hash;
     }
+
+    /*
+    Getters and setters
+    --- BEGIN ---
+     */
 
     public long getId() {
         return id;
@@ -89,6 +120,9 @@ public class Troop {
         this.goldenMoney = goldenMoney;
     }
 
-    // TODO
+    /*
+    Getters and setters
+    --- END ---
+     */
 
 }
