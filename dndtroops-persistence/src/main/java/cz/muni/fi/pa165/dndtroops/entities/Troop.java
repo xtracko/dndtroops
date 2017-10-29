@@ -23,8 +23,6 @@ public class Troop {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @NotNull
-    @Column (nullable = false)
     private String mission;
 
     @NotNull
