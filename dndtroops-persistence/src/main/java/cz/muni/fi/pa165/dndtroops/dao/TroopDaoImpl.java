@@ -8,6 +8,13 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+/*
+
+Implementation of DAO class for entity Troop.
+Creted by: Vojtech Duchon (UCO:410007)
+
+ */
+
 @Repository
 public class TroopDaoImpl implements TroopDao {
 
