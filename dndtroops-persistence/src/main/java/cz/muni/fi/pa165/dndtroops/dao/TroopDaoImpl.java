@@ -33,13 +33,8 @@ public class TroopDaoImpl implements TroopDao {
         em.merge(t);
     }
 
-    public Troop findById (long id){
-        try {
-            return
-                    em.createQuery("select t from Troop t where t.id=:id" , Troop.class).setParameter("id", id).getSingleResult();
-        } catch (NoResultException noresult) {
-            return null;
-        }
+    public Troop findById (Long id){
+        return em.find(Troop.class, id);
     }
 
     public Troop findByName (String name){
