@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.dndtroops.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /*
 
@@ -18,12 +19,17 @@ public class Troop {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @NotNull
+    @Column(nullable = false, unique = true)
     private String name;
 
+    @NotNull
+    @Column (nullable = false)
     private String mission;
 
-    private Long goldenMoney;
+    @NotNull
+    @Column (nullable = false)
+    private long goldenMoney;
 
     /*
     No argument constructor.
@@ -38,7 +44,7 @@ public class Troop {
      */
 
 
-    public Troop(String name, String mission, Long goldenMoney)
+    public Troop(String name, String mission, long goldenMoney)
     {
         this.name=name;
         this.mission=mission;
@@ -51,13 +57,13 @@ public class Troop {
 
     @Override
     public boolean equals(Object o) {
+        if (o == null) return false;
         if (this == o) return true;
         if (!(o instanceof Troop)) return false;
 
         Troop troop = (Troop) o;
 
-        if (!getName().equals(troop.getName())) return false;
-        return (getMission().equals(troop.getMission()));
+        return (getName().equals(troop.getName()));
     }
 
     /*
@@ -66,9 +72,7 @@ public class Troop {
 
     @Override
     public int hashCode() {
-        int hash = 1;
-        hash = hash * 17 + getName().hashCode();
-        hash = hash * 31 + getMission().hashCode();
+        int hash = 17 + getName().hashCode();
         return hash;
     }
 
@@ -101,7 +105,7 @@ public class Troop {
         this.mission = mission;
     }
 
-    public Long getGoldenMoney() {
+    public long getGoldenMoney() {
         return goldenMoney;
     }
 
