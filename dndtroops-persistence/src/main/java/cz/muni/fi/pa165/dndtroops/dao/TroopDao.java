@@ -4,6 +4,13 @@ import cz.muni.fi.pa165.dndtroops.entities.Troop;
 
 import java.util.List;
 
+/*
+
+DAO class for entity Troop.
+Creted by: Vojtech Duchon (UCO:410007)
+
+ */
+
 public interface TroopDao {
 
     public void create (Troop t );
