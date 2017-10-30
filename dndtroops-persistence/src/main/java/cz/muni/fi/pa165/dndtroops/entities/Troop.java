@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.dndtroops.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 /*
 
@@ -61,7 +62,7 @@ public class Troop {
 
         Troop troop = (Troop) o;
 
-        return (getName().equals(troop.getName()));
+        return Objects.equals(name, troop.getName());
     }
 
     /*
