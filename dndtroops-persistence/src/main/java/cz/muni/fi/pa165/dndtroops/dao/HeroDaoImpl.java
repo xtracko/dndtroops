@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.dndtroops.dao;
 import cz.muni.fi.pa165.dndtroops.entities.Hero;
 import cz.muni.fi.pa165.dndtroops.entities.Role;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -13,11 +14,12 @@ import java.util.List;
  *
  * @author Martin Sestak
  */
+@Repository
 public class HeroDaoImpl implements HeroDao {
 
     @PersistenceContext
     private EntityManager em;
-    
+
     @Override
     public void createHero(Hero hero) {
         em.persist(hero);
@@ -35,61 +37,61 @@ public class HeroDaoImpl implements HeroDao {
 
     @Override
     public Hero findHeroById(Long id) {
-       return em.find(Hero.class, id);
+        return em.find(Hero.class, id);
     }
 
     @Override
     public Hero findHeroByName(String name) {
-       try {
+        try {
             return em.createQuery("select h from Hero h where h.name = :name", Hero.class)
-                .setParameter("name", name)
-                .getSingleResult();
-         } catch (NoResultException ex) {
+                    .setParameter("name", name)
+                    .getSingleResult();
+        } catch (NoResultException ex) {
             return null;
-         }
+        }
     }
 
     @Override
     public List<Hero> findHeroesByRole(Role role) {
         try {
             return em.createQuery("select h from Hero h where h.role = :roleid", Hero.class)
-                .setParameter("roleid", role)
-                .getResultList();
-         } catch (NoResultException ex) {
+                    .setParameter("roleid", role)
+                    .getResultList();
+        } catch (NoResultException ex) {
             return null;
-         }
+        }
     }
 
     @Override
     public List<Hero> findHeroesByTroop(Troop troop) {
         try {
             return em.createQuery("select h from Hero h where h.troop = :troopid", Hero.class)
-                .setParameter("troopid", troop)
-                .getResultList();
-         } catch (NoResultException ex) {
+                    .setParameter("troopid", troop)
+                    .getResultList();
+        } catch (NoResultException ex) {
             return null;
-         }
+        }
     }
 
     @Override
     public List<Hero> findHeroesByXp(int xp) {
         try {
             return em.createQuery("select h from Hero h where h.xp = :xp", Hero.class)
-                .setParameter("xp", xp)
-                .getResultList();
-         } catch (NoResultException ex) {
+                    .setParameter("xp", xp)
+                    .getResultList();
+        } catch (NoResultException ex) {
             return null;
-         }
+        }
     }
 
     @Override
     public List<Hero> findAllHeroes() {
-       try{
-           return em.createQuery("select h from Hero h", Hero.class)
-                .getResultList();
-       } catch (NoResultException ex) {
-           return null;
-       }
+        try{
+            return em.createQuery("select h from Hero h", Hero.class)
+                    .getResultList();
+        } catch (NoResultException ex) {
+            return null;
+        }
     }
-    
+
 }

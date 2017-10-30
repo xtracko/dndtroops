@@ -1,11 +1,24 @@
 package cz.muni.fi.pa165.dndtroops.entities;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import cz.muni.fi.pa165.dndtroops.dao.TroopDao;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
+import javax.persistence.Entity;
+import javax.persistence.Column;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  * Class which represents entity hero
@@ -14,25 +27,26 @@ import java.util.Objects;
 @Entity
 @Table(name="Hero")
 public class Hero {
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
-        
-        @NotNull
-	@Column(nullable=false,unique=true)
-	private String name;
-        
-        @ManyToOne(optional=false)
-	@NotNull
-	private Troop troop;
-        
-        @OneToMany()
-	@JoinColumn(name="priceStaHero_FK")
-	private List<Role> role = new ArrayList<Role>();
-        
-        @NotNull
-        private Integer xp;
-        
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
+
+    @NotNull
+    @Column(nullable=false,unique=true)
+    private String name;
+
+    @ManyToOne(optional=false)
+    @NotNull
+    private Troop troop;
+
+
+    @OneToMany()
+    @JoinColumn(name="priceStaHero_FK")
+    private List<Role> role = new ArrayList<Role>();
+
+    @NotNull
+    private Integer xp;
+
     public Hero() {
     }
 
@@ -45,31 +59,31 @@ public class Hero {
      * @throws IllegalArgumentException when name, troop or role is null
      */
     public Hero( String name, Troop troop,Role role, Integer xp) {
-        
+
         if(name == null){
             throw new IllegalArgumentException("Name cannot be null");
         }
-        
+
         if(troop == null){
             throw new IllegalArgumentException("Troop cannot be null");
         }
         if(role == null){
             throw new IllegalArgumentException("Role cannot be null");
         }
-        
+
         if(xp == null){
             this.xp = 0;
         }
         else{
             this.xp = xp;
         }
-        
         this.role.add(role);
         this.name = name;
+
         this.troop = troop;
-        
-    }        
-        
+
+    }
+
     public Long getId() {
         return this.id;
     }
@@ -150,5 +164,5 @@ public class Hero {
         }
         return true;
     }
-        
+
 }
