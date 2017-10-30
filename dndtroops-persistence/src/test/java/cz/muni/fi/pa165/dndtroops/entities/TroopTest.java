@@ -1,10 +1,9 @@
 /**
  * @author Jiří Novotný
  */
-package cz.muni.fi.pa165.dndtroops.dao;
+package cz.muni.fi.pa165.dndtroops.entities;
 
 import cz.muni.fi.pa165.dndtroops.PersistenceSampleApplicationContext;
-import cz.muni.fi.pa165.dndtroops.entities.Troop;
 import org.assertj.core.api.SoftAssertions;
 import org.springframework.test.context.ContextConfiguration;
 import org.testng.annotations.BeforeClass;
@@ -36,18 +35,40 @@ public class TroopTest {
     }
 
     @Test
-    public void equal() {
+    public void businessKeyTest() {
         SoftAssertions softly = new SoftAssertions();
+
+        softly.assertThat(new Troop()).isEqualTo(new Troop());
+
         softly.assertThat(t1).isEqualTo(t2);
         softly.assertThat(t1.hashCode()).isEqualTo(t2.hashCode());
+
+        softly.assertThat(t1).isNotEqualTo(t3);
+        softly.assertThat(t1.hashCode()).isNotEqualTo(t3.hashCode());
+
         softly.assertAll();
     }
 
     @Test
-    public void notEqual() {
+    public void equalsBestPracticies() {
+        class Mock extends Troop {
+            private boolean getNameCalled = false;
+
+            @Override
+            public String getName() {
+                getNameCalled = true;
+                return super.getName();
+            }
+        }
+
+        Mock mock = new Mock();
+        Troop troop = new Troop();
+
         SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(t1).isNotEqualTo(t3);
-        softly.assertThat(t1.hashCode()).isNotEqualTo(t3.hashCode());
+
+        softly.assertThat(troop).isEqualTo(mock);
+        softly.assertThat(mock.getNameCalled).isTrue();
+
         softly.assertAll();
     }
 
