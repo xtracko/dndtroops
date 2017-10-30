@@ -1,14 +1,17 @@
-package cz.muni.fi.pa165.dndtroops.dao;
-
-import cz.muni.fi.pa165.dndtroops.entities.Administrator;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.util.List;
-
 /**
  * Created by Miroslav Macor
  */
+package cz.muni.fi.pa165.dndtroops.dao;
+
+import cz.muni.fi.pa165.dndtroops.entities.Administrator;
+import org.springframework.stereotype.Repository;
+
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import java.util.List;
+
+@Repository
 public class AdministratorDaoImpl implements AdministratorDao {
 
     @PersistenceContext
@@ -33,14 +36,19 @@ public class AdministratorDaoImpl implements AdministratorDao {
 
     @Override
     public Administrator findAdministatorById(Long id) {
-        return em.createQuery("SELECT a FROM Administrator a WHERE id = :id", Administrator.class)
-                .setParameter("id", id)
-                .getSingleResult();
+        try {
+            return em.createQuery("SELECT a FROM Administrator a WHERE id = :id", Administrator.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+        }catch (NoResultException e){
+            return null;
+        }
+
 
     }
 
     @Override
-    public Administrator findAdminByName(String name) {
+    public Administrator findAdministratorByName(String name) {
         return em.createQuery("SELECT a FROM Administrator a WHERE name = :name", Administrator.class)
                 .setParameter("name", name)
                 .getSingleResult();

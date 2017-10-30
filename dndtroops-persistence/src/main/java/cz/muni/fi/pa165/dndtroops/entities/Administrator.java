@@ -1,16 +1,26 @@
-package cz.muni.fi.pa165.dndtroops.entities;
-
 /**
  * Created by Miroslav Macor
  */
+
+package cz.muni.fi.pa165.dndtroops.entities;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Objects;
+
+@Entity
 public class Administrator {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotNull
+    @Column(nullable = false, unique = true)
     private String name;
-    private long id;
 
 
-    public Administrator(String name, long id) {
+    public Administrator(String name) {
         this.name = name;
-        this.id = id;
     }
 
     public String getName() {
@@ -23,10 +33,6 @@ public class Administrator {
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     @Override

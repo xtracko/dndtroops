@@ -34,7 +34,7 @@ public interface AdministratorDao {
      * @param name of Administrator
      * @return Administrator with same name or null
      */
-    Administrator findAdminByName(String name);
+    Administrator findAdministratorByName(String name);
 
     /**
      * Get all Administrators
