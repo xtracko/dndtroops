@@ -30,6 +30,9 @@ public class Troop {
     @Column (nullable = false)
     private long goldenMoney;
 
+   // @OneToMany(mappedBy = "troop")
+   //  private List<Hero> heroeses;
+
     /*
     No argument constructor.
      */
