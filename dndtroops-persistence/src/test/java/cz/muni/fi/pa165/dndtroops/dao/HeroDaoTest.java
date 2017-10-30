@@ -52,15 +52,15 @@ public class HeroDaoTest extends AbstractTestNGSpringContextTests {
         hero2 = new Hero("Mr. Smoketoomuch", troop2, role2, null );
         hero3 = new Hero("JustAnotherHero", troop3, role3, 100000);
 
-        heroDao.create(hero1);
-        heroDao.create(hero2);
-        heroDao.create(hero3);
+        heroDao.createHero(hero1);
+        heroDao.createHero(hero2);
+        heroDao.createHero(hero3);
     }
 
     @Test
     public void findById(){
         Long testHeroId = hero1.getId();
-        Assert.assertEquals(heroDao.findById(testHeroId), hero1, "Hero hero1 was found by ID");
+        Assert.assertEquals(heroDao.findHeroById(testHeroId), hero1, "Hero hero1 was found by ID");
     }
 
 }

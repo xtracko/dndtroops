@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * Data Access Object for Hero entity.
+ * @author Martin Sestak
  */
 public interface HeroDao {
 
@@ -15,21 +16,21 @@ public interface HeroDao {
      *
      * @param hero a Hero to persist
      */
-    public void create(Hero hero);
+    public void createHero(Hero hero);
     
     /**
       * Update persisted Hero.
       *
       * @param hero a persisted Hero to update
      */
-    public void update(Hero hero);
+    public void updateHero(Hero hero);
  
     /**
      * Delete persisted Hero.
      *
      * @param hero a persisted Hero to delete
      */
-    public void remove(Hero hero);
+    public void deleteHero(Hero hero);
     
     /**
       * Find persisted Hero by it's unique ID. If no such hero is found null is returned.
@@ -37,7 +38,7 @@ public interface HeroDao {
       * @param id an ID of a Hero to find
       * @return Herowith the required ID or null if such Hero does not exists
       */
-    public Hero findById(Long id);
+    public Hero findHeroById(Long id);
     
     /**
       * Find persisted Hero by it's name If no heroes were found null is returned
@@ -45,7 +46,7 @@ public interface HeroDao {
       * @param name of a Hero to find
       * @return Hero with the required name or null if such Hero does not exists
       */
-    public Hero findByName(String name);
+    public Hero findHeroByName(String name);
     
     /**
       * Find list of persisted Heroes by it's role. If no heroes were found null is returned
@@ -53,7 +54,7 @@ public interface HeroDao {
       * @param role role of a Hero to find
       * @return List of all persisted Heroes with required role or null if no heroes were found
       */
-    public List<Hero> findByRole(Role role);
+    public List<Hero> findHeroesByRole(Role role);
     
     /**
       * Find list of persisted Heroes by it's troop. If no heroes were found null is returned
@@ -61,7 +62,7 @@ public interface HeroDao {
       * @param troop an troop of a Heroes to find
       * @return List of all persisted Heroes with required troop or null if no heroes were found
       */
-    public List<Hero> findByTroop(Troop troop);
+    public List<Hero> findHeroesByTroop(Troop troop);
     
     /**
       * Find list of persisted Heroes by it's xp. If no heroes were found null is returned
@@ -69,13 +70,13 @@ public interface HeroDao {
       * @param xp  xp of a Heroes to find
       * @return List of all persisted Heroes with required xp or null if no heroes were found
       */
-    public List<Hero> findByXp(int xp);
+    public List<Hero> findHeroesByXp(int xp);
     
     /**
       * Find all persisted Heroes and return them as a List. If no heroes were found null is returned
       *
       * @return List of all persisted Heroes
       */
-    public List<Hero> findAll();
+    public List<Hero> findAllHeroes();
 
 }

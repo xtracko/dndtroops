@@ -10,7 +10,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Martin
+ * @author Martin Sestak
  */
 public class HeroDaoImpl implements HeroDao {
 
@@ -18,27 +18,27 @@ public class HeroDaoImpl implements HeroDao {
     private EntityManager em;
     
     @Override
-    public void create(Hero hero) {
+    public void createHero(Hero hero) {
         em.persist(hero);
     }
 
     @Override
-    public void update(Hero hero) {
+    public void updateHero(Hero hero) {
         em.merge(hero);
     }
 
     @Override
-    public void remove(Hero hero) {
+    public void deleteHero(Hero hero) {
         em.remove(hero);
     }
 
     @Override
-    public Hero findById(Long id) {
+    public Hero findHeroById(Long id) {
        return em.find(Hero.class, id);
     }
 
     @Override
-    public Hero findByName(String name) {
+    public Hero findHeroByName(String name) {
        try {
             return em.createQuery("select h from Hero h where h.name = :name", Hero.class)
                 .setParameter("name", name)
@@ -49,7 +49,7 @@ public class HeroDaoImpl implements HeroDao {
     }
 
     @Override
-    public List<Hero> findByRole(Role role) {
+    public List<Hero> findHeroesByRole(Role role) {
         try {
             return em.createQuery("select h from Hero h where h.role = :roleid", Hero.class)
                 .setParameter("name", role)
@@ -60,7 +60,7 @@ public class HeroDaoImpl implements HeroDao {
     }
 
     @Override
-    public List<Hero> findByTroop(Troop troop) {
+    public List<Hero> findHeroesByTroop(Troop troop) {
         try {
             return em.createQuery("select h from Hero h where h.troop = :troopid", Hero.class)
                 .setParameter("name", troop)
@@ -71,7 +71,7 @@ public class HeroDaoImpl implements HeroDao {
     }
 
     @Override
-    public List<Hero> findByXp(int xp) {
+    public List<Hero> findHeroesByXp(int xp) {
         try {
             return em.createQuery("select h from Hero h where h.xp = :xp", Hero.class)
                 .setParameter("name", xp)
@@ -82,7 +82,7 @@ public class HeroDaoImpl implements HeroDao {
     }
 
     @Override
-    public List<Hero> findAll() {
+    public List<Hero> findAllHeroes() {
        try{
            return em.createQuery("select h from Hero h", Hero.class)
                 .getResultList();
