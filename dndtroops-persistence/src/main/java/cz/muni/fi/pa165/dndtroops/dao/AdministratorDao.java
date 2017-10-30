@@ -1,12 +1,11 @@
+/**
+ * @author Miroslav Macor
+ */
 package cz.muni.fi.pa165.dndtroops.dao;
 
 import cz.muni.fi.pa165.dndtroops.entities.Administrator;
 
 import java.util.List;
-
-/**
- * Creted by Miroslav Macor
- */
 
 public interface AdministratorDao {
 
