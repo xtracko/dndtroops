@@ -5,10 +5,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /*
-
-Entity class for entity Troop.
-Creted by: Vojtech Duchon (UCO:410007)
-
+ * @author Vojtech Duchoň
  */
 
 
@@ -31,7 +28,7 @@ public class Troop {
     private long goldenMoney;
 
     /*
-    No argument constructor.
+     * No argument constructor.
      */
 
     public Troop(){
@@ -39,7 +36,11 @@ public class Troop {
     }
 
     /*
-    Constructor with specified attributes.
+     * Constructor with specified attributes.
+     *
+     * @param name          Name of the troop.
+     * @param mission       Troop's assigned mission
+     * @param goldenMoney   Amount of assigned golden money
      */
 
 
@@ -51,7 +52,10 @@ public class Troop {
     }
 
     /*
-    Override of default Object.equals() method
+     * Override of default Object.equals() method - it uses troop's name as a business key.
+     *
+     * @param Object    An object to be compared with.
+     * @return          Returns true if the objects are equal.
      */
 
     @Override
@@ -66,7 +70,9 @@ public class Troop {
     }
 
     /*
-    Override of default Object method for generation of instance hashcode.
+     * Override of default Object method for generation of instance hashcode.
+     *
+     * @return Returns the value of the hash code.
      */
 
     @Override
@@ -76,9 +82,11 @@ public class Troop {
     }
 
     /*
-    Getters and setters
-    --- BEGIN ---
+    /*
+     * Getters and setters
+     * --- BEGIN ---
      */
+
 
     public Long getId() {
         return id;
@@ -113,8 +121,8 @@ public class Troop {
     }
 
     /*
-    Getters and setters
-    --- END ---
+     * Getters and setters
+     * --- END ---
      */
 
 }
