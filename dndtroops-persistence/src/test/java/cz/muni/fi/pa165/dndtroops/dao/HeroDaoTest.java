@@ -63,4 +63,3 @@ public class HeroDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(heroDao.findHeroById(testHeroId), hero1, "Hero hero1 was found by ID");
     }
 
-}
