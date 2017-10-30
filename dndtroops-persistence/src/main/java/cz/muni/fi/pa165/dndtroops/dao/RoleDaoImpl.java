@@ -36,7 +36,7 @@ public class RoleDaoImpl implements RoleDao {
     @Override
     public Role findRoleByName(String name) {
         try {
-            return em.createQuery("select r from Role r where name = :name", Role.class)
+            return em.createQuery("SELECT r FROM Role r WHERE name = :name", Role.class)
                     .setParameter("name", name)
                     .getSingleResult();
         } catch (NoResultException ex) {
@@ -46,7 +46,7 @@ public class RoleDaoImpl implements RoleDao {
 
     @Override
     public List<Role> findAllRoles() {
-        return em.createQuery("select r from Role r", Role.class)
+        return em.createQuery("SELECT r FROM Role r", Role.class)
                 .getResultList();
     }
 }
