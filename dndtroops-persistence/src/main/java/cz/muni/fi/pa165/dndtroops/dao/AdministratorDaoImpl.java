@@ -1,5 +1,5 @@
 /**
- * Created by Miroslav Macor
+ * @author Miroslav Macor
  */
 package cz.muni.fi.pa165.dndtroops.dao;
 
