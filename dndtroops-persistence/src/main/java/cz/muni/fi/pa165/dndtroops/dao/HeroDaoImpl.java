@@ -3,10 +3,11 @@ package cz.muni.fi.pa165.dndtroops.dao;
 import cz.muni.fi.pa165.dndtroops.entities.Hero;
 import cz.muni.fi.pa165.dndtroops.entities.Role;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
-import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 /**
  *
@@ -52,7 +53,7 @@ public class HeroDaoImpl implements HeroDao {
     public List<Hero> findHeroesByRole(Role role) {
         try {
             return em.createQuery("select h from Hero h where h.role = :roleid", Hero.class)
-                .setParameter("name", role)
+                .setParameter("roleid", role)
                 .getResultList();
          } catch (NoResultException ex) {
             return null;
@@ -63,7 +64,7 @@ public class HeroDaoImpl implements HeroDao {
     public List<Hero> findHeroesByTroop(Troop troop) {
         try {
             return em.createQuery("select h from Hero h where h.troop = :troopid", Hero.class)
-                .setParameter("name", troop)
+                .setParameter("troopid", troop)
                 .getResultList();
          } catch (NoResultException ex) {
             return null;
@@ -74,7 +75,7 @@ public class HeroDaoImpl implements HeroDao {
     public List<Hero> findHeroesByXp(int xp) {
         try {
             return em.createQuery("select h from Hero h where h.xp = :xp", Hero.class)
-                .setParameter("name", xp)
+                .setParameter("xp", xp)
                 .getResultList();
          } catch (NoResultException ex) {
             return null;
