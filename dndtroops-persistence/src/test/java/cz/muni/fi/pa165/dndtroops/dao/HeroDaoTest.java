@@ -77,64 +77,60 @@ public class HeroDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void findById() {
         Long testHeroId = hero1.getId();
-        Assert.assertEquals(heroDao.findHeroById(testHeroId), hero1, "Hero hero1 was not found by ID");
+        Assert.assertEquals(heroDao.findHeroById(testHeroId), hero1, "Hero hero1 was not found by ID!");
 
         Long testWrongHeroId = 15897L;
-        Assert.assertEquals(heroDao.findHeroById(testWrongHeroId), null, "No such hero is persisted");
+        Assert.assertNull(heroDao.findHeroById(testWrongHeroId), "No such hero is persisted!");
     }
 
     @Test
     public void findByName(){
         String testHeroName = hero1.getName();
-        Assert.assertEquals(heroDao.findHeroByName(testHeroName), hero1, "Hero hero1 was not found by name");
+        Assert.assertEquals(heroDao.findHeroByName(testHeroName), hero1, "Hero hero1 was not found by name!");
 
         String testHeroName2 = "JustAnotherHero";
-        Assert.assertEquals(heroDao.findHeroByName(testHeroName2), hero3, "JustAnotherHero was not found");
+        Assert.assertEquals(heroDao.findHeroByName(testHeroName2), hero3, "JustAnotherHero was not found!");
 
         String testHeroWrongName = "Idontexist";
-        Assert.assertNull(heroDao.findHeroByName(testHeroWrongName), "No such hero is persisted");
+        Assert.assertNull(heroDao.findHeroByName(testHeroWrongName), "No such hero is persisted!");
     }
 
    @Test
     public void findByRole(){
         Role testHeroRole = role1;
-        List<Hero> heroesFound = heroDao.findHeroesByRole(testHeroRole);
-        Assert.assertEquals(heroesFound.size(), 1);
+        Assert.assertEquals(heroDao.findHeroesByRole(testHeroRole).get(0).getId(), hero1.getId()  );
 
         Role testHeroRole2 = role2;
-        List<Hero> heroesFound2 = heroDao.findHeroesByRole(testHeroRole2);
-        Assert.assertEquals(heroesFound2.size(), 2);
+        Assert.assertEquals(heroDao.findHeroesByRole(testHeroRole2).get(0).getId(), hero2.getId()  );
+        Assert.assertEquals(heroDao.findHeroesByRole(testHeroRole2).get(1).getId(), hero3.getId()  );
 
         Role testHeroWrongRole = role3;
-        Assert.assertNull(heroDao.findHeroesByRole(testHeroWrongRole),  "Hero with role3 was found");
+        Assert.assertEquals(heroDao.findHeroesByRole(testHeroWrongRole).isEmpty(), true ,   "Hero with role3 was found!");
     }
 
     @Test
     public void findByTroop(){
         Troop testHeroTroop = troop1;
-        List<Hero> heroesFound = heroDao.findHeroesByTroop(testHeroTroop);
-
-        Assert.assertEquals(heroesFound.size(), 1);
+        Assert.assertEquals(heroDao.findHeroesByTroop(testHeroTroop).get(0).getId(), hero1.getId()  );
 
         Troop testHeroTroop3 = troop3;
-        List<Hero> heroesFound3 = heroDao.findHeroesByTroop(testHeroTroop3);
-
-        Assert.assertEquals(heroesFound3.size(), 2);
+        Assert.assertEquals(heroDao.findHeroesByTroop(testHeroTroop3).get(0).getId(), hero2.getId()  );
+        Assert.assertEquals(heroDao.findHeroesByTroop(testHeroTroop3).get(1).getId(), hero3.getId()  );
 
         Troop testHeroWrongTroop = troop2;
-        Assert.assertNull(heroDao.findHeroesByTroop(testHeroWrongTroop),  "Hero with troop2 assigned was found");
+        Assert.assertEquals(heroDao.findHeroesByTroop(testHeroWrongTroop).isEmpty(), true ,  "Hero with troop2 assigned was found!");
     }
 
     @Test
     public void findByXp(){
         Integer testHeroXp = hero1.getXp();
-        Assert.assertEquals(heroDao.findHeroesByXp(testHeroXp), hero1, "Hero hero1 was not found by XP");
+        Assert.assertEquals(heroDao.findHeroesByXp(testHeroXp).get(0), hero1, "Hero hero1 was not found by XP!");
 
         Integer testHeroXp2 = 0;
-        Assert.assertEquals(heroDao.findHeroesByXp(testHeroXp2), hero2, "Hero Mr. Smoketoomuch is a nwebie");
+        Assert.assertEquals(heroDao.findHeroesByXp(testHeroXp2).get(0), hero2, "Hero Mr. Smoketoomuch is a nwebie!");
 
         Integer testHeroWrongXp = 518475;
-        Assert.assertNull(heroDao.findHeroesByXp(testHeroWrongXp),  "Hero with 518475XP was found ");
+        Assert.assertEquals(heroDao.findHeroesByXp(testHeroWrongXp).isEmpty(), true,  "Hero with 518475XP was found!");
     }
 
     @Test
