@@ -165,4 +165,7 @@ public class Hero {
         return true;
     }
 
+    public void removeRole(Role role) {
+        this.role.remove(role);
+    }
 }

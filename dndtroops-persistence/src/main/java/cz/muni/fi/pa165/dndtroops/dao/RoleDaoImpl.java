@@ -5,6 +5,7 @@
 package cz.muni.fi.pa165.dndtroops.dao;
 
 import cz.muni.fi.pa165.dndtroops.entities.Role;
+import cz.muni.fi.pa165.dndtroops.enums.Power;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -29,6 +30,11 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
+    public void updateRole(Role role) {
+        em.merge(role);
+    }
+
+    @Override
     public Role findRoleById(Long id) {
         return em.find(Role.class, id);
     }
@@ -47,6 +53,13 @@ public class RoleDaoImpl implements RoleDao {
     @Override
     public List<Role> findAllRoles() {
         return em.createQuery("SELECT r FROM Role r", Role.class)
+                .getResultList();
+    }
+
+    @Override
+    public List<Role> findAllRolesByPower(Power power) {
+        return em.createQuery("SELECT r FROM Role r WHERE power = :power", Role.class)
+                .setParameter("power", power)
                 .getResultList();
     }
 }
