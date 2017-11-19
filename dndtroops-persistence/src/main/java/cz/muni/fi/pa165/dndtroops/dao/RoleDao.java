@@ -5,6 +5,7 @@
 package cz.muni.fi.pa165.dndtroops.dao;
 
 import cz.muni.fi.pa165.dndtroops.entities.Role;
+import cz.muni.fi.pa165.dndtroops.enums.Power;
 
 import java.util.List;
 
@@ -26,6 +27,13 @@ public interface RoleDao {
      * @param role a persisted Role to delete
      */
     void deleteRole(Role role);
+
+    /**
+     * Update persisted role
+     *
+     * @param role a persisted Role to update
+     */
+    void updateRole(Role role);
 
     /**
      * Find persisted Role by it's unique ID. If no such role is found null is returned.
@@ -51,4 +59,11 @@ public interface RoleDao {
      */
     List<Role> findAllRoles();
 
+    /**
+     * Find all persisted Roles with a specific Power and return them as a List.
+     *
+     * @param power a power of a Roles to find
+     * @return List of all persisted Roles
+     */
+    List<Role> findAllRolesByPower(Power power);
 }
