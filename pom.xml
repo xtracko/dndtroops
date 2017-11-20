@@ -43,7 +43,8 @@
     </build>
 
     <modules>
-        <!--<module>dndtroops-api</module>-->
+        <module>dndtroops-api</module>
         <module>dndtroops-persistence</module>
+        <module>dndtroops-service</module>
     </modules>
 </project>
