@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.dndtroops.dao;
 
+import cz.muni.fi.pa165.dndtroops.entities.Hero;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
 import org.springframework.stereotype.Repository;
 
@@ -21,22 +22,27 @@ public class TroopDaoImpl implements TroopDao {
     @PersistenceContext
     private EntityManager em;
 
+    @Override
     public void createTroop(Troop t ) {
         em.persist(t);
     }
 
+    @Override
     public void deleteTroop(Troop t ) {
         em.remove(t);
     }
 
+    @Override
     public void updateTroop(Troop t ){
         em.merge(t);
     }
 
+    @Override
     public Troop findTroopById(Long id){
         return em.find(Troop.class, id);
     }
 
+    @Override
     public Troop findTroopByName(String name){
         try {
             return
@@ -46,9 +52,14 @@ public class TroopDaoImpl implements TroopDao {
         }
     }
 
+    @Override
     public List<Troop> findAllTroops(){
-        return
-                em.createQuery("select t from Troop t", Troop.class).getResultList();
+        return em.createQuery("select t from Troop t", Troop.class).getResultList();
     }
 
+    @Override
+    public List<Hero> findAllHeroesOfTroop(Long id ) {
+        Troop t = findTroopById(id);
+        return em.createQuery("select t.heroes from Troop t", Hero.class).getResultList();
+    }
 }

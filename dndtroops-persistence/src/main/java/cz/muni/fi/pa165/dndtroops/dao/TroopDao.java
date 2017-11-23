@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.dndtroops.dao;
 
+import cz.muni.fi.pa165.dndtroops.entities.Hero;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
 
 import java.util.List;
@@ -14,21 +15,21 @@ public interface TroopDao {
     *
     * @param Troop to be persisted
      */
-    public void createTroop(Troop t );
+    void createTroop(Troop t );
 
     /*
     * Remove persisted Troop.
     *
     * @param Troop to be removed.
     */
-    public void deleteTroop(Troop t );
+    void deleteTroop(Troop t );
 
     /*
     * Merge the state of the given entity into the current persistence context.
     *
     * @param Troop to be updated.
     */
-    public void updateTroop(Troop t );
+    void updateTroop(Troop t );
 
     /*
     * Finds troop by given troop ID. Returns null when no troop found with given ID.
@@ -36,7 +37,7 @@ public interface TroopDao {
     * @param ID of the searched troop
     * @return Troop if troop with given ID exists, if not returns null
      */
-    public Troop findTroopById(Long id);
+    Troop findTroopById(Long id);
 
     /*
     * Finds troop by given name of the troop. If troop with given name is not persisted, returns null.
@@ -44,13 +45,16 @@ public interface TroopDao {
     * @param String with name of the searched troop.
     * @return Troop with given name or null if not persisted.
      */
-    public Troop findTroopByName(String name);
+    Troop findTroopByName(String name);
 
     /*
    * Retrieves a list of all persisted troops.
    *
    * @return Troop with given name or null if not persisted.
     */
-    public List<Troop> findAllTroops();
+    List<Troop> findAllTroops();
+
+    List<Hero> findAllHeroesOfTroop(Long id);
+
 
 }
