@@ -1,6 +1,10 @@
 package cz.muni.fi.pa165.dndtroops.dto;
 
+import cz.muni.fi.pa165.dndtroops.entities.Hero;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class TroopDto {
@@ -9,6 +13,7 @@ public class TroopDto {
     private String name;
     private String mission;
     private long goldenMoney;
+    private List<Hero> heroes = new ArrayList<>();
 
     public TroopDto(){
 
@@ -19,6 +24,14 @@ public class TroopDto {
         this.name=name;
         this.mission=mission;
         this.goldenMoney=goldenMoney;
+    }
+
+    public TroopDto(String name, String mission, long goldenMoney, Hero hero)
+    {
+        this.name=name;
+        this.mission=mission;
+        this.goldenMoney=goldenMoney;
+        this.heroes.add(hero);
     }
 
     @Override
@@ -53,6 +66,10 @@ public class TroopDto {
     public void setName(String name) {
         this.name = name;
     }
+
+    public List<Hero> getHeroes() {return heroes;}
+
+    public void addHero(Hero hero) {heroes.add(hero);}
 
     public String getMission() {
         return mission;

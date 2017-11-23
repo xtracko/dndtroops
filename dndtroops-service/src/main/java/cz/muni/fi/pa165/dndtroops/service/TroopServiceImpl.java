@@ -8,8 +8,6 @@ import java.util.List;
 
 public class TroopServiceImpl implements TroopService {
 
-    @Autowired
-    private BeanMappingService beanMappingService;
 
     @Autowired
     private TroopDao troopDao;
