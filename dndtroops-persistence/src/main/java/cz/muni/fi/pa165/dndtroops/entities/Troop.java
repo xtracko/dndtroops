@@ -2,8 +2,6 @@ package cz.muni.fi.pa165.dndtroops.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /*
@@ -29,9 +27,9 @@ public class Troop {
     @Column (nullable = false)
     private long goldenMoney;
 
-    @OneToMany()
+    /*@OneToMany()
     @JoinColumn
-    private List<Hero> heroes = new ArrayList<>();
+    private List<Hero> heroes = new ArrayList<>();*/
 
     /*
      * No argument constructor.
@@ -51,13 +49,13 @@ public class Troop {
      */
 
 
-    public Troop(String name, String mission, long goldenMoney, Hero hero)
+   /* public Troop(String name, String mission, long goldenMoney, Hero hero)
     {
         this.name=name;
         this.mission=mission;
         this.goldenMoney=goldenMoney;
         this.heroes.add(hero);
-    }
+    }*/
 
      /*
      * Constructor with specified attributes (no-hero).
@@ -127,9 +125,9 @@ public class Troop {
         this.name = name;
     }
 
-    public List<Hero> getHeroes() {return heroes;}
+    /*public List<Hero> getHeroes() {return heroes;}
 
-    public void addHero(Hero hero) {heroes.add(hero);}
+    public void addHero(Hero hero) {heroes.add(hero);}*/
 
     public String getMission() {
         return mission;
