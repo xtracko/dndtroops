@@ -14,6 +14,7 @@ public interface TroopDao {
     *
     * @param Troop to be persisted
      */
+
     void createTroop(Troop t );
 
     /*
@@ -21,6 +22,7 @@ public interface TroopDao {
     *
     * @param Troop to be removed.
     */
+
     void deleteTroop(Troop t );
 
     /*
@@ -28,6 +30,7 @@ public interface TroopDao {
     *
     * @param Troop to be updated.
     */
+
     void updateTroop(Troop t );
 
     /*
@@ -36,6 +39,7 @@ public interface TroopDao {
     * @param ID of the searched troop
     * @return Troop if troop with given ID exists, if not returns null
      */
+
     Troop findTroopById(Long id);
 
     /*
@@ -44,13 +48,13 @@ public interface TroopDao {
     * @param String with name of the searched troop.
     * @return Troop with given name or null if not persisted.
      */
-    Troop findTroopByName(String name);
 
+    Troop findTroopByName(String name);
     /*
    * Retrieves a list of all persisted troops.
    *
    * @return Troop with given name or null if not persisted.
     */
-    List<Troop> findAllTroops();
 
+    List<Troop> findAllTroops();
 }

@@ -50,4 +50,5 @@ public interface TroopFacade {
     */
     List<TroopDto> findAllTroops();
 
+
 }

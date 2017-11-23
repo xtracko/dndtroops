@@ -21,15 +21,18 @@ public class TroopDaoImpl implements TroopDao {
     @PersistenceContext
     private EntityManager em;
 
+
     @Override
     public void createTroop(Troop t ) {
         em.persist(t);
     }
 
+
     @Override
     public void deleteTroop(Troop t ) {
         em.remove(t);
     }
+
 
     @Override
     public void updateTroop(Troop t ){
@@ -51,9 +54,9 @@ public class TroopDaoImpl implements TroopDao {
         }
     }
 
+
     @Override
-    public List<Troop> findAllTroops(){
+    public List<Troop> findAllTroops() {
         return em.createQuery("select t from Troop t", Troop.class).getResultList();
     }
-
 }
