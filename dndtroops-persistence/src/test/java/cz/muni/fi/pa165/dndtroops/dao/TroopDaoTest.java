@@ -20,6 +20,8 @@ import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.Objects;
 
@@ -110,8 +112,10 @@ public class TroopDaoTest extends AbstractTestNGSpringContextTests {
     void doesNotStoreDuplicities() {
         Troop duplicity = new Troop(t1.getName(), t1.getMission(), t1.getGoldenMoney());
 
+        assertThatThrownBy(() ->troopDao.createTroop(duplicity))
+                .isInstanceOf(PersistenceException.class)
+                .hasCauseExactlyInstanceOf(ConstraintViolationException.class);
 
-        assertThatThrownBy(() ->troopDao.createTroop(duplicity));
     }
 
 
