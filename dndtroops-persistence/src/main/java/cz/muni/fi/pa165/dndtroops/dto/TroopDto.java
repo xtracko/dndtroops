@@ -3,18 +3,18 @@ package cz.muni.fi.pa165.dndtroops.dto;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
 import java.util.Objects;
 
-public class TroopDTO {
+public class TroopDto {
 
     private Long id;
     private String name;
     private String mission;
     private long goldenMoney;
 
-    public TroopDTO(){
+    public TroopDto(){
 
     }
 
-    public TroopDTO(String name, String mission, long goldenMoney)
+    public TroopDto(String name, String mission, long goldenMoney)
     {
         this.name=name;
         this.mission=mission;
