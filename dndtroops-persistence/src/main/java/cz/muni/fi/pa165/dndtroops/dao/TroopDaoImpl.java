@@ -28,10 +28,12 @@ public class TroopDaoImpl implements TroopDao {
         em.persist(t);
     }
 
+
     @Override
     public void deleteTroop(Troop t ) {
         em.remove(t);
     }
+
 
     @Override
     public void updateTroop(Troop t ){
@@ -53,6 +55,7 @@ public class TroopDaoImpl implements TroopDao {
             return null;
         }
     }
+
     @Override
     public List<Troop> findAllTroops() {
         return em.createQuery("select t from Troop t", Troop.class).getResultList();
@@ -68,4 +71,5 @@ public class TroopDaoImpl implements TroopDao {
             return null;
         }
     }
+
 }
