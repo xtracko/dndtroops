@@ -65,9 +65,9 @@ public class HeroDaoTest extends AbstractTestNGSpringContextTests {
         hero2 = new Hero("Mr. Smoketoomuch", troop3, role2, 0 );
         hero3 = new Hero("JustAnotherHero", troop3, role2, 100000);
 
-        troopDao.create(troop1);
-        troopDao.create(troop2);
-        troopDao.create(troop3);
+        troopDao.createTroop(troop1);
+        troopDao.createTroop(troop2);
+        troopDao.createTroop(troop3);
 
         heroDao.createHero(hero1);
         heroDao.createHero(hero2);

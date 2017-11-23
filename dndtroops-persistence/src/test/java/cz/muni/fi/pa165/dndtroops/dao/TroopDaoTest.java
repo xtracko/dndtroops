@@ -44,13 +44,13 @@ public class TroopDaoTest extends AbstractTestNGSpringContextTests {
         t1 = new Troop("nameT1", "missionT1", 1);
         t2 = new Troop("nameT2", "missionT2", 2);
 
-        troopDao.create(t1);
-        troopDao.create(t2);
+        troopDao.createTroop(t1);
+        troopDao.createTroop(t2);
     }
 
     @Test
     public void doesNotSaveNullName() {
-        assertThatThrownBy(() -> troopDao.create(new Troop()))
+        assertThatThrownBy(() -> troopDao.createTroop(new Troop()))
                 .isInstanceOf(NullPointerException.class);
     }
 
@@ -58,13 +58,13 @@ public class TroopDaoTest extends AbstractTestNGSpringContextTests {
     public void storesCorrectly() {
         SoftAssertions softly = new SoftAssertions();
 
-        softly.assertThat(troopDao.findById(t1.getId()))
+        softly.assertThat(troopDao.findTroopById(t1.getId()))
                 .isNotNull()
                 .hasFieldOrPropertyWithValue("name", "nameT1")
                 .hasFieldOrPropertyWithValue("mission", "missionT1")
                 .hasFieldOrPropertyWithValue("goldenMoney", 1L);
 
-        softly.assertThat(troopDao.findById(t2.getId()))
+        softly.assertThat(troopDao.findTroopById(t2.getId()))
                 .isNotNull()
                 .hasFieldOrPropertyWithValue("name", "nameT2")
                 .hasFieldOrPropertyWithValue("mission", "missionT2")
@@ -77,19 +77,19 @@ public class TroopDaoTest extends AbstractTestNGSpringContextTests {
     void doesNotStoreDuplicities() {
         Troop duplicity = new Troop(t1.getName(), t1.getMission(), t1.getGoldenMoney());
 
-        assertThatThrownBy(() ->troopDao.create(duplicity))
+        assertThatThrownBy(() ->troopDao.createTroop(duplicity))
                 .isInstanceOf(PersistenceException.class)
                 .hasCauseExactlyInstanceOf(ConstraintViolationException.class);
     }
 
     @Test
     public void removesCorrectly() {
-        troopDao.delete(t1);
+        troopDao.deleteTroop(t1);
 
         SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(troopDao.findById(t1.getId()))
+        softly.assertThat(troopDao.findTroopById(t1.getId()))
                 .isNull();
-        softly.assertThat(troopDao.findById(t2.getId()))
+        softly.assertThat(troopDao.findTroopById(t2.getId()))
                 .isNotNull();
         softly.assertAll();
     }
@@ -100,23 +100,23 @@ public class TroopDaoTest extends AbstractTestNGSpringContextTests {
         Long nonExistingId = createNonExistingId();
 
         SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(troopDao.findById(existingId))
+        softly.assertThat(troopDao.findTroopById(existingId))
                 .isNotNull();
-        softly.assertThat(troopDao.findById(nonExistingId))
+        softly.assertThat(troopDao.findTroopById(nonExistingId))
                 .isNull();
         softly.assertAll();
     }
 
     @Test
     public void findByName() {
-        assertThat(troopDao.findByName(t1.getName()))
+        assertThat(troopDao.findTroopByName(t1.getName()))
                 .isNotNull()
                 .isSameAs(t1);
     }
 
     @Test
     public void findAllTroops() {
-        List<Troop> result = troopDao.findAll();
+        List<Troop> result = troopDao.findAllTroops();
 
         assertThat(result.size())
                 .isEqualTo(2);

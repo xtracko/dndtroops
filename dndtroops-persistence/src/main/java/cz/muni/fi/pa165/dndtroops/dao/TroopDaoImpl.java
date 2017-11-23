@@ -21,23 +21,23 @@ public class TroopDaoImpl implements TroopDao {
     @PersistenceContext
     private EntityManager em;
 
-    public void create (Troop t ) {
+    public void createTroop(Troop t ) {
         em.persist(t);
     }
 
-    public void delete (Troop t ) {
+    public void deleteTroop(Troop t ) {
         em.remove(t);
     }
 
-    public void update (Troop t ){
+    public void updateTroop(Troop t ){
         em.merge(t);
     }
 
-    public Troop findById (Long id){
+    public Troop findTroopById(Long id){
         return em.find(Troop.class, id);
     }
 
-    public Troop findByName (String name){
+    public Troop findTroopByName(String name){
         try {
             return
                     em.createQuery("select t from Troop t where t.name=:name" , Troop.class).setParameter("name", name).getSingleResult();
@@ -46,7 +46,7 @@ public class TroopDaoImpl implements TroopDao {
         }
     }
 
-    public List<Troop> findAll(){
+    public List<Troop> findAllTroops(){
         return
                 em.createQuery("select t from Troop t", Troop.class).getResultList();
     }
