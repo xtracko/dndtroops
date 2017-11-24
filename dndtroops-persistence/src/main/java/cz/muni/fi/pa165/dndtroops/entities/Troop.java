@@ -27,10 +27,6 @@ public class Troop {
     @Column (nullable = false)
     private long goldenMoney;
 
-    /*@OneToMany()
-    @JoinColumn
-    private List<Hero> heroes = new ArrayList<>();*/
-
     /*
      * No argument constructor.
      */
@@ -38,24 +34,6 @@ public class Troop {
     public Troop(){
 
     }
-
-    /*
-     * Constructor with specified attributes.
-     *
-     * @param name          Name of the troop.
-     * @param mission       Troop's assigned mission
-     * @param goldenMoney   Amount of assigned golden money
-     * @param hero          Hero that belongs to the troop
-     */
-
-
-   /* public Troop(String name, String mission, long goldenMoney, Hero hero)
-    {
-        this.name=name;
-        this.mission=mission;
-        this.goldenMoney=goldenMoney;
-        this.heroes.add(hero);
-    }*/
 
      /*
      * Constructor with specified attributes (no-hero).
@@ -124,10 +102,6 @@ public class Troop {
     public void setName(String name) {
         this.name = name;
     }
-
-    /*public List<Hero> getHeroes() {return heroes;}
-
-    public void addHero(Hero hero) {heroes.add(hero);}*/
 
     public String getMission() {
         return mission;

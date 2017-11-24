@@ -56,8 +56,4 @@ public class TroopDaoImpl implements TroopDao {
         return em.createQuery("select t from Troop t", Troop.class).getResultList();
     }
 
-   /* @Override
-    public List<Hero> findAllHeroesOfTroop(Troop t) {
-        return em.createQuery("select t.heroes from Troop t where t.id=:id", Hero.class).setParameter("id", t.getId()).getResultList();
-    }*/
 }

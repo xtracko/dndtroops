@@ -53,7 +53,4 @@ public interface TroopDao {
     */
     List<Troop> findAllTroops();
 
-    /*List<Hero> findAllHeroesOfTroop(Troop t);*/
-
-
 }
