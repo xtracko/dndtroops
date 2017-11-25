@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.dndtroops;
 
+import cz.muni.fi.pa165.dndtroops.dto.RoleDTO;
+import cz.muni.fi.pa165.dndtroops.entities.Role;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
