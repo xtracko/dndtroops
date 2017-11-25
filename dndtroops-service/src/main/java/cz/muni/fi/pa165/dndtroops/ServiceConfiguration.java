@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.dndtroops;
 
+import cz.muni.fi.pa165.dndtroops.dto.TroopDto;
+import cz.muni.fi.pa165.dndtroops.entities.Troop;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
@@ -27,7 +29,7 @@ public class ServiceConfiguration {
     public class EntityMapping extends BeanMappingBuilder {
         @Override
         protected void configure() {
-            // TODO: add your entity mapping here
+            mapping(Troop.class, TroopDto.class);
         }
     }
 

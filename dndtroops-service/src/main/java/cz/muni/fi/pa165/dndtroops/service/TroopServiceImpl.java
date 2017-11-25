@@ -3,9 +3,11 @@ package cz.muni.fi.pa165.dndtroops.service;
 import cz.muni.fi.pa165.dndtroops.dao.TroopDao;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class TroopServiceImpl implements TroopService {
 
 
@@ -14,7 +16,7 @@ public class TroopServiceImpl implements TroopService {
 
     @Override
     public void createTroop(Troop t) {
-        
+
         troopDao.createTroop(t);
     }
 

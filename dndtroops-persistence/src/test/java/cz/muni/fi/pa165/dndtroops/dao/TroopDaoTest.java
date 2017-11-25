@@ -82,6 +82,7 @@ public class TroopDaoTest extends AbstractTestNGSpringContextTests {
                 .hasCauseExactlyInstanceOf(ConstraintViolationException.class);
     }
 
+
     @Test
     public void removesCorrectly() {
         troopDao.deleteTroop(t1);
