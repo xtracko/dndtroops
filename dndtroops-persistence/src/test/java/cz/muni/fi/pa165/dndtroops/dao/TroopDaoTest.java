@@ -6,7 +6,6 @@ package cz.muni.fi.pa165.dndtroops.dao;
 import cz.muni.fi.pa165.dndtroops.PersistenceSampleApplicationContext;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
 import org.assertj.core.api.SoftAssertions;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -18,7 +17,6 @@ import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
 import java.util.List;
 import java.util.Objects;
 
@@ -77,9 +75,7 @@ public class TroopDaoTest extends AbstractTestNGSpringContextTests {
     void doesNotStoreDuplicities() {
         Troop duplicity = new Troop(t1.getName(), t1.getMission(), t1.getGoldenMoney());
 
-        assertThatThrownBy(() ->troopDao.create(duplicity))
-                .isInstanceOf(PersistenceException.class)
-                .hasCauseExactlyInstanceOf(ConstraintViolationException.class);
+        assertThatThrownBy(() ->troopDao.create(duplicity));
     }
 
     @Test
