@@ -28,6 +28,9 @@ public class Role {
     @Enumerated(EnumType.STRING)
     private Power power;
 
+    private float damageMean;
+    private float damageVariance;
+
     /**
      * No-arg constructor required by JPA specification.
      */
@@ -37,14 +40,18 @@ public class Role {
     /**
      * Construct Role with attributes set.
      *
-     * @param name        name of a Role
-     * @param description description of a Role
-     * @param power       Role's primary power
+     * @param name           name of a Role
+     * @param description    description of a Role
+     * @param power          Role's primary power
+     * @param damageMean     attack damage mean value
+     * @param damageVariance attack damage variance
      */
-    public Role(String name, String description, Power power) {
+    public Role(String name, String description, Power power, float damageMean, float damageVariance) {
         this.name = name;
         this.description = description;
         this.power = power;
+        this.damageMean = damageMean;
+        this.damageVariance = damageVariance;
     }
 
     /**
@@ -100,5 +107,21 @@ public class Role {
 
     public void setPower(Power power) {
         this.power = power;
+    }
+
+    public float getDamageMean() {
+        return damageMean;
+    }
+
+    public void setDamageMean(float damageMean) {
+        this.damageMean = damageMean;
+    }
+
+    public float getDamageVariance() {
+        return damageVariance;
+    }
+
+    public void setDamageVariance(float demageVariance) {
+        this.damageVariance = demageVariance;
     }
 }

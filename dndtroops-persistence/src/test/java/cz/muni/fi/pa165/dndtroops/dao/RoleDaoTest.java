@@ -39,9 +39,9 @@ public class RoleDaoTest extends AbstractTestNGSpringContextTests {
 
     @BeforeMethod
     public void createRoles() {
-        r1 = new Role("Knight", "Very good fighter with weapons, from a noble family", Power.WEAPONS);
-        r2 = new Role("Druid", "Healer good at casting spells, healing and making potions", Power.MAGIC);
-        r3 = new Role("Ninja", "Skilled rogue-ish warrior, trained by monks", Power.MARTIAL_ARTS);
+        r1 = new Role("Knight", "Very good fighter with weapons, from a noble family", Power.WEAPONS, 80, 1);
+        r2 = new Role("Druid", "Healer good at casting spells, healing and making potions", Power.MAGIC, 80, 1);
+        r3 = new Role("Ninja", "Skilled rogue-ish warrior, trained by monks", Power.MARTIAL_ARTS, 80, 1);
             
         roleDao.createRole(r1);
         roleDao.createRole(r2);
