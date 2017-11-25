@@ -43,7 +43,7 @@ public class HeroDaoImpl implements HeroDao {
     @Override
     public Hero findHeroByName(String name) {
         try {
-            return em.createQuery("select h from Hero h where h.name = :name", Hero.class)
+            return em.createQuery("SELECT h FROM Hero h WHERE h.name = :name", Hero.class)
                     .setParameter("name", name)
                     .getSingleResult();
         } catch (NoResultException ex) {
@@ -54,7 +54,7 @@ public class HeroDaoImpl implements HeroDao {
     @Override
     public List<Hero> findHeroesByRole(Role role) {
         try {
-            return em.createQuery("select h from Hero h where h.role = :roleid", Hero.class)
+            return em.createQuery("SELECT h FROM Hero h WHERE h.role = :roleid", Hero.class)
                     .setParameter("roleid", role)
                     .getResultList();
         } catch (NoResultException ex) {
@@ -65,7 +65,7 @@ public class HeroDaoImpl implements HeroDao {
     @Override
     public List<Hero> findHeroesByTroop(Troop troop) {
         try {
-            return em.createQuery("select h from Hero h where h.troop = :troopid", Hero.class)
+            return em.createQuery("SELECT h FROM Hero h WHERE h.troop = :troopid", Hero.class)
                     .setParameter("troopid", troop)
                     .getResultList();
         } catch (NoResultException ex) {
@@ -76,7 +76,7 @@ public class HeroDaoImpl implements HeroDao {
     @Override
     public List<Hero> findHeroesByXp(int xp) {
         try {
-            return em.createQuery("select h from Hero h where h.xp = :xp", Hero.class)
+            return em.createQuery("SELECT h FROM Hero h WHERE h.xp = :xp", Hero.class)
                     .setParameter("xp", xp)
                     .getResultList();
         } catch (NoResultException ex) {
@@ -87,7 +87,7 @@ public class HeroDaoImpl implements HeroDao {
     @Override
     public List<Hero> findAllHeroes() {
         try{
-            return em.createQuery("select h from Hero h", Hero.class)
+            return em.createQuery("SELECT h FROM Hero h", Hero.class)
                     .getResultList();
         } catch (NoResultException ex) {
             return null;
