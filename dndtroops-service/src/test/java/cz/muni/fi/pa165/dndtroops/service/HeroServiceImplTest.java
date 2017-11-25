@@ -31,10 +31,13 @@ import org.springframework.test.context.testng.AbstractTransactionalTestNGSpring
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class HeroServiceImplTest extends AbstractTransactionalTestNGSpringContextTests {
+    @Autowired 
     @Mock
     private HeroDao heroDao;
+    
     @Mock
     private RoleDao roleDao;
+    
     @Mock
     private TroopDao troopDao;
     
@@ -57,7 +60,7 @@ public class HeroServiceImplTest extends AbstractTransactionalTestNGSpringContex
 
     @BeforeMethod
     public void prepareHeroes() {
-        role1 = new Role("Knight", "Very good fighter with weapons, from a noble family",Power.WEAPONS);
+        role1 = new Role("Knight", "Very good fighter with weapons, from a noble family",Power.WEAPONS,5,6);
         
 
         troop1 = new Troop("nameT1", "missionT1", 1);
@@ -71,6 +74,9 @@ public class HeroServiceImplTest extends AbstractTransactionalTestNGSpringContex
     
     @Test
     public void testCreate() {
+        roleDao.createRole(role1);
+        troopDao.create(troop1);
+        
         heroService.createHero(hero1);
         Long id = hero1.getId();
         

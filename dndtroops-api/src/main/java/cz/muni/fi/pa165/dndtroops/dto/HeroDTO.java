@@ -20,6 +20,10 @@ public class HeroDTO implements Serializable {
     private List<RoleDTO> role = new ArrayList<>();
     
     private Integer xp;
+    
+    private Integer health = 100;
+
+    private boolean cooldown = false;
 
     public HeroDTO() {
     }
@@ -64,6 +68,10 @@ public class HeroDTO implements Serializable {
         return Collections.unmodifiableList(role);
     }
 
+    public void setRoleList(List<RoleDTO> role) {
+        this.role = role;
+    }
+
     public void addRole(List<RoleDTO> role) {
         this.role.add((RoleDTO) role);
     }
@@ -75,6 +83,24 @@ public class HeroDTO implements Serializable {
     public void setXp(Integer xp) {
         this.xp = xp;
     }
+
+    public Integer getHealth() {
+        return health;
+    }
+
+    public void setHealth(Integer health) {
+        this.health = health;
+    }
+
+    public boolean isCooldown() {
+        return cooldown;
+    }
+
+    public void setCooldown(boolean cooldown) {
+        this.cooldown = cooldown;
+    }
+    
+    
 
     @Override
     public int hashCode() {

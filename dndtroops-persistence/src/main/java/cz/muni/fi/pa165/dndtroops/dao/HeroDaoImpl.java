@@ -22,6 +22,7 @@ public class HeroDaoImpl implements HeroDao {
 
     @Override
     public void createHero(Hero hero) {
+        hero.setHealth(100);
         em.persist(hero);
     }
 
