@@ -1,5 +1,6 @@
 package facade;
 
+import cz.muni.fi.pa165.dndtroops.dto.TroopCreateDto;
 import cz.muni.fi.pa165.dndtroops.dto.TroopDto;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
 import cz.muni.fi.pa165.dndtroops.service.BeanMappingService;
@@ -17,10 +18,11 @@ public class TroopFacadeImpl implements TroopFacade{
     private BeanMappingService beanMappingService;
 
     @Override
-    public void createTroop(TroopDto t) {
+    public TroopDto createTroop(TroopCreateDto t) {
+        Troop mappedTroop = beanMappingService.mapTo(t,Troop.class);
+        troopService.createTroop(mappedTroop);
 
-        troopService.createTroop(beanMappingService.mapTo(t, Troop.class));
-
+        return beanMappingService.mapTo(mappedTroop,TroopDto.class);
     }
 
     @Override

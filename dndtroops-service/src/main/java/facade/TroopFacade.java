@@ -1,5 +1,6 @@
 package facade;
 
+import cz.muni.fi.pa165.dndtroops.dto.TroopCreateDto;
 import cz.muni.fi.pa165.dndtroops.dto.TroopDto;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public interface TroopFacade {
      *
      * @param Troop to be persisted
       */
-    void createTroop(TroopDto t );
+    TroopDto createTroop(TroopCreateDto t );
 
     /*
     * Remove persisted Troop.
