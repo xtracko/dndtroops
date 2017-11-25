@@ -36,18 +36,20 @@ public interface HeroService {
     /**
      * Attack Hero.
      *
-     * @param hero persisted hero
+     * @param attacker -hero who attacks
+     * @param victim - hero who is vicitm
      * @param role- role whick will be selected for attack
+     * @return true if attack was sucessfull false if aqttack was unsucessful
      */
-    public void attackHero(Hero hero,Role role);
+    public boolean attackHero(Hero attacker,Hero victim, Role role);
     
     /**
      * Attack Hero.
      *
      * @param hero persisted hero
-     * @param role- role whick will be selected for attack
+     * @param damage - amount of damage of attack
      */
-    public void defensiveHero(Hero hero,Role role);
+    public void defendHero(Hero hero,float damage);
     
     /**
      * Change troop of Hero.
