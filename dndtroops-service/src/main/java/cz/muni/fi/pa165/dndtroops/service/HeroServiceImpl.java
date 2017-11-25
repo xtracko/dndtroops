@@ -1,11 +1,11 @@
 package cz.muni.fi.pa165.dndtroops.service;
 
 import cz.muni.fi.pa165.dndtroops.dao.HeroDao;
-import cz.muni.fi.pa165.dndtroops.dao.TroopDao;
 import cz.muni.fi.pa165.dndtroops.entities.Hero;
 import cz.muni.fi.pa165.dndtroops.entities.Role;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
 import java.util.List;
+import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,8 +21,7 @@ public class HeroServiceImpl implements HeroService{
     @Autowired
     private HeroDao heroDao;
     
-    @Autowired
-    private TroopDao troopDao;
+    private RoleService roleService;
     
     @Override
     public Long createHero(Hero hero){
@@ -148,13 +147,38 @@ public class HeroServiceImpl implements HeroService{
     }
 
     @Override
-    public void attackHero(Hero hero, Role role) {
-        throw new UnsupportedOperationException("TODO Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean attackHero(Hero attacker,Hero victim, Role role) {
+        float dmg =  roleService.computeAttackingForce(role)*attacker.getXp()/victim.getXp();
+        
+        if(!attacker.isCooldown() && victim.getHealth() > 0 && attacker.getHealth()>0){
+           attacker.setCooldown(true);           
+           this.defendHero(victim, dmg);
+           
+           heroDao.updateHero(attacker);
+           return true;
+        }
+        else{
+            return false;
+        }
     }
 
     @Override
-    public void defensiveHero(Hero hero, Role role) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void defendHero(Hero victim, float damage) {
+        Random rand = new Random();
+        int randomDmgCoeff = rand.nextInt(10) + 1;
+        if(randomDmgCoeff > 3 && randomDmgCoeff <9){
+            damage = damage * randomDmgCoeff/10;
+        }
+        else if(randomDmgCoeff == 1){
+            damage = 0;
+        }
+        
+        int health = victim.getHealth() - Math.round(damage);
+        victim.setHealth(health>0 ? health : 0);
+        victim.setCooldown(false);
+        
+        heroDao.updateHero(victim);
+        
     }
     
 }

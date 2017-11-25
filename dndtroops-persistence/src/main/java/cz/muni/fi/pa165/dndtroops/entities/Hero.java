@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 
 import javax.persistence.Entity;
 import javax.persistence.Column;
@@ -36,7 +37,7 @@ public class Hero implements Serializable {
     @Column(nullable=false,unique=true)
     private String name;
 
-    @ManyToOne(optional=false)
+    @ManyToOne(optional=false,cascade={CascadeType.PERSIST,CascadeType.MERGE})
     @NotNull
     private Troop troop;
 
@@ -48,7 +49,10 @@ public class Hero implements Serializable {
     @NotNull
     private Integer xp;
     @NotNull
-    private Integer health;
+    private Integer health = 100;
+    @NotNull
+    private boolean cooldown = false;
+    
 
     public Hero() {
     }
@@ -81,10 +85,9 @@ public class Hero implements Serializable {
             this.xp = xp;
         }
         this.role.add(role);
-        this.name = name;
-        this.health = 100;
-
         this.troop = troop;
+        
+        this.name = name; 
 
     }
 
@@ -139,6 +142,15 @@ public class Hero implements Serializable {
     public void setHealth(Integer health) {
         this.health = health;
     }
+
+    public boolean isCooldown() {
+        return cooldown;
+    }
+
+    public void setCooldown(boolean cooldown) {
+        this.cooldown = cooldown;
+    }
+    
     
 
     @Override
@@ -185,6 +197,10 @@ public class Hero implements Serializable {
     @Override
     public String toString() {
         return "Hero{" + "id=" + id + ", name=" + name + ", troop=" + troop + ", role=" + role + ", xp=" + xp + '}';
+    }
+
+    public void removeRole(Role role) {
+        this.role.remove(role);
     }
 
     public void removeRole(Role role) {

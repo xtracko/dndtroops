@@ -22,6 +22,12 @@ public class HeroCreateDTO {
     
     @NotNull
     private Integer xp;
+    
+    @NotNull
+    private Integer health = 100;
+    
+    @NotNull
+    private boolean cooldown = false;
 
     public String getName() {
         return name;
@@ -46,6 +52,10 @@ public class HeroCreateDTO {
     public void addRole(List<RoleDTO> role) {
          this.role.add((RoleDTO) role);
     }
+    
+    public void setRoleList(List<RoleDTO> role) {
+        this.role = role;
+    }
 
     public Integer getXp() {
         return xp;
@@ -54,6 +64,23 @@ public class HeroCreateDTO {
     public void setXp(Integer xp) {
         this.xp = xp;
     }
+
+    public Integer getHealth() {
+        return health;
+    }
+
+    public void setHealth(Integer health) {
+        this.health = health;
+    }
+
+    public boolean isCooldown() {
+        return cooldown;
+    }
+
+    public void setCooldown(boolean cooldown) {
+        this.cooldown = cooldown;
+    }
+    
 
     @Override
     public int hashCode() {
