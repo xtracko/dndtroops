@@ -27,7 +27,7 @@ public class ServiceConfiguration {
     public class EntityMapping extends BeanMappingBuilder {
         @Override
         protected void configure() {
-            // TODO: add your entity mapping here
+            mapping(Role.class, RoleDTO.class);
         }
     }
 
