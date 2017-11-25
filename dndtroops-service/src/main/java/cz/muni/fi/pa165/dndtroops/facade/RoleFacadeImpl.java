@@ -53,4 +53,8 @@ public class RoleFacadeImpl implements RoleFacade {
         return beanMappingService.mapTo(roleService.getAllRolesByPower(power), RoleDTO.class);
     }
 
+    @Override
+    public float computeAttackingForce(RoleDTO role) {
+        return roleService.computeAttackingForce(beanMappingService.mapTo(role, Role.class));
+    }
 }

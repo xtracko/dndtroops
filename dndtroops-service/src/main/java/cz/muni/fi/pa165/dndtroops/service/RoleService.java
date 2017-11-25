@@ -51,6 +51,7 @@ public interface RoleService {
     /**
      * Compute attacking force based on random attempt
      *
+     * @param role a Role for which to compute random attacking force
      * @return attack value
      */
     float computeAttackingForce(Role role);

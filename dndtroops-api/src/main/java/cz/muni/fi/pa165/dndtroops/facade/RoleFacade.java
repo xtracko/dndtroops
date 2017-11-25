@@ -49,4 +49,11 @@ public interface RoleFacade {
      */
     List<RoleDTO> getAllRolesByPower(Power power);
 
+    /**
+     * Compute attacking force based on random attempt
+     *
+     * @param role a Role for which to compute random attacking force
+     * @return attack value
+     */
+    float computeAttackingForce(RoleDTO role);
 }
