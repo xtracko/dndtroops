@@ -8,12 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author Jiří Novotný
- *
- * Note: I would implement second non-trivial service method as stated in milestone 2 assignment,
- * but I can't think of anything which is related to Role entity from D&D Troops project assignment.
  */
 
 @Service
@@ -24,6 +22,9 @@ public class RoleServiceImpl implements RoleService {
 
     @Autowired
     private HeroDao heroDao;
+
+    @Autowired
+    private RandomService randomService;
 
     @Override
     public void createRole(Role role) {
@@ -52,5 +53,11 @@ public class RoleServiceImpl implements RoleService {
     public List<Role> getAllRolesByPower(Power power) {
         return roleDao.findAllRolesByPower(power);
     }
-    
+
+    @Override
+    public float computeAttackingForce(Role role) {
+        // Note: the most difficult service method I could think off :(
+        return randomService.nextNormal() * role.getDamageVariance() + role.getDamageMean();
+    }
+
 }

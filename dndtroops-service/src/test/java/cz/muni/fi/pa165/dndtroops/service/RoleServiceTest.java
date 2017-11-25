@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.dndtroops.service;
 import cz.muni.fi.pa165.dndtroops.ServiceConfiguration;
 import cz.muni.fi.pa165.dndtroops.entities.Role;
 import cz.muni.fi.pa165.dndtroops.enums.Power;
+import org.assertj.core.api.Assertions;
 import org.hibernate.service.spi.ServiceException;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
@@ -24,11 +25,11 @@ public class RoleServiceTest extends AbstractTransactionalTestNGSpringContextTes
     }
 
     @Test
-    public void test() {
-        Role role = new Role();
-        role.setName("jjj");
-        role.setDescription("ded");
-        role.setPower(Power.MAGIC);
+    public void simpleTest() {
+        Role role = new Role("name", "desc", Power.MAGIC, 80, 1);
+
+        Assertions.assertThat(role.getId()).isNull();
         roleService.createRole(role);
+        Assertions.assertThat(role.getId()).isNotNull();
     }
 }
