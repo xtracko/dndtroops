@@ -34,11 +34,15 @@ public class TroopServiceTest extends AbstractTransactionalTestNGSpringContextTe
     }
 
     @Test
-    public void findAllTroopsTest(){
+    public void findAllTroopsTest() {
 
         List<Troop> troopsFound = troopService.findAllTroops();
         Assert.assertEquals(troopsFound.size(), 2);
-
     }
 
-}
+        @Test
+        public void removeTroopTest () {
+            troopService.deleteTroop(t1);
+        }
+    }
+

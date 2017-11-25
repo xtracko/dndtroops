@@ -118,6 +118,7 @@ public class TroopDaoTest extends AbstractTestNGSpringContextTests {
 
     }
 
+
     @Test
     public void removesCorrectly() {
         troopDao.deleteTroop(t1);
