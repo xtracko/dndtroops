@@ -53,9 +53,9 @@ public class HeroDaoTest extends AbstractTestNGSpringContextTests {
 
     @BeforeMethod
     public void initHeroes() {
-        role1 = new Role("Knight", "Very good fighter with weapons, from a noble family",Power.WEAPONS);
-        role2 = new Role("Druid", "Healer good at casting spells, healing and making potions", Power.MAGIC);
-        role3 = new Role("Ninja", "Skilled rogue-ish warrior, trained by monks", Power.MARTIAL_ARTS);
+        role1 = new Role("Knight", "Very good fighter with weapons, from a noble family",Power.WEAPONS, 80, 1);
+        role2 = new Role("Druid", "Healer good at casting spells, healing and making potions", Power.MAGIC, 80, 1);
+        role3 = new Role("Ninja", "Skilled rogue-ish warrior, trained by monks", Power.MARTIAL_ARTS, 80, 1);
 
         troop1 = new Troop("nameT1", "missionT1", 1);
         troop2 = new Troop("nameT2", "missionT2", 2);
