@@ -28,9 +28,7 @@ public class TroopServiceImpl implements TroopService {
     }
 
     @Override
-    public Troop findTroopById(Long id) {
-        return troopDao.findTroopById(id);
-    }
+    public Troop findTroopById(Long id) { return troopDao.findTroopById(id); }
 
     @Override
     public Troop findTroopByName(String name) {

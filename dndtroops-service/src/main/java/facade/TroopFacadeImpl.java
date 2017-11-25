@@ -18,7 +18,9 @@ public class TroopFacadeImpl implements TroopFacade{
 
     @Override
     public void createTroop(TroopDto t) {
+
         troopService.createTroop(beanMappingService.mapTo(t, Troop.class));
+
     }
 
     @Override
