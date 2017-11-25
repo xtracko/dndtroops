@@ -14,6 +14,17 @@ public class RoleDTO {
     private String name;
     private String description;
     private Power power;
+    private float damageMean;
+    private float damageVariance;
+
+    public RoleDTO(Long id, String name, String description, Power power, float damageMean, float damageVariance) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.power = power;
+        this.damageMean = damageMean;
+        this.damageVariance = damageVariance;
+    }
 
     public Long getId() {
         return id;
@@ -47,6 +58,22 @@ public class RoleDTO {
         this.power = power;
     }
 
+    public float getDamageMean() {
+        return damageMean;
+    }
+
+    public void setDamageMean(float damageMean) {
+        this.damageMean = damageMean;
+    }
+
+    public float getDamageVariance() {
+        return damageVariance;
+    }
+
+    public void setDamageVariance(float damageVariance) {
+        this.damageVariance = damageVariance;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -55,7 +82,6 @@ public class RoleDTO {
         RoleDTO role = (RoleDTO) obj;
         return Objects.equals(getName(), role.getName());
     }
-
 
     @Override
     public int hashCode() {
