@@ -49,7 +49,10 @@ public interface RoleService {
     List<Role> getAllRolesByPower(Power power);
 
     /**
+     * Compute attacking force based on random attempt
      *
+     * @return attack value
      */
+    float computeAttackingForce(Role role);
 
 }
