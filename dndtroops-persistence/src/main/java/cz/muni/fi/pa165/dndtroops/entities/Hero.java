@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.dndtroops.entities;
 
 import cz.muni.fi.pa165.dndtroops.dao.TroopDao;
+import java.io.Serializable;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name="Hero")
-public class Hero {
+public class Hero implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
@@ -46,6 +47,8 @@ public class Hero {
 
     @NotNull
     private Integer xp;
+    @NotNull
+    private Integer health;
 
     public Hero() {
     }
@@ -79,6 +82,7 @@ public class Hero {
         }
         this.role.add(role);
         this.name = name;
+        this.health = 100;
 
         this.troop = troop;
 
@@ -111,6 +115,10 @@ public class Hero {
     public List<Role> getRoleList() {
         return Collections.unmodifiableList(this.role);
     }
+    
+    public void setRoleList(List<Role> role) {
+        this.role = role;
+    }
 
     public void addRole(Role role) {
         this.role.add(role);
@@ -123,6 +131,15 @@ public class Hero {
     public void setXp(Integer xp) {
         this.xp = xp;
     }
+
+    public Integer getHealth() {
+        return health;
+    }
+
+    public void setHealth(Integer health) {
+        this.health = health;
+    }
+    
 
     @Override
     public int hashCode() {
@@ -163,6 +180,11 @@ public class Hero {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Hero{" + "id=" + id + ", name=" + name + ", troop=" + troop + ", role=" + role + ", xp=" + xp + '}';
     }
 
     public void removeRole(Role role) {
