@@ -16,7 +16,6 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -62,10 +61,6 @@ public class TroopDaoTest extends AbstractTestNGSpringContextTests {
         t2 = new Troop("nameT2", "missionT2", 2);
         t3 = new Troop("nameT3", "missionT3", 3);
 
-        troopDao.createTroop(t1);
-        troopDao.createTroop(t2);
-        troopDao.createTroop(t3);
-
         r1 = new Role("Knight", "Very good fighter with weapons, from a noble family", Power.WEAPONS);
         r2 = new Role("Druid", "Healer good at casting spells, healing and making potions", Power.MAGIC);
         r3 = new Role("Ninja", "Skilled rogue-ish warrior, trained by monks", Power.MARTIAL_ARTS);
@@ -74,14 +69,10 @@ public class TroopDaoTest extends AbstractTestNGSpringContextTests {
         roleDao.createRole(r2);
         roleDao.createRole(r3);
 
+
         h1 = new Hero("Masakrator", t1, r1,1500 );
         h2 = new Hero("Mr. Smoketoomuch", t2, r2, 0 );
         h3 = new Hero("JustAnotherHero", t3, r3, 100000);
-
-        heroDao.createHero(h1);
-        heroDao.createHero(h2);
-        heroDao.createHero(h3);
-
 
     }
 
@@ -157,23 +148,15 @@ public class TroopDaoTest extends AbstractTestNGSpringContextTests {
         List<Troop> result = troopDao.findAllTroops();
 
         assertThat(result.size())
-                .isEqualTo(3);
+                .isEqualTo(2);
     }
 
     private Long createNonExistingId() {
-        Long id = t1.getId() + 50;
+        Long id = t1.getId() + 1;
         if (Objects.equals(id, t2.getId())) {
-            id = id + 50;
+            id = id + 1;
         }
         return id;
     }
-
-    @Test
-    public void findAllHeroesOfTroop(){
-        List<Hero> heroes = troopDao.findHeroesOfTroop(t1);
-        Assert.assertEquals(heroes.size(),1);
-        Assert.assertEquals(heroes.get(0).getTroop().getId(),t1.getId());
-
-            }
 
 }
