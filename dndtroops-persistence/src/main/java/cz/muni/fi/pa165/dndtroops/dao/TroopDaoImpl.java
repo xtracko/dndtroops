@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.dndtroops.dao;
 
+import cz.muni.fi.pa165.dndtroops.entities.Hero;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
 import org.springframework.stereotype.Repository;
 
@@ -59,4 +60,16 @@ public class TroopDaoImpl implements TroopDao {
     public List<Troop> findAllTroops() {
         return em.createQuery("select t from Troop t", Troop.class).getResultList();
     }
+
+    @Override
+    public List<Hero> findHeroesOfTroop(Troop t){
+        try {
+            return em.createQuery("select h from Hero h where h.troop = :troopid", Hero.class)
+                    .setParameter("troopid", t)
+                    .getResultList();
+        } catch (NoResultException ex) {
+            return null;
+        }
+    }
+
 }

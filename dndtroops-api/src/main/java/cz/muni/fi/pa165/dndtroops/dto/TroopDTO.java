@@ -1,20 +1,20 @@
 package cz.muni.fi.pa165.dndtroops.dto;
 
-import cz.muni.fi.pa165.dndtroops.entities.Troop;
 
 import java.util.Objects;
 
-public class TroopCreateDto {
+public class TroopDTO {
 
+    private Long id;
     private String name;
     private String mission;
     private long goldenMoney;
 
-    public TroopCreateDto(){
+    public TroopDTO(){
 
     }
 
-    public TroopCreateDto(String name, String mission, long goldenMoney)
+    public TroopDTO(String name, String mission, long goldenMoney)
     {
         this.name=name;
         this.mission=mission;
@@ -25,9 +25,9 @@ public class TroopCreateDto {
     public boolean equals(Object o) {
         if (o == null) return false;
         if (this == o) return true;
-        if (!(o instanceof Troop)) return false;
+        if (!(o instanceof TroopDTO)) return false;
 
-        Troop troop = (Troop) o;
+        TroopDTO troop = (TroopDTO) o;
 
         return Objects.equals(name, troop.getName());
     }
@@ -36,6 +36,14 @@ public class TroopCreateDto {
     public int hashCode() {
         int hash = 17 + getName().hashCode();
         return hash;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -61,6 +69,5 @@ public class TroopCreateDto {
     public void setGoldenMoney(Long goldenMoney) {
         this.goldenMoney = goldenMoney;
     }
-
 
 }

@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.dndtroops.service;
 
 import cz.muni.fi.pa165.dndtroops.dao.TroopDao;
+import cz.muni.fi.pa165.dndtroops.entities.Hero;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,4 +43,17 @@ public class TroopServiceImpl implements TroopService {
     public List<Troop> findAllTroops() {
         return troopDao.findAllTroops();
     }
+
+    @Override
+    public List<Troop> listWealthiestTroops(){
+
+        return null;
+    }
+
+    @Override
+    public List<Hero> findHeroesOfTroop( Troop t){
+        return troopDao.findHeroesOfTroop(t);
+    }
+
+
 }

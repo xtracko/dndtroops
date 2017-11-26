@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.dndtroops.dao;
 
+import cz.muni.fi.pa165.dndtroops.entities.Hero;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
 
 import java.util.List;
@@ -57,4 +58,7 @@ public interface TroopDao {
     */
 
     List<Troop> findAllTroops();
+
+    List<Hero> findHeroesOfTroop(Troop t);
+
 }

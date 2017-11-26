@@ -8,8 +8,11 @@ import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.util.List;
 
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class TroopServiceTest extends AbstractTransactionalTestNGSpringContextTests {
@@ -31,8 +34,11 @@ public class TroopServiceTest extends AbstractTransactionalTestNGSpringContextTe
     }
 
     @Test
-    public void removeTroopTest(){
-        troopService.deleteTroop(t1);
+    public void findAllTroopsTest(){
+
+        List<Troop> troopsFound = troopService.findAllTroops();
+        Assert.assertEquals(troopsFound.size(), 2);
+
     }
 
 }
