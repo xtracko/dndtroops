@@ -9,7 +9,6 @@ import cz.muni.fi.pa165.dndtroops.entities.Role;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
 import cz.muni.fi.pa165.dndtroops.enums.Power;
 import org.assertj.core.api.SoftAssertions;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -21,7 +20,6 @@ import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
 import java.util.List;
 import java.util.Objects;
 
@@ -61,6 +59,10 @@ public class TroopDaoTest extends AbstractTestNGSpringContextTests {
         t2 = new Troop("nameT2", "missionT2", 2);
         t3 = new Troop("nameT3", "missionT3", 3);
 
+        troopDao.createTroop(t1);
+        troopDao.createTroop(t2);
+        troopDao.createTroop(t3);
+
         r1 = new Role("Knight", "Very good fighter with weapons, from a noble family", Power.WEAPONS);
         r2 = new Role("Druid", "Healer good at casting spells, healing and making potions", Power.MAGIC);
         r3 = new Role("Ninja", "Skilled rogue-ish warrior, trained by monks", Power.MARTIAL_ARTS);
@@ -69,10 +71,13 @@ public class TroopDaoTest extends AbstractTestNGSpringContextTests {
         roleDao.createRole(r2);
         roleDao.createRole(r3);
 
-
         h1 = new Hero("Masakrator", t1, r1,1500 );
         h2 = new Hero("Mr. Smoketoomuch", t2, r2, 0 );
         h3 = new Hero("JustAnotherHero", t3, r3, 100000);
+
+        heroDao.createHero(h1);
+        heroDao.createHero(h2);
+        heroDao.createHero(h3);
 
     }
 
@@ -101,14 +106,14 @@ public class TroopDaoTest extends AbstractTestNGSpringContextTests {
         softly.assertAll();
     }
 
-    @Test
+    /*@Test
     void doesNotStoreDuplicities() {
         Troop duplicity = new Troop(t1.getName(), t1.getMission(), t1.getGoldenMoney());
 
-        assertThatThrownBy(() ->troopDao.createTroop(duplicity))
+        assertThatThrownBy(() -> troopDao.createTroop(duplicity))
                 .isInstanceOf(PersistenceException.class)
                 .hasCauseExactlyInstanceOf(ConstraintViolationException.class);
-    }
+    }*/
 
 
     @Test
@@ -148,13 +153,13 @@ public class TroopDaoTest extends AbstractTestNGSpringContextTests {
         List<Troop> result = troopDao.findAllTroops();
 
         assertThat(result.size())
-                .isEqualTo(2);
+                .isEqualTo(3);
     }
 
     private Long createNonExistingId() {
-        Long id = t1.getId() + 1;
+        Long id = t1.getId() + 50;
         if (Objects.equals(id, t2.getId())) {
-            id = id + 1;
+            id = id + 50;
         }
         return id;
     }
