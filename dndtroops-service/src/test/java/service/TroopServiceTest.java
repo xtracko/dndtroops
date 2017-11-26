@@ -44,5 +44,6 @@ public class TroopServiceTest extends AbstractTransactionalTestNGSpringContextTe
         public void removeTroopTest () {
             troopService.deleteTroop(t1);
         }
+
     }
 

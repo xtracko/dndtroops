@@ -62,7 +62,8 @@ public class TroopDaoImpl implements TroopDao {
     }
 
     @Override
-    public List<Hero> findHeroesOfTroop(Troop t) {
+
+    public List<Hero> findHeroesOfTroop(Troop t){
         try {
             return em.createQuery("select h from Hero h where h.troop = :troopid", Hero.class)
                     .setParameter("troopid", t)

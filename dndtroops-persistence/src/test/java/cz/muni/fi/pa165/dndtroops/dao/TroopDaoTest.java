@@ -15,6 +15,7 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -65,9 +66,11 @@ public class TroopDaoTest extends AbstractTestNGSpringContextTests {
         troopDao.createTroop(t2);
         troopDao.createTroop(t3);
 
+
         r1 = new Role("Knight", "Very good fighter with weapons, from a noble family", Power.WEAPONS,80,1);
         r2 = new Role("Druid", "Healer good at casting spells, healing and making potions", Power.MAGIC,80,1);
         r3 = new Role("Ninja", "Skilled rogue-ish warrior, trained by monks", Power.MARTIAL_ARTS,80,1);
+
 
         roleDao.createRole(r1);
         roleDao.createRole(r2);
@@ -166,5 +169,13 @@ public class TroopDaoTest extends AbstractTestNGSpringContextTests {
         }
         return id;
     }
+
+    @Test
+    public void findAllHeroesOfTroop(){
+        List<Hero> heroes = troopDao.findHeroesOfTroop(t1);
+        Assert.assertEquals(heroes.size(),1);
+        Assert.assertEquals(heroes.get(0).getTroop().getId(),t1.getId());
+
+            }
 
 }

@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.dndtroops.dto;
 
+
 import java.util.Objects;
 
 public class TroopDTO {
@@ -9,14 +10,16 @@ public class TroopDTO {
     private String mission;
     private long goldenMoney;
 
-    public TroopDTO() {
+
+    public TroopDTO(){
 
     }
 
-    public TroopDTO(String name, String mission, long goldenMoney) {
-        this.name = name;
-        this.mission = mission;
-        this.goldenMoney = goldenMoney;
+    public TroopDTO(String name, String mission, long goldenMoney)
+    {
+        this.name=name;
+        this.mission=mission;
+        this.goldenMoney=goldenMoney;
     }
 
     @Override
@@ -67,5 +70,6 @@ public class TroopDTO {
     public void setGoldenMoney(Long goldenMoney) {
         this.goldenMoney = goldenMoney;
     }
+
 }
 
