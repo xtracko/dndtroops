@@ -202,8 +202,4 @@ public class Hero implements Serializable {
     public void removeRole(Role role) {
         this.role.remove(role);
     }
-
-    public void removeRole(Role role) {
-        this.role.remove(role);
-    }
 }
