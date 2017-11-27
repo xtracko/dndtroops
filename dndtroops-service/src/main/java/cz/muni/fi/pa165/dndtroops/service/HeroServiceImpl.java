@@ -178,7 +178,6 @@ public class HeroServiceImpl implements HeroService{
         victim.setCooldown(false);
         
         heroDao.updateHero(victim);
-        
     }
     
 }
