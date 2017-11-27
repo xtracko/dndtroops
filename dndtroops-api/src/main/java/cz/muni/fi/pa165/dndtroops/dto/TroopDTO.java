@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.dndtroops.dto;
 
-
 import java.util.Objects;
 
 public class TroopDTO {
@@ -72,4 +71,3 @@ public class TroopDTO {
     }
 
 }
-

@@ -110,17 +110,13 @@ public class TroopDaoTest extends AbstractTestNGSpringContextTests {
         softly.assertAll();
     }
 
-    /*@Test
+    @Test
     void doesNotStoreDuplicities() {
         Troop duplicity = new Troop(t1.getName(), t1.getMission(), t1.getGoldenMoney());
 
         assertThatThrownBy(() -> troopDao.createTroop(duplicity))
-                .isInstanceOf(PersistenceException.class)
-                .hasCauseExactlyInstanceOf(ConstraintViolationException.class);
-
 
     }
-    }*/
 
 
 

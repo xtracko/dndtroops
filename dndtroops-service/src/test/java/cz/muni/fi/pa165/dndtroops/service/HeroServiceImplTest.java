@@ -9,19 +9,21 @@ import cz.muni.fi.pa165.dndtroops.entities.Hero;
 import cz.muni.fi.pa165.dndtroops.entities.Role;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
 import cz.muni.fi.pa165.dndtroops.enums.Power;
+import java.util.ArrayList;
+import java.util.List;
 import org.hibernate.service.spi.ServiceException;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
-import org.testng.Assert;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.BeforeClass;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
+import org.testng.Assert;
 import static org.mockito.Mockito.when;
+import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 
 /**
  *
