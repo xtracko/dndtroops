@@ -24,6 +24,18 @@ public class CreateRoleDTO {
         this.damageVariance = damageVariance;
     }
 
+    public CreateRoleDTO() {
+    }
+
+    
+    public CreateRoleDTO(String name, String description, Power power) {
+        this.name = name;
+        this.description = description;
+        this.power = power;
+    }
+    
+    
+
     public String getName() {
         return name;
     }

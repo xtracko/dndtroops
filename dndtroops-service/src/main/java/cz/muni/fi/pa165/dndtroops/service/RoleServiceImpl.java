@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * @author Jiří Novotný
+ * 
+ * @author Martin Sestak
  */
 
 @Service
@@ -34,9 +35,9 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void removeRole(Role role) {
         roleDao.deleteRole(role);
-        heroDao.findHeroesByRole(role).forEach(hero -> {
+        /*heroDao.findHeroesByRole(role).forEach(hero -> {
             hero.removeRole(role);
-        });
+        });*/
     }
 
     @Override

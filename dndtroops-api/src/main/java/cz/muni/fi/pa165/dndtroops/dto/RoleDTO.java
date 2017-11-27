@@ -29,6 +29,17 @@ public class RoleDTO {
         this.damageVariance = damageVariance;
     }
 
+    public RoleDTO() {
+    }
+
+    
+    public RoleDTO(String name, String description, Power power) {
+        this.name = name;
+        this.description = description;
+        this.power = power;
+    }
+
+    
     public Long getId() {
         return id;
     }
