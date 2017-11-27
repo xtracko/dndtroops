@@ -40,8 +40,13 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void editRole(Role role) {
-        roleDao.updateRole(role);
+    public Role editRole(Role role) {
+        return roleDao.updateRole(role);
+    }
+
+    @Override
+    public Role findRoleById(Long id) {
+        return roleDao.findRoleById(id);
     }
 
     @Override

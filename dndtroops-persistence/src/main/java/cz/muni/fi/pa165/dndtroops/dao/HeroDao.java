@@ -23,7 +23,7 @@ public interface HeroDao {
       *
       * @param hero a persisted Hero to updateTroop
      */
-    public void updateHero(Hero hero);
+    public Hero updateHero(Hero hero);
  
     /**
      * Delete persisted Hero.

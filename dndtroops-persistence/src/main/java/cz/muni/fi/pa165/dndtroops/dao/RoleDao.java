@@ -33,7 +33,7 @@ public interface RoleDao {
      *
      * @param role a persisted Role to update
      */
-    void updateRole(Role role);
+    Role updateRole(Role role);
 
     /**
      * Find persisted Role by it's unique ID. If no such role is found null is returned.

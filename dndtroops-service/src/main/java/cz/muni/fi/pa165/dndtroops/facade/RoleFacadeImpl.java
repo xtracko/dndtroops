@@ -35,7 +35,7 @@ public class RoleFacadeImpl implements RoleFacade {
 
     @Override
     public void removeRole(RoleDTO role) {
-        roleService.removeRole(beanMappingService.mapTo(role, Role.class));
+        roleService.removeRole(roleService.findRoleById(role.getId()));
     }
 
     @Override

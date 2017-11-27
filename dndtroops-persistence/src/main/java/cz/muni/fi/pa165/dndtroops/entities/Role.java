@@ -8,6 +8,7 @@ import cz.muni.fi.pa165.dndtroops.enums.Power;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -85,6 +86,10 @@ public class Role {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -124,4 +129,6 @@ public class Role {
     public void setDamageVariance(float demageVariance) {
         this.damageVariance = demageVariance;
     }
+
+
 }
