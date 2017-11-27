@@ -23,5 +23,6 @@ public interface TroopService {
 
     List<Hero> findHeroesOfTroop(Troop t);
 
+    float computeTroopStrength(Troop t);
 
 }
