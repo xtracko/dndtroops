@@ -1,6 +1,8 @@
 package cz.muni.fi.pa165.dndtroops.service;
 
 import cz.muni.fi.pa165.dndtroops.entities.Administrator;
+import cz.muni.fi.pa165.dndtroops.entities.Hero;
+import cz.muni.fi.pa165.dndtroops.entities.Troop;
 
 import java.util.List;
 
@@ -47,5 +49,26 @@ public interface AdminService {
      * @param admin to be removed
      */
     void removeAdministrator(Administrator admin);
+
+
+    /**
+     * Complete mission for troop
+     * @param troop to finish mission
+     * @param xpGained gained for mission
+     * @param goldGained gained for mission
+     * @param newMission gained for mission
+     * @return updated troop
+     */
+    Troop complateMissionForTroop(Troop troop, int xpGained, int goldGained, String newMission);
+
+    /**
+     * Creates new party for list of heroes
+     * @param heroes for a new party
+     * @param mission new mission
+     * @param name of a party
+     * @param pulledGold gold of all heroes combined
+     * @return
+     */
+    Troop createNewParty(List<Hero> heroes, String mission, String name, int pulledGold);
 
 }
