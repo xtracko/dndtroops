@@ -50,12 +50,6 @@ public class TroopServiceImpl implements TroopService {
     }
 
     @Override
-    public List<Troop> listWealthiestTroops(){
-
-        return null;
-    }
-
-    @Override
     public List<Hero> findHeroesOfTroop( Troop t){
         return troopDao.findHeroesOfTroop(t);
     }

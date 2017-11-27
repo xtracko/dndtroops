@@ -19,8 +19,6 @@ public interface TroopService {
 
     List<Troop> findAllTroops();
 
-    List<Troop> listWealthiestTroops();
-
     List<Hero> findHeroesOfTroop(Troop t);
 
     float computeTroopStrength(Troop t);

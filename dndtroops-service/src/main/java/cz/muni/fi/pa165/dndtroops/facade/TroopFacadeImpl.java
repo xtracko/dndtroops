@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.dndtroops.facade;
 
+import cz.muni.fi.pa165.dndtroops.dto.HeroDTO;
 import cz.muni.fi.pa165.dndtroops.dto.TroopCreateDTO;
 import cz.muni.fi.pa165.dndtroops.dto.TroopDTO;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
@@ -50,4 +51,11 @@ public class TroopFacadeImpl implements TroopFacade {
         return beanMappingService.mapTo(troopService.findAllTroops(),TroopDTO.class);
 
     }
+
+    @Override
+    public List<HeroDTO> findHeroesOfTroop(TroopDTO t) {
+        Troop mappedTroop = beanMappingService.mapTo(t,Troop.class);
+        return  beanMappingService.mapTo(troopService.findHeroesOfTroop(mappedTroop),HeroDTO.class);
+    }
+
 }
