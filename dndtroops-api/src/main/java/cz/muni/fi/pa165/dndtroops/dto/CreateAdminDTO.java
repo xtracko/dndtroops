@@ -7,11 +7,9 @@ import java.util.Objects;
  */
 
 public class CreateAdminDTO {
-    private Long id;
     private String name;
 
-    public CreateAdminDTO(Long id, String name){
-        this.id = id;
+    public CreateAdminDTO(String name){
         this.name = name;
     }
 
