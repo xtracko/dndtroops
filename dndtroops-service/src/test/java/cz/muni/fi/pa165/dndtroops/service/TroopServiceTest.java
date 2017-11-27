@@ -1,4 +1,4 @@
-package service;
+package cz.muni.fi.pa165.dndtroops.service;
 
 
 import cz.muni.fi.pa165.dndtroops.ServiceConfiguration;
