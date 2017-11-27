@@ -44,6 +44,13 @@ public class RoleFacadeImpl implements RoleFacade {
     }
 
     @Override
+    public RoleDTO findById(Long id) {
+        Role role  = roleService.findRoleById(id);
+
+        return beanMappingService.mapTo(role, RoleDTO.class);
+    }
+
+    @Override
     public List<RoleDTO> getAllRoles() {
         return beanMappingService.mapTo(roleService.getAllRoles(), RoleDTO.class);
     }
