@@ -35,14 +35,13 @@ public class Troop {
 
     }
 
-    /*
-     * Constructor with specified attributes.
+     /*
+     * Constructor with specified attributes (no-hero).
      *
      * @param name          Name of the troop.
      * @param mission       Troop's assigned mission
      * @param goldenMoney   Amount of assigned golden money
      */
-
 
     public Troop(String name, String mission, long goldenMoney)
     {

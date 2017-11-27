@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.dndtroops.dao;
 
+import cz.muni.fi.pa165.dndtroops.entities.Hero;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
 import org.springframework.stereotype.Repository;
 
@@ -21,23 +22,32 @@ public class TroopDaoImpl implements TroopDao {
     @PersistenceContext
     private EntityManager em;
 
-    public void create (Troop t ) {
+
+    @Override
+    public void createTroop(Troop t ) {
         em.persist(t);
     }
 
-    public void delete (Troop t ) {
+
+    @Override
+    public void deleteTroop(Troop t ) {
         em.remove(t);
     }
 
-    public void update (Troop t ){
+
+    @Override
+    public void updateTroop(Troop t ){
         em.merge(t);
     }
 
-    public Troop findById (Long id){
+    @Override
+    public Troop findTroopById(Long id){
         return em.find(Troop.class, id);
     }
 
-    public Troop findByName (String name){
+
+    @Override
+    public Troop findTroopByName(String name){
         try {
             return
                     em.createQuery("select t from Troop t where t.name=:name" , Troop.class).setParameter("name", name).getSingleResult();
@@ -46,9 +56,21 @@ public class TroopDaoImpl implements TroopDao {
         }
     }
 
-    public List<Troop> findAll(){
-        return
-                em.createQuery("select t from Troop t", Troop.class).getResultList();
+    @Override
+    public List<Troop> findAllTroops() {
+        return em.createQuery("select t from Troop t", Troop.class).getResultList();
+    }
+
+    @Override
+
+    public List<Hero> findHeroesOfTroop(Troop t){
+        try {
+            return em.createQuery("select h from Hero h where h.troop = :troopid", Hero.class)
+                    .setParameter("troopid", t)
+                    .getResultList();
+        } catch (NoResultException ex) {
+            return null;
+        }
     }
 
 }

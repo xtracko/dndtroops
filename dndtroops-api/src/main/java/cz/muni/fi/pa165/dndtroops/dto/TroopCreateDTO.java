@@ -2,19 +2,17 @@ package cz.muni.fi.pa165.dndtroops.dto;
 
 import java.util.Objects;
 
-public class TroopDTO {
+public class TroopCreateDTO {
 
-    private Long id;
     private String name;
     private String mission;
     private long goldenMoney;
 
-
-    public TroopDTO(){
+    public TroopCreateDTO(){
 
     }
 
-    public TroopDTO(String name, String mission, long goldenMoney)
+    public TroopCreateDTO(String name, String mission, long goldenMoney)
     {
         this.name=name;
         this.mission=mission;
@@ -36,14 +34,6 @@ public class TroopDTO {
     public int hashCode() {
         int hash = 17 + getName().hashCode();
         return hash;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -69,5 +59,6 @@ public class TroopDTO {
     public void setGoldenMoney(Long goldenMoney) {
         this.goldenMoney = goldenMoney;
     }
+
 
 }

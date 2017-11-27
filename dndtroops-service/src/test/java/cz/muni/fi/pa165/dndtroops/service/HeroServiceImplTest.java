@@ -75,7 +75,7 @@ public class HeroServiceImplTest extends AbstractTransactionalTestNGSpringContex
     @Test
     public void testCreate() {
         roleDao.createRole(role1);
-        troopDao.create(troop1);
+        troopDao.createTroop(troop1);
         
         heroService.createHero(hero1);
         Long id = hero1.getId();
