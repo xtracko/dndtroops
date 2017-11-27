@@ -25,4 +25,6 @@ public interface TroopService {
 
     float computeTroopStrength(Troop t);
 
+    Troop troopBattle(Troop t1, Troop t2);
+
 }
