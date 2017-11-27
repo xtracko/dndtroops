@@ -113,12 +113,8 @@ public class TroopDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     void doesNotStoreDuplicities() {
         Troop duplicity = new Troop(t1.getName(), t1.getMission(), t1.getGoldenMoney());
-
-        assertThatThrownBy(() -> troopDao.createTroop(duplicity))
-
+        assertThatThrownBy(() -> troopDao.createTroop(duplicity));
     }
-
-
 
     @Test
     public void removesCorrectly() {
@@ -173,7 +169,5 @@ public class TroopDaoTest extends AbstractTestNGSpringContextTests {
         List<Hero> heroes = troopDao.findHeroesOfTroop(t1);
         Assert.assertEquals(heroes.size(),1);
         Assert.assertEquals(heroes.get(0).getTroop().getId(),t1.getId());
-
-            }
-
+    }
 }
