@@ -4,34 +4,37 @@ import cz.muni.fi.pa165.dndtroops.dao.HeroDao;
 import cz.muni.fi.pa165.dndtroops.entities.Hero;
 import cz.muni.fi.pa165.dndtroops.entities.Role;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
-import java.util.List;
-import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
- *
  * @author Martin Sestak
  */
 @Service
 @Transactional
-public class HeroServiceImpl implements HeroService{
+public class HeroServiceImpl implements HeroService {
 
     @Autowired
     private HeroDao heroDao;
-    
+
+    @Autowired
+    private RandomService randomService;
+
+    @Autowired
     private RoleService roleService;
-    
+
     @Override
-    public Long createHero(Hero hero){
+    public Long createHero(Hero hero) {
         if (hero == null) {
             throw new IllegalArgumentException("Hero cannot be null!");
         }
         heroDao.createHero(hero);
-        
-        return hero.getId(); 
-    } 
+
+        return hero.getId();
+    }
 
 
     @Override
@@ -39,14 +42,11 @@ public class HeroServiceImpl implements HeroService{
         if (hero == null) {
             throw new IllegalArgumentException("Hero cannot be null!");
         }
-         heroDao.updateHero(hero);
+        heroDao.updateHero(hero);
     }
 
     @Override
     public void deleteHero(Hero hero) {
-        if (hero == null) {
-            throw new IllegalArgumentException("Hero cannot be null!");
-        }
         heroDao.deleteHero(hero);
     }
 
@@ -58,38 +58,23 @@ public class HeroServiceImpl implements HeroService{
         if (troop == null) {
             throw new IllegalArgumentException("Troop cannot be null!");
         }
-        
+
         hero.setTroop(troop);
         heroDao.updateHero(hero);
-   
+
     }
 
     @Override
     public void addRole(Hero hero, Role role) {
-        if (hero == null) {
-            throw new IllegalArgumentException("Hero cannot be null!");
-        }
-        if (role == null) {
-            throw new IllegalArgumentException("Role cannot be null!");
-        }
-        
         hero.addRole(role);
         heroDao.updateHero(hero);
     }
 
     @Override
-    public void deleteRole(Hero hero, Role role) {
-        if (hero == null) {
-            throw new IllegalArgumentException("Hero cannot be null!");
-        }
-        if (role == null) {
-            throw new IllegalArgumentException("Role cannot be null!");
-        }
-        
-        List<Role> roleList = hero.getRoleList();        
-        roleList.remove(role);
-        hero.setRoleList(roleList);
-    }  
+    public void removeRole(Hero hero, Role role) {
+        hero.removeRole(role);
+        heroDao.updateHero(hero);
+    }
 
     @Override
     public void changeXp(Hero hero, Integer xp) {
@@ -105,10 +90,10 @@ public class HeroServiceImpl implements HeroService{
 
     @Override
     public Hero getHeroById(Long heroId) {
-         if (heroId == null) {
+        if (heroId == null) {
             throw new IllegalArgumentException("HeroId cannot be null!");
         }
-         return heroDao.findHeroById(heroId);
+        return heroDao.findHeroById(heroId);
     }
 
     @Override
@@ -116,7 +101,7 @@ public class HeroServiceImpl implements HeroService{
         if (name == null) {
             throw new IllegalArgumentException("Name cannot be null!");
         }
-         return heroDao.findHeroByName(name);
+        return heroDao.findHeroByName(name);
     }
 
     @Override
@@ -129,16 +114,16 @@ public class HeroServiceImpl implements HeroService{
 
     @Override
     public List<Hero> getHeroesByTroop(Troop troop) {
-       if (troop == null) {
+        if (troop == null) {
             throw new IllegalArgumentException("Troop cannot be null!");
-        } 
-       return heroDao.findHeroesByTroop(troop);
+        }
+        return heroDao.findHeroesByTroop(troop);
     }
 
     @Override
     public List<Hero> getHeroesByXp(int xp) {
-        
-       return heroDao.findHeroesByXp(xp);
+
+        return heroDao.findHeroesByXp(xp);
     }
 
     @Override
@@ -147,37 +132,29 @@ public class HeroServiceImpl implements HeroService{
     }
 
     @Override
-    public boolean attackHero(Hero attacker,Hero victim, Role role) {
-        float dmg =  roleService.computeAttackingForce(role)*attacker.getXp()/victim.getXp();
-        
-        if(!attacker.isCooldown() && victim.getHealth() > 0 && attacker.getHealth()>0){
-           attacker.setCooldown(true);           
-           this.defendHero(victim, dmg);
-           
-           heroDao.updateHero(attacker);
-           return true;
+    public boolean attackHero(Hero attacker, Hero victim, Role role) {
+        float dmg = roleService.computeAttackingForce(role) * attacker.getXp() / victim.getXp();
+
+        if (!attacker.isCooldown() && victim.getHealth() > 0 && attacker.getHealth() > 0) {
+            attacker.setCooldown(true);
+            this.defendHero(victim, dmg);
+
+            heroDao.updateHero(attacker);
+            return true;
         }
-        else{
-            return false;
-        }
+        return false;
     }
 
     @Override
     public void defendHero(Hero victim, float damage) {
-        Random rand = new Random();
-        int randomDmgCoeff = rand.nextInt(10) + 1;
-        if(randomDmgCoeff > 3 && randomDmgCoeff <9){
-            damage = damage * randomDmgCoeff/10;
-        }
-        else if(randomDmgCoeff == 1){
-            damage = 0;
-        }
-        
+        if (randomService.nextBoolean(0.1f))
+            damage = 0; // it's a miss
+
         int health = victim.getHealth() - Math.round(damage);
-        victim.setHealth(health>0 ? health : 0);
+        victim.setHealth(health > 0 ? health : 0);
         victim.setCooldown(false);
-        
+
         heroDao.updateHero(victim);
     }
-    
+
 }

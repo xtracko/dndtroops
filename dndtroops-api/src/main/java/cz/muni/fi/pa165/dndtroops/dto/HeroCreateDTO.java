@@ -1,31 +1,28 @@
 package cz.muni.fi.pa165.dndtroops.dto;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.*;
+
 /**
- *
  * @author Martin Sestak
  */
 public class HeroCreateDTO {
     @NotNull
     @Size(min = 3, max = 255)
     private String name;
-    
+
     @NotNull
     private TroopDTO troop;
-    
-    private List<RoleDTO> role = new ArrayList<>();
-    
+
+    private Set<RoleDTO> roles = new HashSet<>();
+
     @NotNull
     private Integer xp;
-    
+
     @NotNull
     private Integer health = 100;
-    
+
     @NotNull
     private boolean cooldown = false;
 
@@ -45,16 +42,16 @@ public class HeroCreateDTO {
         this.troop = troop;
     }
 
-    public List<RoleDTO> getRoleList() {
-        return Collections.unmodifiableList(role);
+    public Set<RoleDTO> getRoles() {
+        return roles;
     }
 
-    public void addRole(List<RoleDTO> role) {
-         this.role.add((RoleDTO) role);
+    public void addRole(RoleDTO role) {
+        roles.add(role);
     }
-    
-    public void setRoleList(List<RoleDTO> role) {
-        this.role = role;
+
+    public void setRoles(Set<RoleDTO> roles) {
+        this.roles = roles;
     }
 
     public Integer getXp() {
@@ -80,14 +77,14 @@ public class HeroCreateDTO {
     public void setCooldown(boolean cooldown) {
         this.cooldown = cooldown;
     }
-    
+
 
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 37 * hash + Objects.hashCode(this.name);
         hash = 37 * hash + Objects.hashCode(this.troop);
-        hash = 37 * hash + Objects.hashCode(this.role);
+        hash = 37 * hash + Objects.hashCode(this.roles);
         hash = 37 * hash + Objects.hashCode(this.xp);
         return hash;
     }
@@ -110,7 +107,7 @@ public class HeroCreateDTO {
         if (!Objects.equals(this.troop, other.troop)) {
             return false;
         }
-        if (!Objects.equals(this.role, other.role)) {
+        if (!Objects.equals(this.roles, other.roles)) {
             return false;
         }
         if (!Objects.equals(this.xp, other.xp)) {
@@ -121,9 +118,8 @@ public class HeroCreateDTO {
 
     @Override
     public String toString() {
-        return "HeroCreateDTO{" + "name=" + name + ", troop=" + troop + ", role=" + role + ", xp=" + xp + '}';
+        return "HeroCreateDTO{" + "name=" + name + ", troop=" + troop + ", role=" + roles + ", xp=" + xp + '}';
     }
-    
-    
-    
+
+
 }

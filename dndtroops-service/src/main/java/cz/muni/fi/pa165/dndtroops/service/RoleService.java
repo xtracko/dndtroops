@@ -31,7 +31,15 @@ public interface RoleService {
      *
      * @param role a Role to edit
      */
-    void editRole(Role role);
+    Role editRole(Role role);
+
+    /**
+     * Find Role by an ID
+     *
+     * @param id ID to find
+     * @return Role with ID 'id'
+     */
+    Role findRoleById(Long id);
 
     /**
      * List all Roles

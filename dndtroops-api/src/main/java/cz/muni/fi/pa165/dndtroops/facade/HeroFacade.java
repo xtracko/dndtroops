@@ -50,12 +50,12 @@ public interface HeroFacade {
      */
     public void addRole(HeroDTO hero,RoleDTO role);
     /**
-     * Add role to the Hero.
+     * Remove role to the Hero.
      *
      * @param hero persisted hero
      * @param role - role of hero
      */
-    public void deleteRole(HeroDTO hero,RoleDTO role);
+    public void removeRole(HeroDTO hero, RoleDTO role);
     
     /**
      * CHange xp of Hero. 

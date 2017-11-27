@@ -27,8 +27,8 @@ public class HeroDaoImpl implements HeroDao {
     }
 
     @Override
-    public void updateHero(Hero hero) {
-        em.merge(hero);
+    public Hero updateHero(Hero hero) {
+        return em.merge(hero);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class HeroDaoImpl implements HeroDao {
     @Override
     public List<Hero> findHeroesByRole(Role role) {
         try {
-            return em.createQuery("SELECT h FROM Hero h WHERE h.role = :roleid", Hero.class)
+            return em.createQuery("SELECT h FROM Hero h WHERE :roleid MEMBER OF h.roles", Hero.class)
                     .setParameter("roleid", role)
                     .getResultList();
         } catch (NoResultException ex) {

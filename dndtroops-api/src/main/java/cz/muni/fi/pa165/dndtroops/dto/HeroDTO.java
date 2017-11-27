@@ -1,10 +1,7 @@
 package cz.muni.fi.pa165.dndtroops.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  *
@@ -17,7 +14,7 @@ public class HeroDTO implements Serializable {
     
     private TroopDTO troop;
     
-    private List<RoleDTO> role = new ArrayList<>();
+    private Set<RoleDTO> roles = new HashSet<>();
     
     private Integer xp;
     
@@ -64,16 +61,12 @@ public class HeroDTO implements Serializable {
         this.troop = troop;
     }
 
-    public List<RoleDTO> getRoleList() {
-        return Collections.unmodifiableList(role);
+    public Set<RoleDTO> getRoles() {
+        return roles;
     }
 
-    public void setRoleList(List<RoleDTO> role) {
-        this.role = role;
-    }
-
-    public void addRole(List<RoleDTO> role) {
-        this.role.add((RoleDTO) role);
+    public void setRoles(Set<RoleDTO> roles) {
+        this.roles = roles;
     }
 
     public Integer getXp() {
@@ -99,15 +92,25 @@ public class HeroDTO implements Serializable {
     public void setCooldown(boolean cooldown) {
         this.cooldown = cooldown;
     }
-    
-    
+
+    public void addRole(RoleDTO role) {
+        roles.add(role);
+    }
+
+    public void removeRole(RoleDTO role) {
+        roles.remove(role);
+    }
+
+    public boolean hasRole(RoleDTO role) {
+        return roles.contains(role);
+    }
 
     @Override
     public int hashCode() {
         int hash = 5;
         hash = 31 * hash + Objects.hashCode(this.name);
         hash = 31 * hash + Objects.hashCode(this.troop);
-        hash = 31 * hash + Objects.hashCode(this.role);
+        hash = 31 * hash + Objects.hashCode(this.roles);
         hash = 31 * hash + Objects.hashCode(this.xp);
         return hash;
     }
@@ -130,7 +133,7 @@ public class HeroDTO implements Serializable {
         if (!Objects.equals(this.troop, other.troop)) {
             return false;
         }
-        if (!Objects.equals(this.role, other.role)) {
+        if (!Objects.equals(this.roles, other.roles)) {
             return false;
         }
         if (!Objects.equals(this.xp, other.xp)) {
@@ -141,7 +144,7 @@ public class HeroDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "HeroDTO{" + "id=" + id + ", name=" + name + ", troop=" + troop + ", role=" + role + ", xp=" + xp + '}';
+        return "HeroDTO{" + "id=" + id + ", name=" + name + ", troop=" + troop + ", roles=" + roles + ", xp=" + xp + '}';
     } 
     
 }

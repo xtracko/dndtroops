@@ -60,7 +60,7 @@ public class TroopServiceImpl implements TroopService {
         List<Hero> troopHeroes = new ArrayList<>(findHeroesOfTroop(t));
 
         for (int i =0; i < troopHeroes.size(); i++){
-            List<Role> heroRoles = new ArrayList<>(troopHeroes.get(i).getRoleList());
+            List<Role> heroRoles = new ArrayList<>(troopHeroes.get(i).getRoles());
             for (int j = 0; j < heroRoles.size(); j++){
                 totalStrength += roleService.computeAttackingForce(heroRoles.get(j)) + troopHeroes.get(i).getXp();
             }

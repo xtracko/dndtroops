@@ -30,8 +30,8 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    public void updateRole(Role role) {
-        em.merge(role);
+    public Role updateRole(Role role) {
+        return em.merge(role);
     }
 
     @Override

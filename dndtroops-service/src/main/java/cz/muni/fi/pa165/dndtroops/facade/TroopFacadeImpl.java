@@ -7,9 +7,13 @@ import cz.muni.fi.pa165.dndtroops.entities.Troop;
 import cz.muni.fi.pa165.dndtroops.service.BeanMappingService;
 import cz.muni.fi.pa165.dndtroops.service.TroopService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
+@Transactional
 public class TroopFacadeImpl implements TroopFacade {
 
     @Autowired
@@ -28,7 +32,7 @@ public class TroopFacadeImpl implements TroopFacade {
 
     @Override
     public void deleteTroop(TroopDTO t) {
-        troopService.deleteTroop(beanMappingService.mapTo(t,Troop.class));
+        troopService.deleteTroop(troopService.findTroopById(t.getId()));
     }
 
     @Override

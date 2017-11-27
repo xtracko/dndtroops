@@ -72,7 +72,7 @@ public interface HeroService {
      * @param hero persisted hero
      * @param role - role of hero
      */
-    public void deleteRole(Hero hero, Role role);
+    public void removeRole(Hero hero, Role role);
     
     /**
      * CHange xp of Hero. 
