@@ -15,7 +15,7 @@ import static org.testng.Assert.assertEquals;
 
 
 @ContextConfiguration(classes = ServiceConfiguration.class)
-public class AdminServiceImplTest extends AbstractTransactionalTestNGSpringContextTests {
+public class AdminServiceTest extends AbstractTransactionalTestNGSpringContextTests {
 
     @Autowired
     @InjectMocks

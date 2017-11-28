@@ -18,7 +18,7 @@ public interface RoleService {
      * @param role a Role to create
      * @return id of created role
      */
-    Long createRole(Role role);
+    void createRole(Role role);
 
     /**
      * Remove a Role from the system and do a proper cleanup

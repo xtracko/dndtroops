@@ -35,9 +35,9 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void removeRole(Role role) {
         roleDao.deleteRole(role);
-        /*heroDao.findHeroesByRole(role).forEach(hero -> {
+        heroDao.findHeroesByRole(role).forEach(hero -> {
             hero.removeRole(role);
-        });*/
+        });
     }
 
     @Override
@@ -45,11 +45,6 @@ public class RoleServiceImpl implements RoleService {
         return roleDao.updateRole(role);
     }
 
-    @Override
-    public Role findRoleById(Long id) {
-        return roleDao.findRoleById(id);
-    }
-    
     @Override
     public Role findRoleById(Long id) {
        return roleDao.findRoleById(id);
