@@ -16,6 +16,9 @@ public class CreateRoleDTO {
     private float damageMean;
     private float damageVariance;
 
+    public CreateRoleDTO() {
+    }
+
     public CreateRoleDTO(String name, String description, Power power, float damageMean, float damageVariance) {
         this.name = name;
         this.description = description;

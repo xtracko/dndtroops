@@ -29,6 +29,7 @@ public class RoleDTO {
         this.damageVariance = damageVariance;
     }
 
+    
     public Long getId() {
         return id;
     }
@@ -85,6 +86,7 @@ public class RoleDTO {
         RoleDTO role = (RoleDTO) obj;
         return Objects.equals(getName(), role.getName());
     }
+
 
     @Override
     public int hashCode() {

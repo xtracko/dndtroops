@@ -16,6 +16,7 @@ public interface RoleService {
      * Create a new Role on the system
      *
      * @param role a Role to create
+     * @return id of created role
      */
     void createRole(Role role);
 

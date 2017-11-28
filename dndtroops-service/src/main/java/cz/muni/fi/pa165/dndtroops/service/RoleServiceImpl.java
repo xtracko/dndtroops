@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * @author Jiří Novotný
+ * 
+ * @author Martin Sestak
  */
 
 @Service
@@ -46,7 +47,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role findRoleById(Long id) {
-        return roleDao.findRoleById(id);
+       return roleDao.findRoleById(id);
     }
 
     @Override

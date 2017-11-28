@@ -23,9 +23,9 @@ public interface RoleFacade {
     /**
      * Remove a Role from the system
      *
-     * @param role a Role to romove
+     * @param role
      */
-    void removeRole(RoleDTO role);
+     void removeRole(RoleDTO role); 
 
     /**
      * Edit Role
@@ -35,10 +35,18 @@ public interface RoleFacade {
     void editRole(RoleDTO role);
 
     /**
+     * Find role by its ID
+     *
+     * @param id of a Role
+     * @return roleDTO
+     */
+    RoleDTO findById(Long id);
+    
+    /**
      * Retrieve all Roles
      *
      * @return all existing Roles
-     */
+     */ 
     List<RoleDTO> getAllRoles();
 
     /**
