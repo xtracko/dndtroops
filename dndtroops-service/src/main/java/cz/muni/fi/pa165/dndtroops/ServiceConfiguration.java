@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.dndtroops;
 
 import cz.muni.fi.pa165.dndtroops.dto.*;
+import cz.muni.fi.pa165.dndtroops.entities.Administrator;
 import cz.muni.fi.pa165.dndtroops.entities.Hero;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
 import org.dozer.DozerBeanMapper;
@@ -45,6 +46,9 @@ public class ServiceConfiguration {
 
             mapping(Troop.class, TroopDTO.class);
             mapping(Troop.class, TroopCreateDTO.class);
+
+            mapping(Administrator.class, AdminDTO.class);
+            mapping(Administrator.class, CreateAdminDTO.class);
         }
     }
 
