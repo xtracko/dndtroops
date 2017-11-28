@@ -32,6 +32,7 @@ public interface RoleDao {
      * Update persisted role
      *
      * @param role a persisted Role to update
+     * @return modified Role
      */
     Role updateRole(Role role);
 

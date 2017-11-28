@@ -28,10 +28,12 @@ public class CreateRoleDTO {
     }
 
     
-    public CreateRoleDTO(String name, String description, Power power) {
+        public CreateRoleDTO(String name, String description, Power power, float damageMean, float damageVariance) {
         this.name = name;
         this.description = description;
         this.power = power;
+        this.damageMean = damageMean;
+        this.damageVariance = damageVariance;
     }
     
     

@@ -23,9 +23,9 @@ public interface RoleFacade {
     /**
      * Remove a Role from the system
      *
-     * @param id of role
+     * @param role
      */
-    void removeRole(Long id);
+     void removeRole(RoleDTO role); 
 
     /**
      * Edit Role

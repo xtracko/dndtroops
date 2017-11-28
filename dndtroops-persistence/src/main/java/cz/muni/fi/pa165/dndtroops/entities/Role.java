@@ -5,16 +5,16 @@
 package cz.muni.fi.pa165.dndtroops.entities;
 
 import cz.muni.fi.pa165.dndtroops.enums.Power;
+import java.io.Serializable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
-public class Role {
-
+public class Role implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @NotNull

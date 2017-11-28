@@ -42,12 +42,10 @@ public class RoleFacadeImpl implements RoleFacade {
     public void editRole(RoleDTO role) {
         roleService.editRole(beanMappingService.mapTo(role, Role.class));
     }
-
+    
     @Override
     public RoleDTO findById(Long id) {
-        Role role  = roleService.findRoleById(id);
-
-        return beanMappingService.mapTo(role, RoleDTO.class);
+        return beanMappingService.mapTo(roleService.findRoleById(id), RoleDTO.class);
     }
 
     @Override
