@@ -45,6 +45,8 @@
     <modules>
         <module>dndtroops-api</module>
         <module>dndtroops-persistence</module>
+        <module>dndtroops-rest</module>
         <module>dndtroops-service</module>
+        <module>dndtroops-sample-data</module>
     </modules>
 </project>
