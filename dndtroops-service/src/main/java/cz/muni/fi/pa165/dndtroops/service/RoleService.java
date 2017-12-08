@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.dndtroops.service;
 
-import cz.muni.fi.pa165.dndtroops.entities.Hero;
 import cz.muni.fi.pa165.dndtroops.entities.Role;
 import cz.muni.fi.pa165.dndtroops.enums.Power;
 
@@ -23,9 +22,9 @@ public interface RoleService {
     /**
      * Remove a Role from the system and do a proper cleanup
      *
-     * @param role a Role to remove
+     * @param role
      */
-    void removeRole(Role role);
+    void deleteRole(Role role);
 
     /**
      * Edit Role data
@@ -40,7 +39,7 @@ public interface RoleService {
      * @param id ID to find
      * @return Role with ID 'id'
      */
-    Role findRoleById(Long id);
+    Role findRoleById(long id);
 
     /**
      * List all Roles

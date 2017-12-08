@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Random;
 
 /**
  * 
@@ -33,7 +32,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void removeRole(Role role) {
+    public void deleteRole(Role role) {
         roleDao.deleteRole(role);
         heroDao.findHeroesByRole(role).forEach(hero -> {
             hero.removeRole(role);
@@ -46,7 +45,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Role findRoleById(Long id) {
+    public Role findRoleById(long id) {
        return roleDao.findRoleById(id);
     }
 

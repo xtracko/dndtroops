@@ -85,7 +85,7 @@ public class HeroFacadeTest extends AbstractTestNGSpringContextTests {
         });
 
         roleFacade.getAllRoles().forEach(role -> {
-            roleFacade.removeRole(role);
+            roleFacade.deleteRole(role.getId());
         });
 
         troopFacade.findAllTroops().forEach(troop -> {
