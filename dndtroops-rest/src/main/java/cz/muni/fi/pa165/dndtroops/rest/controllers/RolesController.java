@@ -77,15 +77,19 @@ public class RolesController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final RoleDTO editROle(@RequestBody RoleDTO role) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final RoleDTO editRole(@PathVariable("id") long id, @RequestBody RoleDTO role) {
         logger.debug("REST editRole()");
+
+        if (id != role.getId()) {
+            throw new InvalidParameterException();
+        }
 
         try {
             return roleFacade.editRole(role);
         } catch(Exception ex) {
             logger.warn(ex.getMessage());
-            throw new InvalidParameterException();
+            throw new ResourceNotFoundException();
         }
     }
 }
