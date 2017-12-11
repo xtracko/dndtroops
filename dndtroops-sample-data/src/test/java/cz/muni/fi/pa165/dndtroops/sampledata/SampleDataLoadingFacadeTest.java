@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.dndtroops.dao.RoleDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
@@ -20,7 +21,7 @@ import java.io.IOException;
 @ContextConfiguration(classes = {DndTroopsWithSampleDataConfiguration.class})
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
-public class SampleDataLoadingFacadeTest {
+public class SampleDataLoadingFacadeTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private RoleDao roleDao;
 
@@ -32,7 +33,6 @@ public class SampleDataLoadingFacadeTest {
 
     @Test
     public void createSampleData() throws IOException {
-        Assert.assertTrue(roleDao != null);
         Assert.assertFalse(roleDao.findAllRoles().isEmpty(), "No roles loaded");
     }
 }
