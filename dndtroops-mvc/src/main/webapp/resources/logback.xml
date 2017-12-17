@@ -1,0 +1,20 @@
+<configuration>
+    <appender name="APP" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date %-5level %logger - %message%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="warn">
+        <appender-ref ref="APP"/>
+    </root>
+
+    <logger name="org" level="error"/>
+    <logger name="cz.muni.fi.pa165.dndtroops" level="warn"/>
+    <logger name="org.hibernate.tool.hbm2ddl.SchemaExport" level="off"/>
+    <logger name="org.hibernate.engine.jdbc.spi.SqlExceptionHelper" level="off" />
+    <logger name="org.hibernate" level="error"/>
+    <logger name="org.springframework.web" level="error"/>
+    <logger name="org.springframework" level="error"/>
+    <logger name="org.dozer" level="error"/>
+</configuration>
