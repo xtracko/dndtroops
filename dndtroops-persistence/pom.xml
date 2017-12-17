@@ -15,6 +15,12 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -33,12 +39,6 @@
             <artifactId>spring-data-jpa</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.glassfish.web</groupId>
-            <artifactId>javax.el</artifactId>
-            <version>2.2.4</version>
-        </dependency>
-
         <!-- Hibernate -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -51,17 +51,12 @@
 
         <!-- Logging -->
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.12</version>
+            <artifactId>jcl-over-slf4j</artifactId>
         </dependency>
 
         <!-- For testing -->
@@ -81,17 +76,23 @@
             <version>2.0.2-beta</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>2.2.4</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <!-- For embedded usage -->
         <dependency>
             <groupId>org.apache.derby</groupId>
             <artifactId>derby</artifactId>
             <version>10.10.2.0</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <version>1.1.0.Final</version>
         </dependency>
     </dependencies>
 </project>
