@@ -1,7 +1,9 @@
 package cz.muni.fi.pa165.dndtroops.service;
 
 import cz.muni.fi.pa165.dndtroops.ServiceConfiguration;
+import cz.muni.fi.pa165.dndtroops.dao.HeroDao;
 import cz.muni.fi.pa165.dndtroops.dao.RoleDao;
+import cz.muni.fi.pa165.dndtroops.entities.Hero;
 import cz.muni.fi.pa165.dndtroops.entities.Role;
 import cz.muni.fi.pa165.dndtroops.enums.Power;
 import java.util.ArrayList;
@@ -36,6 +38,9 @@ public class RoleServiceTest extends AbstractTransactionalTestNGSpringContextTes
     
     @Mock
     private RoleDao roleDao;
+
+    @Mock
+    private HeroDao heroDao;
     
     private Role rogue;
     private Role soldier;
@@ -86,15 +91,17 @@ public class RoleServiceTest extends AbstractTransactionalTestNGSpringContextTes
 
         verify(roleDao).updateRole(rogue);        
     }
-    
-   /* @Test
-    public void removeRoleTest() {
-        
-        roleService.removeRole(soldier);
-        assertThat(roleService.getAllRoles())
-                .hasSize(0);        
-    }*/
-    
+
+
+    @Test
+    public void deleteRoleTest() {
+        roleService.deleteRole(soldier);
+
+        verify(roleDao).deleteRole(soldier);
+        verify(heroDao).findHeroesByRole(soldier);
+    }
+
+
     @Test
     public void getAllRolesNonEmptyTest() {
         when(roleDao.findAllRoles()).thenAnswer(invocation -> {

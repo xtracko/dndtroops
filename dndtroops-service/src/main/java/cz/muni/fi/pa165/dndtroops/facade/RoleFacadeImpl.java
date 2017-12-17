@@ -34,17 +34,17 @@ public class RoleFacadeImpl implements RoleFacade {
     }
 
     @Override
-    public void removeRole(RoleDTO role) {
-        roleService.removeRole(roleService.findRoleById(role.getId()));
+    public void deleteRole(long id) {
+        roleService.deleteRole(roleService.findRoleById(id));
     }
 
     @Override
-    public void editRole(RoleDTO role) {
-        roleService.editRole(beanMappingService.mapTo(role, Role.class));
+    public RoleDTO editRole(RoleDTO role) {
+        return beanMappingService.mapTo(roleService.editRole(beanMappingService.mapTo(role, Role.class)), RoleDTO.class);
     }
     
     @Override
-    public RoleDTO findById(Long id) {
+    public RoleDTO findById(long id) {
         return beanMappingService.mapTo(roleService.findRoleById(id), RoleDTO.class);
     }
 

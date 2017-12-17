@@ -90,7 +90,7 @@ public class RoleFacadeTest extends AbstractTransactionalTestNGSpringContextTest
     @Test
     @Transactional  
     public void deleteRoleTest() {
-        roleFacade.removeRole(rogue);
+        roleFacade.deleteRole(rogue.getId());
 
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(roleFacade.getAllRoles())

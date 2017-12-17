@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.dndtroops.dto.CreateRoleDTO;
 import cz.muni.fi.pa165.dndtroops.dto.RoleDTO;
 import cz.muni.fi.pa165.dndtroops.enums.Power;
 
+import javax.management.relation.Role;
 import java.util.List;
 
 /**
@@ -23,16 +24,16 @@ public interface RoleFacade {
     /**
      * Remove a Role from the system
      *
-     * @param role
+     * @param id
      */
-     void removeRole(RoleDTO role); 
+     void deleteRole(long id);
 
     /**
      * Edit Role
      *
      * @param role a Role to edit
      */
-    void editRole(RoleDTO role);
+    RoleDTO editRole(RoleDTO role);
 
     /**
      * Find role by its ID
@@ -40,7 +41,7 @@ public interface RoleFacade {
      * @param id of a Role
      * @return roleDTO
      */
-    RoleDTO findById(Long id);
+    RoleDTO findById(long id);
     
     /**
      * Retrieve all Roles
