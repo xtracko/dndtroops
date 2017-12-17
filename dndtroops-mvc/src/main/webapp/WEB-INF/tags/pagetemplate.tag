@@ -32,6 +32,7 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
+                <li><my:a href="/role/list"><f:message key="navigation.roles"/></my:a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
