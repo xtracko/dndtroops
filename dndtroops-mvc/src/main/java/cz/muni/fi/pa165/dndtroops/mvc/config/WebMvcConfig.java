@@ -11,10 +11,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.validation.Validator;
@@ -30,8 +27,6 @@ import javax.validation.Validator;
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
     private final static Logger log = LoggerFactory.getLogger(WebMvcConfig.class);
 
-    private static final String TEXTS = "Texts";
-
     /**
      * Maps the main page to a specific view.
      */
@@ -40,7 +35,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         log.debug("mapping URL / to home view");
         registry.addViewController("/").setViewName("home");
     }
-
 
     /**
      * Enables default Tomcat servlet that serves static files.
@@ -70,7 +64,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public MessageSource messageSource() {
         log.debug("registering ResourceBundle 'Texts' for messages");
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasename(TEXTS);
+        messageSource.setBasename("Texts");
         return messageSource;
     }
 

@@ -9,7 +9,8 @@
 <jsp:attribute name="body">
 
     <div class="jumbotron">
-        <h3>Assignment</h3>
+        <h1 class="text-center">D&D Troops</h1>
+        <h4><small>Assignment</small></h4>
         Through Forgotten realms are wandering various troops of several heroes trying to complete assigned mission
         (mission is not an entity, it is just text attribute). Hero has a name, role, experience level. Troop has a
         name, mission and amount of golden money. Role contains name, description and other suitable information.
