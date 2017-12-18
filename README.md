@@ -10,8 +10,9 @@ of golden money. Role contains name, description and other suitable information.
 Every hero could belong to up to one group and have assigned multiple roles. Administrator should be able to manage
 (CRUD) all entities. Hero could assign himself to some group and also can assign himself some role.
 
-### REST
-#### Role entity
+---
+
+### Role REST
 
 ###### List
 ```bash
