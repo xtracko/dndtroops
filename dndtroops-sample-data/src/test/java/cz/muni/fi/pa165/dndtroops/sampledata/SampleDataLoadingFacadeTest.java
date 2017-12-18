@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.dndtroops.sampledata;
 
 import cz.muni.fi.pa165.dndtroops.dao.RoleDao;
+import cz.muni.fi.pa165.dndtroops.dao.TroopDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -25,6 +26,9 @@ public class SampleDataLoadingFacadeTest extends AbstractTestNGSpringContextTest
     @Autowired
     private RoleDao roleDao;
 
+    @Autowired
+    private TroopDao troopDao;
+
     @PersistenceContext
     private EntityManager em;
 
@@ -34,5 +38,6 @@ public class SampleDataLoadingFacadeTest extends AbstractTestNGSpringContextTest
     @Test
     public void createSampleData() throws IOException {
         Assert.assertFalse(roleDao.findAllRoles().isEmpty(), "No roles loaded");
+        Assert.assertFalse(troopDao.findAllTroops().isEmpty(), "No troops loaded");
     }
 }

@@ -21,17 +21,17 @@ public class TroopTest {
         t1 = new Troop();
         t1.setId(1L);
         t1.setName("Same");
-        t1.setGoldenMoney(1L);
+        t1.setGoldenMoney(1);
 
         t2 = new Troop();
         t2.setId(2L);
         t2.setName("Same");
-        t2.setGoldenMoney(2L);
+        t2.setGoldenMoney(2);
 
         t3 = new Troop();
         t3.setId(3L);
         t3.setName("Different");
-        t3.setGoldenMoney(3L);
+        t3.setGoldenMoney(3);
     }
 
     @Test

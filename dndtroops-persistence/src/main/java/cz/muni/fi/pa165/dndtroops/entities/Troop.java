@@ -23,8 +23,6 @@ public class Troop {
 
     private String mission;
 
-    @NotNull
-    @Column (nullable = false)
     private long goldenMoney;
 
     /*
@@ -115,10 +113,9 @@ public class Troop {
         return goldenMoney;
     }
 
-    public void setGoldenMoney(Long goldenMoney) {
+    public void setGoldenMoney(long goldenMoney) {
         this.goldenMoney = goldenMoney;
     }
-
     /*
      * Getters and setters
      * --- END ---

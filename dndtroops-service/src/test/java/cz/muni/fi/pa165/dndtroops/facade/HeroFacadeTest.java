@@ -89,7 +89,7 @@ public class HeroFacadeTest extends AbstractTestNGSpringContextTests {
         });
 
         troopFacade.findAllTroops().forEach(troop -> {
-            troopFacade.deleteTroop(troop);
+            troopFacade.deleteTroop(troop.getId());
         });
     }
 

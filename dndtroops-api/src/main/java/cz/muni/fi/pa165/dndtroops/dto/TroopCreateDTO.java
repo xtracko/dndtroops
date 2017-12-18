@@ -56,9 +56,7 @@ public class TroopCreateDTO {
         return goldenMoney;
     }
 
-    public void setGoldenMoney(Long goldenMoney) {
+    public void setGoldenMoney(long goldenMoney) {
         this.goldenMoney = goldenMoney;
     }
-
-
 }

@@ -94,11 +94,11 @@ public class TroopServiceTest extends AbstractTransactionalTestNGSpringContextTe
         softly.assertThat(t1.getName()).isEqualTo("alience");
         t1.setName("new Name");
         t1.setMission("save the queen");
-        t1.setGoldenMoney(1000L);
+        t1.setGoldenMoney(1000);
         troopService.updateTroop(t1);
         softly.assertThat(t1.getName()).isEqualTo("new Name");
         softly.assertThat(t1.getMission()).isEqualTo("save the queen");
-        softly.assertThat(t1.getGoldenMoney()).isEqualTo(1000L);
+        softly.assertThat(t1.getGoldenMoney()).isEqualTo(1000);
         softly.assertAll();
         verify(troopDao).updateTroop(t1);
     }

@@ -1,8 +1,10 @@
 package cz.muni.fi.pa165.dndtroops.sampledata;
 
 import cz.muni.fi.pa165.dndtroops.entities.Role;
+import cz.muni.fi.pa165.dndtroops.entities.Troop;
 import cz.muni.fi.pa165.dndtroops.enums.Power;
 import cz.muni.fi.pa165.dndtroops.service.RoleService;
+import cz.muni.fi.pa165.dndtroops.service.TroopService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    private TroopService troopService;
+
     @Override
     @SuppressWarnings("unused")
     public void loadData() throws IOException {
@@ -31,6 +36,11 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         Role tank = role("Tank", "Has tanking powers", Power.WEAPONS, 15, 20);
 
         log.info("Roles loaded.");
+
+        Troop heroes = troop("Heroes", "Save the queen", 541);
+        Troop peasants = troop("Peasants", "Save the king", 157);
+
+        log.info("Troops loaded.");
     }
 
     private Role role(String name, String description, Power power, float dmgMean, float dmgVariance) {
@@ -38,5 +48,15 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
         roleService.createRole(role);
         return role;
+    }
+
+    private Troop troop(String name, String mission, long money) {
+        Troop troop = new Troop();
+        troop.setName(name);
+        troop.setMission(mission);
+        troop.setGoldenMoney(money);
+
+        troopService.createTroop(troop);
+        return troop;
     }
 }

@@ -20,7 +20,7 @@ public interface TroopFacade {
     *
     * @param Troop to be removed.
     */
-    void deleteTroop(TroopDTO t );
+    void deleteTroop(Long id);
 
     /*
     * Merge the state of the given entity into the current persistence context.
