@@ -9,3 +9,31 @@ not an entity, it is just text attribute). Hero has a name, role, experience lev
 of golden money. Role contains name, description and other suitable information. Example of a role is "elf magician".
 Every hero could belong to up to one group and have assigned multiple roles. Administrator should be able to manage
 (CRUD) all entities. Hero could assign himself to some group and also can assign himself some role.
+
+### REST
+#### Role entity
+
+###### List
+```bash
+curl localhost:8080/pa165/rest/roles
+```
+
+###### View
+```bash
+curl localhost:8080/pa165/rest/roles/{id}
+```
+
+###### Delete
+```bash
+curl -X DELETE localhost:8080/pa165/rest/roles/{id}
+```
+
+###### Create
+```bash
+curl -X POST -H "Content-Type: application/json" localhost:8080/pa165/rest/roles/create --data '{"name":"Fighter","description":"Kung-Fu", "power":"MAGIC","damageMean":30.0,"damageVariance":1.0}'
+```
+
+###### Edit
+```bash
+curl -X PUT -H "Content-Type: application/json" localhost:8080/pa165/rest/roles/{id} --data '{"id":{id},"name":"Noob","description":"Easy target", "power":"MARTIAL_ARTS","damageMean":1.0,"damageVariance":10.0}'
+```
