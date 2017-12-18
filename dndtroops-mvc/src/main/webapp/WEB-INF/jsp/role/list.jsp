@@ -12,9 +12,9 @@
 <my:pagetemplate title="Roles">
 <jsp:attribute name="body">
 
-    <my:admin>
+    <%--<my:admin>--%>
         <my:a href="/role/create" class="btn btn-primary">Create New Role</my:a>
-    </my:admin>
+    <%--</my:admin>--%>
 
     <table class="table">
         <thead>
@@ -37,7 +37,7 @@
                 <td>${role.damageMean}</td>
                 <td>${role.damageVariance}</td>
 
-                <my:admin>
+                <%--<my:admin>--%>
                     <td>
                         <my:a href="/role/edit/${role.id}" class="btn btn-primary btn-sm">Edit</my:a>
                     </td>
@@ -46,7 +46,7 @@
                             <button type="submit" class="btn btn-primary btn-sm">Delete</button>
                         </form>
                     </td>
-                </my:admin>
+                <%--</my:admin>--%>
             </tr>
         </c:forEach>
         </tbody>

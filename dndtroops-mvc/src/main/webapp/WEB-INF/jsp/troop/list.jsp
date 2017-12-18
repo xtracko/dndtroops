@@ -15,9 +15,9 @@
 <my:pagetemplate title="Troops">
 <jsp:attribute name="body">
 
-    <my:admin>
+    <%--<my:admin>--%>
     <my:a href="/troop/create" class="btn btn-primary">Create New Troop</my:a>
-    </my:admin>
+    <%--</my:admin>--%>
 
     <table class="table">
         <thead>
@@ -40,7 +40,7 @@
                     <my:a href="/troop/view/${troop.id}" class="btn btn-primary btn-sm">View</my:a>
                 </td>
 
-                <my:admin>
+                <%--<my:admin>--%>
                     <td>
                         <my:a href="/troop/edit/${troop.id}" class="btn btn-primary btn-sm">Edit</my:a>
                     </td>
@@ -49,7 +49,7 @@
                             <button type="submit" class="btn btn-primary btn-sm">Delete</button>
                         </form>
                     </td>
-                </my:admin>
+                <%--</my:admin>--%>
             </tr>
         </c:forEach>
         </tbody>

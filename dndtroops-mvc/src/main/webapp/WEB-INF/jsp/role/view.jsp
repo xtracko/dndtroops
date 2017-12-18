@@ -41,7 +41,7 @@
         </thead>
     </table>
 
-    <my:admin>
+    <%--<my:admin>--%>
     <div class="row">
         <div class="col-md-1">
             <my:a href="/role/edit/${role.id}" class="btn btn-primary btn-sm">Edit</my:a>
@@ -52,7 +52,7 @@
             </form>
         </div>
     </div>
-    </my:admin>
+    <%--</my:admin>--%>
 
 </jsp:attribute>
 </my:pagetemplate>
