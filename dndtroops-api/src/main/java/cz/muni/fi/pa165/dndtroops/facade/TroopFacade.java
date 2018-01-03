@@ -6,8 +6,10 @@ import cz.muni.fi.pa165.dndtroops.dto.TroopDTO;
 
 import java.util.List;
 
+/**
+ * @author Vojtěch Duchoň
+ */
 public interface TroopFacade {
-
     /*
      * Presist Troop.
      *
@@ -52,14 +54,12 @@ public interface TroopFacade {
     */
     List<TroopDTO> findAllTroops();
 
-    /*
-   * Retrieves a list of all heroes in given troop.
-   *
-   * @return    List of heroes belonging to the given troop.
-   * @param     Troop from which the heroes are requested.
-    */
-
-    List<HeroDTO> findHeroesOfTroop(TroopDTO t);
-
-
+    /**
+     * Perform a battle among two troops
+     *
+     * @param a first troop
+     * @param b second troop
+     * @return victorious troop or null if the battle ended with draw
+     */
+    TroopDTO battle(TroopDTO a, TroopDTO b);
 }

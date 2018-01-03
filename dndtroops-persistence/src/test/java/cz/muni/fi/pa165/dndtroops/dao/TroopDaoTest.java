@@ -1,6 +1,3 @@
-/**
- * @author Jiří Novotný
- */
 package cz.muni.fi.pa165.dndtroops.dao;
 
 import cz.muni.fi.pa165.dndtroops.PersistenceSampleApplicationContext;
@@ -15,11 +12,9 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import javax.validation.ConstraintViolationException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
@@ -27,6 +22,10 @@ import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+/**
+ * @author Jiří Novotný
+ */
 
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
@@ -75,9 +74,9 @@ public class TroopDaoTest extends AbstractTestNGSpringContextTests {
         roleDao.createRole(r2);
         roleDao.createRole(r3);
 
-        h1 = new Hero("Masakrator", t1, r1,1500 );
-        h2 = new Hero("Mr. Smoketoomuch", t2, r2, 0 );
-        h3 = new Hero("JustAnotherHero", t3, r3, 100000);
+        h1 = new Hero("Masakrator", t1, 100, 1500, r1);
+        h2 = new Hero("Mr. Smoketoomuch", t2, 100, 0, r2);
+        h3 = new Hero("JustAnotherHero", t3, 100, 100000, r3);
 
         heroDao.createHero(h1);
         heroDao.createHero(h2);
@@ -88,7 +87,7 @@ public class TroopDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void doesNotSaveNullName() {
         assertThatThrownBy(() -> troopDao.createTroop(new Troop()))
-                .isInstanceOf(NullPointerException.class);
+                .isInstanceOf(Exception.class);
     }
 
     @Test
@@ -162,12 +161,5 @@ public class TroopDaoTest extends AbstractTestNGSpringContextTests {
             id = id + 50;
         }
         return id;
-    }
-
-    @Test
-    public void findAllHeroesOfTroop(){
-        List<Hero> heroes = troopDao.findHeroesOfTroop(t1);
-        Assert.assertEquals(heroes.size(),1);
-        Assert.assertEquals(heroes.get(0).getTroop().getId(),t1.getId());
     }
 }

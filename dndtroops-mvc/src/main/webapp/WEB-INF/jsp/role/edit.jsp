@@ -41,19 +41,19 @@
             </div>
         </div>
 
-        <div class="form-group ${damageMean_error?'has-error':''}">
-            <form:label path="name" cssClass="col-sm-2 control-label">Damage Mean</form:label>
+        <div class="form-group ${damage_error?'has-error':''}">
+            <form:label path="name" cssClass="col-sm-2 control-label">Damage</form:label>
             <div class="col-sm-10">
-                <form:input path="damageMean" cssClass="form-control"/>
-                <form:errors path="damageMean" cssClass="help-block"/>
+                <form:input path="damage" cssClass="form-control"/>
+                <form:errors path="damage" cssClass="help-block"/>
             </div>
         </div>
 
-        <div class="form-group ${damageVariance_error?'has-error':''}">
-            <form:label path="name" cssClass="col-sm-2 control-label">Damage Variance</form:label>
+        <div class="form-group ${cooldown_error?'has-error':''}">
+            <form:label path="name" cssClass="col-sm-2 control-label">Cooldown</form:label>
             <div class="col-sm-10">
-                <form:input path="damageVariance" cssClass="form-control"/>
-                <form:errors path="damageVariance" cssClass="help-block"/>
+                <form:input path="cooldown" cssClass="form-control"/>
+                <form:errors path="cooldown" cssClass="help-block"/>
             </div>
         </div>
 

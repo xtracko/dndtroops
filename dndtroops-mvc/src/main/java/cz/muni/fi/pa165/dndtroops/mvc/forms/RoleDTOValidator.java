@@ -21,8 +21,12 @@ public class RoleDTOValidator implements Validator {
 
         RoleDTO roleDTO = (RoleDTO) target;
 
-        if (Float.compare(roleDTO.getDamageVariance(), 0) < 0) {
-            errors.rejectValue("damageVariance", "field.non-negative");
+        if (Float.compare(roleDTO.getDamage(), 1) < 0) {
+            errors.rejectValue("damage", "field.value_at_least_one");
+        }
+
+        if (Float.compare(roleDTO.getCooldown(), 0) < 0) {
+            errors.rejectValue("cooldown", "field.value_non-negative");
         }
     }
 }

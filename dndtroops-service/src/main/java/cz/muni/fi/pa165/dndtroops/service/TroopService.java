@@ -1,12 +1,13 @@
 package cz.muni.fi.pa165.dndtroops.service;
 
-import cz.muni.fi.pa165.dndtroops.entities.Hero;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
 
 import java.util.List;
 
+/**
+ * @author Vojtěch Duchoň
+ */
 public interface TroopService {
-
     /**
      * creates new troop
      * @param t
@@ -46,25 +47,11 @@ public interface TroopService {
     List<Troop> findAllTroops();
 
     /**
-     * returns all heroes for troop
-     * @param t
-     * @return
+     * Perform a battle among two troops
+     *
+     * @param a first troop
+     * @param b second troop
+     * @return victorious troop or null if the battle ended with draw
      */
-    List<Hero> findHeroesOfTroop(Troop t);
-
-    /**
-     * compute strength of a troop
-     * @param t
-     * @return
-     */
-    float computeTroopStrength(Troop t);
-
-    /**
-     * battles 2 troops
-     * @param t1
-     * @param t2
-     * @return
-     */
-    Troop troopBattle(Troop t1, Troop t2);
-
+    Troop battle(Troop a, Troop b);
 }

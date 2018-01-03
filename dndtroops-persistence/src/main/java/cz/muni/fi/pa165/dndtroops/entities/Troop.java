@@ -2,19 +2,17 @@ package cz.muni.fi.pa165.dndtroops.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /*
  * @author Vojtech Duchoň
  */
-
-
 @Entity
 public class Troop {
-
-
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
@@ -26,34 +24,16 @@ public class Troop {
     private long goldenMoney;
 
     /*
-     * No argument constructor.
+     * No-arg constructor.
      */
-
-    public Troop(){
-
+    public Troop() {
     }
 
-     /*
-     * Constructor with specified attributes (no-hero).
-     *
-     * @param name          Name of the troop.
-     * @param mission       Troop's assigned mission
-     * @param goldenMoney   Amount of assigned golden money
-     */
-
-    public Troop(String name, String mission, long goldenMoney)
-    {
-        this.name=name;
-        this.mission=mission;
-        this.goldenMoney=goldenMoney;
+    public Troop(String name, String mission, long goldenMoney) {
+        this.name = name;
+        this.mission = mission;
+        this.goldenMoney = goldenMoney;
     }
-
-    /*
-     * Override of default Object.equals() method - it uses troop's name as a business key.
-     *
-     * @param Object    An object to be compared with.
-     * @return          Returns true if the objects are equal.
-     */
 
     @Override
     public boolean equals(Object o) {
@@ -62,28 +42,13 @@ public class Troop {
         if (!(o instanceof Troop)) return false;
 
         Troop troop = (Troop) o;
-
         return Objects.equals(name, troop.getName());
     }
 
-    /*
-     * Override of default Object method for generation of instance hashcode.
-     *
-     * @return Returns the value of the hash code.
-     */
-
     @Override
     public int hashCode() {
-        int hash = 17 + getName().hashCode();
-        return hash;
+        return Objects.hashCode(getName());
     }
-
-    /*
-    /*
-     * Getters and setters
-     * --- BEGIN ---
-     */
-
 
     public Long getId() {
         return id;
@@ -116,9 +81,4 @@ public class Troop {
     public void setGoldenMoney(long goldenMoney) {
         this.goldenMoney = goldenMoney;
     }
-    /*
-     * Getters and setters
-     * --- END ---
-     */
-
 }

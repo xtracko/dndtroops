@@ -1,7 +1,3 @@
-/**
- * @author Jiří Novotný
- */
-
 package cz.muni.fi.pa165.dndtroops.dao;
 
 import cz.muni.fi.pa165.dndtroops.entities.Role;
@@ -12,6 +8,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+
+/**
+ * @author Jiří Novotný
+ */
 
 @Repository
 public class RoleDaoImpl implements RoleDao {

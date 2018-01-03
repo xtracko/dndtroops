@@ -83,7 +83,7 @@
 
     <!-- footer -->
     <footer class="footer">
-        <p>&copy;&nbsp;2017&nbsp;Novotný, Mačor, Šesták</p>
+        <p>&copy;&nbsp;2017&nbsp;Novotný, Šesták</p>
     </footer>
 </div>
 <!-- javascripts placed at the end of the document so the pages load faster -->

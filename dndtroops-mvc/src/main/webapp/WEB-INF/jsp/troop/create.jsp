@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <div class="form-group ${goldemMoney_error?'has-error':''}">
+        <div class="form-group ${goldenMoney_error?'has-error':''}">
             <form:label path="name" cssClass="col-sm-2 control-label">Money</form:label>
             <div class="col-sm-10">
                 <form:input path="goldenMoney" cssClass="form-control"/>

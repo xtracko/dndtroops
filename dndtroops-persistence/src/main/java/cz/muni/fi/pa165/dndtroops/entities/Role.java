@@ -8,6 +8,7 @@ import cz.muni.fi.pa165.dndtroops.enums.Power;
 import java.io.Serializable;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
@@ -28,8 +29,11 @@ public class Role implements Serializable {
     @Enumerated(EnumType.STRING)
     private Power power;
 
-    private float damageMean;
-    private float damageVariance;
+    @Min(value = 1)
+    private int damage = 1;
+
+    @Min(value = 0)
+    private int cooldown = 0;
 
     /**
      * No-arg constructor required by JPA specification.
@@ -43,15 +47,15 @@ public class Role implements Serializable {
      * @param name           name of a Role
      * @param description    description of a Role
      * @param power          Role's primary power
-     * @param damageMean     attack damage mean value
-     * @param damageVariance attack damage variance
+     * @param damage         attack damage value
+     * @param cooldown       how many rounds will this ability be on a cooldown
      */
-    public Role(String name, String description, Power power, float damageMean, float damageVariance) {
+    public Role(String name, String description, Power power, int damage, int cooldown) {
         this.name = name;
         this.description = description;
         this.power = power;
-        this.damageMean = damageMean;
-        this.damageVariance = damageVariance;
+        this.damage = damage;
+        this.cooldown = cooldown;
     }
 
     /**
@@ -114,19 +118,19 @@ public class Role implements Serializable {
         this.power = power;
     }
 
-    public float getDamageMean() {
-        return damageMean;
+    public int getDamage() {
+        return damage;
     }
 
-    public void setDamageMean(float damageMean) {
-        this.damageMean = damageMean;
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 
-    public float getDamageVariance() {
-        return damageVariance;
+    public int getCooldown() {
+        return cooldown;
     }
 
-    public void setDamageVariance(float demageVariance) {
-        this.damageVariance = demageVariance;
+    public void setCooldown(int cooldown) {
+        this.cooldown = cooldown;
     }
 }

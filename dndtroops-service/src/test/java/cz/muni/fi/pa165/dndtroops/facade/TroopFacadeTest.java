@@ -16,11 +16,12 @@ import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
+/**
+ * @author Miroslav Mačór and Jiří Novotný (changes to the non-trivial bussiness functionality)
+ */
 @DirtiesContext
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class TroopFacadeTest extends AbstractTestNGSpringContextTests {
-
     @Autowired
     private TroopFacade troopFacade;
 
@@ -35,8 +36,8 @@ public class TroopFacadeTest extends AbstractTestNGSpringContextTests {
 
     @BeforeMethod
     public void setUp() throws Exception {
-        TroopCreateDTO createTroopA = new TroopCreateDTO("Heroes", "Save the queen", 541);
-        TroopCreateDTO createTroopB = new TroopCreateDTO("Peasants", "Save the king", 157);
+        TroopCreateDTO createTroopA = new TroopCreateDTO("Heroes", "Save the queen", 100);
+        TroopCreateDTO createTroopB = new TroopCreateDTO("Peasants", "Save the king", 100);
         troopsA = troopFacade.createTroop(createTroopA);
         troopsB = troopFacade.createTroop(createTroopB);
 
@@ -112,9 +113,17 @@ public class TroopFacadeTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void testFindHeroesOfTroop() throws Exception {
-        assertThat(troopFacade.findHeroesOfTroop(troopsA))
-                .containsExactlyInAnyOrder(guldan);
-    }
+    public void battleTest() {
+        SoftAssertions softly = new SoftAssertions();
+        softly.assertThat(troopFacade.battle(troopsA, troopsB))
+                .hasFieldOrPropertyWithValue("id", troopsA.getId());
 
+        softly.assertThat(troopFacade.findTroopById(troopsA.getId()))
+                .hasFieldOrPropertyWithValue("goldenMoney", 150L);
+
+        softly.assertThat(troopFacade.findTroopById(troopsB.getId()))
+                .hasFieldOrPropertyWithValue("goldenMoney", 50L);
+
+        softly.assertAll();
+    }
 }

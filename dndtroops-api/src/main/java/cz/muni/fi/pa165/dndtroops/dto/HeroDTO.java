@@ -13,28 +13,33 @@ public class HeroDTO implements Serializable {
     private String name;
     
     private TroopDTO troop;
-    
-    private Set<RoleDTO> roles = new HashSet<>();
-    
-    private Integer xp;
-    
-    private Integer health = 100;
 
-    private boolean cooldown = false;
+    private int health = 100;
+
+    private int xp = 0;
+    
+    private List<RoleDTO> roles = new ArrayList<>();
 
     public HeroDTO() {
     }
     
     /**
-     * Constructor for HeroDTo
-     * @param name of hero
-     * @param troop of hero
-     * @param xp of hero
+     * Constructor for HeroDTO
+     *
+     * @param id id of a hero
+     * @param name name of a hero
+     * @param troop troop of a hero
+     * @param xp experience level of a hero
+     * @param roles roles of a hero
      */
-    public HeroDTO(String name, TroopDTO troop, Integer xp) {
+    public HeroDTO(Long id, String name, TroopDTO troop, int health, int xp, RoleDTO... roles) {
+        this.id = id;
         this.name = name;
         this.troop = troop;
+        this.health = health;
         this.xp = xp;
+
+        Collections.addAll(this.roles, roles);
     }
 
     public Long getId() {
@@ -61,36 +66,12 @@ public class HeroDTO implements Serializable {
         this.troop = troop;
     }
 
-    public Set<RoleDTO> getRoles() {
+    public List<RoleDTO> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<RoleDTO> roles) {
+    public void setRoles(List<RoleDTO> roles) {
         this.roles = roles;
-    }
-
-    public Integer getXp() {
-        return xp;
-    }
-
-    public void setXp(Integer xp) {
-        this.xp = xp;
-    }
-
-    public Integer getHealth() {
-        return health;
-    }
-
-    public void setHealth(Integer health) {
-        this.health = health;
-    }
-
-    public boolean isCooldown() {
-        return cooldown;
-    }
-
-    public void setCooldown(boolean cooldown) {
-        this.cooldown = cooldown;
     }
 
     public void addRole(RoleDTO role) {
@@ -105,46 +86,44 @@ public class HeroDTO implements Serializable {
         return roles.contains(role);
     }
 
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public int getXp() {
+        return xp;
+    }
+
+    public void setXp(int xp) {
+        this.xp = xp;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 31 * hash + Objects.hashCode(this.name);
-        hash = 31 * hash + Objects.hashCode(this.troop);
-        hash = 31 * hash + Objects.hashCode(this.roles);
-        hash = 31 * hash + Objects.hashCode(this.xp);
-        return hash;
+        return Objects.hashCode(getName());
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final HeroDTO other = (HeroDTO) obj;
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (!Objects.equals(this.troop, other.troop)) {
-            return false;
-        }
-        if (!Objects.equals(this.roles, other.roles)) {
-            return false;
-        }
-        if (!Objects.equals(this.xp, other.xp)) {
-            return false;
-        }
-        return true;
+        if (this == obj) return true;
+        if (obj == null || !(obj instanceof HeroDTO)) return false;
+
+        HeroDTO hero = (HeroDTO) obj;
+        return Objects.equals(getName(), hero.getName());
     }
 
     @Override
     public String toString() {
-        return "HeroDTO{" + "id=" + id + ", name=" + name + ", troop=" + troop + ", roles=" + roles + ", xp=" + xp + '}';
-    } 
-    
+        return "HeroDTO{id=" + id +
+                ", name=" + name +
+                ", troop=" + troop +
+                ", health=" + health +
+                ", xp=" + xp +
+                ", roles=" + roles +
+                "}";
+    }
 }

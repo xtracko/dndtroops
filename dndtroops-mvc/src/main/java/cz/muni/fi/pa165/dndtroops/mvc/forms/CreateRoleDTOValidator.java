@@ -20,7 +20,13 @@ public class CreateRoleDTOValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "field.required");
 
         CreateRoleDTO createRoleDTO = (CreateRoleDTO) target;
-        if (Float.compare(createRoleDTO.getDamageVariance(), 0) < 0)
-            errors.rejectValue("damageVariance", "field.non-negative");
+
+        if (Float.compare(createRoleDTO.getDamage(), 1) < 0) {
+            errors.rejectValue("damage", "field.value_at_least_one");
+        }
+
+        if (Float.compare(createRoleDTO.getCooldown(), 0) < 0) {
+            errors.rejectValue("cooldown", "field.value_non-negative");
+        }
     }
 }

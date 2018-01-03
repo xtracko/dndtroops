@@ -64,5 +64,5 @@ public interface RoleFacade {
      * @param role a Role for which to compute random attacking force
      * @return attack value
      */
-    float computeAttackingForce(RoleDTO role);
+    int computeAttackingForce(RoleDTO role);
 }

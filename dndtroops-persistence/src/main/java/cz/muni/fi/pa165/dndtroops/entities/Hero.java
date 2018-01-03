@@ -6,11 +6,13 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 /**
+ * @author Martin Sestak and Jiří Novotný (changes to the non-trivial bussiness functionality)
+ *
  * Class which represents entity hero
- * @author Martin Sestak
  */
 @Entity
 public class Hero implements Serializable {
@@ -23,55 +25,38 @@ public class Hero implements Serializable {
     private String name;
 
     @NotNull
-    @ManyToOne(optional=false, cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+    @ManyToOne(optional=false, fetch=FetchType.LAZY, cascade={CascadeType.REFRESH, CascadeType.MERGE})
     private Troop troop;
 
-    @ManyToMany
-    private Set<Role> roles = new HashSet<>();
+    @Min(value = 1)
+    private int health = 100;
 
-    @NotNull
-    private Integer xp;
-    @NotNull
-    private Integer health = 100;
-    @NotNull
-    private boolean cooldown = false;
-    
+    @Min(value = 0)
+    private int xp = 0;
+
+    @ManyToMany
+    private List<Role> roles = new ArrayList<>();
+
 
     public Hero() {
     }
 
     /**
      * Consructor for Hero entity , none of the input parameters shouldn't be null
+     *
      * @param name name of the hero
      * @param troop troop to which hero belongs to
-     * @param xp level of experience
+     * @param health hero's health
+     * @param xp hero's experience level
      * @param roles roles of hero(Mage, Knight, Hunter, ... )
-     * @throws IllegalArgumentException when name, troop or roles is null
      */
-    public Hero(String name, Troop troop, Role roles, Integer xp) {
-
-        if(name == null){
-            throw new IllegalArgumentException("Name cannot be null");
-        }
-
-        if(troop == null){
-            throw new IllegalArgumentException("Troop cannot be null");
-        }
-        if(roles == null){
-            throw new IllegalArgumentException("Role cannot be null");
-        }
-
-        if(xp == null){
-            this.xp = 0;
-        }
-        else{
-            this.xp = xp;
-        }
-        this.roles.add(roles);
+    public Hero(String name, Troop troop, int health, int xp, Role... roles) {
+        this.name = name;
         this.troop = troop;
-        
-        this.name = name; 
+        this.health = health;
+        this.xp = xp;
 
+        Collections.addAll(this.roles, roles);
     }
 
     public Long getId() {
@@ -98,11 +83,11 @@ public class Hero implements Serializable {
         this.troop = troop;
     }
 
-    public Set<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
     
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 
@@ -114,75 +99,44 @@ public class Hero implements Serializable {
         roles.add(role);
     }
 
-    public Integer getXp() {
-        return this.xp;
-    }
-
-    public void setXp(Integer xp) {
-        this.xp = xp;
-    }
-
-    public Integer getHealth() {
-        return health;
-    }
-
-    public void setHealth(Integer health) {
+    public void setHealth(int health) {
         this.health = health;
     }
 
-    public boolean isCooldown() {
-        return cooldown;
+    public int getXp() {
+        return xp;
     }
 
-    public void setCooldown(boolean cooldown) {
-        this.cooldown = cooldown;
+    public void setXp(int xp) {
+        this.xp = xp;
     }
-    
-    
+
+    public int getHealth() {
+        return health;
+    }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.id);
-        hash = 67 * hash + Objects.hashCode(this.name);
-        hash = 67 * hash + Objects.hashCode(this.troop);
-        hash = 67 * hash + Objects.hashCode(this.roles);
-        hash = 67 * hash + Objects.hashCode(this.xp);
-        return hash;
+        return Objects.hashCode(getName());
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Hero other = (Hero) obj;
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        if (!Objects.equals(this.troop, other.troop)) {
-            return false;
-        }
-        if (!Objects.equals(this.roles, other.roles)) {
-            return false;
-        }
-        if (!Objects.equals(this.xp, other.xp)) {
-            return false;
-        }
-        return true;
+        if (this == obj) return true;
+        if (obj == null || !(obj instanceof Hero)) return false;
+
+        Hero hero = (Hero) obj;
+        return Objects.equals(getName(), hero.getName());
     }
 
     @Override
     public String toString() {
-        return "Hero{" + "id=" + id + ", name=" + name + ", troop=" + troop + ", roles=" + roles + ", xp=" + xp + '}';
+        return "Hero{id=" + id +
+                ", name=" + name +
+                ", troop=" + troop +
+                ", health=" + health +
+                ", xp=" + xp +
+                ", roles=" + roles +
+                "}";
     }
 }

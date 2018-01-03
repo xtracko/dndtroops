@@ -5,39 +5,40 @@ import cz.muni.fi.pa165.dndtroops.entities.Hero;
 import cz.muni.fi.pa165.dndtroops.entities.Role;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
 import cz.muni.fi.pa165.dndtroops.enums.Power;
+import org.assertj.core.api.SoftAssertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 
 /*
-* @author Vojtech Duchoň
- */
-
+* @author Vojtech Duchoň and Jiří Novotný (tests rewritten)
+*/
 
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
 @TestExecutionListeners (TransactionalTestExecutionListener.class)
 @Transactional
 public class HeroDaoTest extends AbstractTestNGSpringContextTests {
-
     @PersistenceContext
-    public EntityManager em;
+    private EntityManager em;
 
     @Autowired
-    public HeroDao heroDao;
+    private RoleDao roleDao;
 
     @Autowired
-    public TroopDao troopDao;
+    private HeroDao heroDao;
+
+    @Autowired
+    private TroopDao troopDao;
 
     private Hero hero1;
     private Hero hero2;
@@ -61,9 +62,13 @@ public class HeroDaoTest extends AbstractTestNGSpringContextTests {
         troop2 = new Troop("nameT2", "missionT2", 2);
         troop3 = new Troop("nameT3", "missionT3", 3);
 
-        hero1 = new Hero("Masakrator", troop1, role1,1500 );
-        hero2 = new Hero("Mr. Smoketoomuch", troop3, role2, 0 );
-        hero3 = new Hero("JustAnotherHero", troop3, role2, 100000);
+        hero1 = new Hero("Masakrator", troop1, 100, 0, role1, role2);
+        hero2 = new Hero("Mr. Smoketoomuch", troop3, 100, 0, role2);
+        hero3 = new Hero("JustAnotherHero", troop3, 10, 1, role2);
+
+        roleDao.createRole(role1);
+        roleDao.createRole(role2);
+        roleDao.createRole(role3);
 
         troopDao.createTroop(troop1);
         troopDao.createTroop(troop2);
@@ -76,67 +81,73 @@ public class HeroDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findById() {
-        Long testHeroId = hero1.getId();
-        Assert.assertEquals(heroDao.findHeroById(testHeroId), hero1, "Hero hero1 was not found by ID!");
+        SoftAssertions softly = new SoftAssertions();
 
-        Long testWrongHeroId = 15897L;
-        Assert.assertNull(heroDao.findHeroById(testWrongHeroId), "No such hero is persisted!");
+        softly.assertThat(heroDao.findHeroById(hero1.getId()))
+                .isNotNull()
+                .isSameAs(hero1);
+        softly.assertThat(heroDao.findHeroById(15897L))
+                .isNull();
+
+        softly.assertAll();
     }
 
     @Test
-    public void findByName(){
-        String testHeroName = hero1.getName();
-        Assert.assertEquals(heroDao.findHeroByName(testHeroName), hero1, "Hero hero1 was not found by name!");
+    public void findByName() {
+        SoftAssertions softly = new SoftAssertions();
 
-        String testHeroName2 = "JustAnotherHero";
-        Assert.assertEquals(heroDao.findHeroByName(testHeroName2), hero3, "JustAnotherHero was not found!");
-
-        String testHeroWrongName = "Idontexist";
-        Assert.assertNull(heroDao.findHeroByName(testHeroWrongName), "No such hero is persisted!");
-    }
-
-   @Test
-    public void findByRole(){
-//        Role testHeroRole = role1;
-//        Assert.assertEquals(heroDao.findHeroesByRole(testHeroRole).get(0).getId(), hero1.getId()  );
-//
-//        Role testHeroRole2 = role2;
-//        Assert.assertEquals(heroDao.findHeroesByRole(testHeroRole2).get(0).getId(), hero2.getId()  );
-//        Assert.assertEquals(heroDao.findHeroesByRole(testHeroRole2).get(1).getId(), hero3.getId()  );
-//
-//        Role testHeroWrongRole = role3;
-//        Assert.assertEquals(heroDao.findHeroesByRole(testHeroWrongRole).isEmpty(), true ,   "Hero with role3 was found!");
+        softly.assertThat(heroDao.findHeroByName(hero1.getName()))
+                .isNotNull()
+                .isSameAs(hero1);
+        softly.assertThat(heroDao.findHeroByName(hero2.getName()))
+                .isNotNull()
+                .isSameAs(hero2);
+        softly.assertThat(heroDao.findHeroByName("NonExistingName"))
+                .isNull();
+        softly.assertAll();
     }
 
     @Test
-    public void findByTroop(){
-        Troop testHeroTroop = troop1;
-        Assert.assertEquals(heroDao.findHeroesByTroop(testHeroTroop).get(0).getId(), hero1.getId()  );
+    public void findByRole() {
+       SoftAssertions softly = new SoftAssertions();
 
-        Troop testHeroTroop3 = troop3;
-        Assert.assertEquals(heroDao.findHeroesByTroop(testHeroTroop3).get(0).getId(), hero2.getId()  );
-        Assert.assertEquals(heroDao.findHeroesByTroop(testHeroTroop3).get(1).getId(), hero3.getId()  );
-
-        Troop testHeroWrongTroop = troop2;
-        Assert.assertEquals(heroDao.findHeroesByTroop(testHeroWrongTroop).isEmpty(), true ,  "Hero with troop2 assigned was found!");
+       softly.assertThat(heroDao.findHeroesByRole(role1))
+               .containsExactlyInAnyOrder(hero1);
+       softly.assertThat(heroDao.findHeroesByRole(role2))
+               .containsExactlyInAnyOrder(hero1, hero2, hero3);
+       softly.assertThat(heroDao.findHeroesByRole(role3))
+               .isEmpty();
+       softly.assertAll();
     }
 
     @Test
-    public void findByXp(){
-        Integer testHeroXp = hero1.getXp();
-        Assert.assertEquals(heroDao.findHeroesByXp(testHeroXp).get(0), hero1, "Hero hero1 was not found by XP!");
+    public void findByTroop() {
+        SoftAssertions softly = new SoftAssertions();
 
-        Integer testHeroXp2 = 0;
-        Assert.assertEquals(heroDao.findHeroesByXp(testHeroXp2).get(0), hero2, "Hero Mr. Smoketoomuch is a nwebie!");
-
-        Integer testHeroWrongXp = 518475;
-        Assert.assertEquals(heroDao.findHeroesByXp(testHeroWrongXp).isEmpty(), true,  "Hero with 518475XP was found!");
+        softly.assertThat(heroDao.findHeroesByTroop(troop1))
+                .containsExactlyInAnyOrder(hero1);
+        softly.assertThat(heroDao.findHeroesByTroop(troop2))
+                .isEmpty();
+        softly.assertThat(heroDao.findHeroesByTroop(troop3))
+                .containsExactlyInAnyOrder(hero2, hero3);
+        softly.assertAll();
     }
 
     @Test
-    public void listAllHeroes(){
-        List<Hero> heroesFound = heroDao.findAllHeroes();
-        Assert.assertEquals(heroesFound.size(), 3);
+    public void findByXp() {
+        SoftAssertions softly = new SoftAssertions();
+
+        softly.assertThat(heroDao.findHeroesByXp(0))
+                .containsExactlyInAnyOrder(hero1, hero2);
+        softly.assertThat(heroDao.findHeroesByXp(1))
+                .containsExactlyInAnyOrder(hero3);
+        softly.assertAll();
+    }
+
+    @Test
+    public void listAllHeroes() {
+        assertThat(heroDao.findAllHeroes())
+                .hasSize(3);
     }
 
 

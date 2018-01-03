@@ -2,27 +2,38 @@ package cz.muni.fi.pa165.dndtroops.service;
 
 import cz.muni.fi.pa165.dndtroops.dao.TroopDao;
 import cz.muni.fi.pa165.dndtroops.entities.Hero;
-import cz.muni.fi.pa165.dndtroops.entities.Role;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
+import cz.muni.fi.pa165.dndtroops.service.battle.HeroState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Function;
 
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
+
+/**
+ *  @author Vojtěch Duchoň and Jiří Novotný (changes to the non-trivial bussiness functionality)
+ */
 @Service
 public class TroopServiceImpl implements TroopService {
-
-
     @Autowired
     private TroopDao troopDao;
 
     @Autowired
+    private RandomService randomService;
+
+    @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private HeroService heroService;
 
     @Override
     public void createTroop(Troop t) {
-
         troopDao.createTroop(t);
     }
 
@@ -50,34 +61,52 @@ public class TroopServiceImpl implements TroopService {
     }
 
     @Override
-    public List<Hero> findHeroesOfTroop( Troop t){
-        return troopDao.findHeroesOfTroop(t);
-    }
+    public Troop battle(Troop a, Troop b) {
+        if (Objects.equals(a, b))
+            throw new IllegalArgumentException("Cannot battle among same troops");
 
-    @Override
-    public float computeTroopStrength(Troop t){
-        float totalStrength = 0;
-        List<Hero> troopHeroes = new ArrayList<>(findHeroesOfTroop(t));
+        List<HeroState> aStates = heroService.getHeroesByTroop(a).stream().map(HeroState::new).collect(toList());
+        List<HeroState> bStates = heroService.getHeroesByTroop(b).stream().map(HeroState::new).collect(toList());
 
-        for (int i =0; i < troopHeroes.size(); i++){
-            List<Role> heroRoles = new ArrayList<>(troopHeroes.get(i).getRoles());
-            for (int j = 0; j < heroRoles.size(); j++){
-                totalStrength += roleService.computeAttackingForce(heroRoles.get(j)) + troopHeroes.get(i).getXp();
-            }
+        randomService.shuffle(aStates);
+        randomService.shuffle(bStates);
+
+        Iterator<HeroState> aIter = aStates.iterator();
+        Iterator<HeroState> bIter = bStates.iterator();
+
+        HeroState aHero = null;
+        HeroState bHero = null;
+
+        while (hasAnyAlive(aHero, aIter) && hasAnyAlive(bHero, bIter)) {
+            if (aHero == null || !aHero.isAlive())
+                aHero = aIter.next();
+            if (bHero == null || !bHero.isAlive())
+                bHero = bIter.next();
+
+            heroService.fight(aHero, bHero);
         }
 
-        return totalStrength;
-    }
-
-    @Override
-    public Troop troopBattle(Troop t1, Troop t2){
-        if (computeTroopStrength(t1) > computeTroopStrength(t2)) {
-            return t1;
-        } else if (computeTroopStrength(t1) < computeTroopStrength(t2)) {
-            return t2;
+        if (hasAnyAlive(aHero, aIter)) {
+            stealMoney(a, b);
+            return a;
         }
-        else return troopBattle(t1,t2);
+        if (hasAnyAlive(bHero, bIter)) {
+            stealMoney(b, a);
+            return b;
+        }
+        return null;
     }
 
+    private boolean hasAnyAlive(HeroState state, Iterator<HeroState> iterator) {
+        return (state != null && state.isAlive()) || iterator.hasNext();
+    }
 
+    private void stealMoney(Troop winner, Troop looser) {
+        long amount = looser.getGoldenMoney() / 2;
+        looser.setGoldenMoney(looser.getGoldenMoney() - amount);
+        winner.setGoldenMoney(winner.getGoldenMoney() + amount);
+
+        troopDao.updateTroop(looser);
+        troopDao.updateTroop(winner);
+    }
 }

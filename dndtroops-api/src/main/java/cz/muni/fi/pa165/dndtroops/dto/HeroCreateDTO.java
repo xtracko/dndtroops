@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.dndtroops.dto;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.*;
@@ -15,16 +16,25 @@ public class HeroCreateDTO {
     @NotNull
     private TroopDTO troop;
 
-    private Set<RoleDTO> roles = new HashSet<>();
+    @Min(value = 1)
+    private int health = 100;
 
-    @NotNull
-    private Integer xp;
+    @Min(value = 0)
+    private int xp = 0;
 
-    @NotNull
-    private Integer health = 100;
+    private List<RoleDTO> roles = new ArrayList<>();
 
-    @NotNull
-    private boolean cooldown = false;
+
+    public HeroCreateDTO() {}
+
+    public HeroCreateDTO(String name, TroopDTO troop, int health, int xp, RoleDTO... roles) {
+        this.name = name;
+        this.troop = troop;
+        this.health = health;
+        this.xp = xp;
+
+        Collections.addAll(this.roles, roles);
+    }
 
     public String getName() {
         return name;
@@ -42,7 +52,7 @@ public class HeroCreateDTO {
         this.troop = troop;
     }
 
-    public Set<RoleDTO> getRoles() {
+    public List<RoleDTO> getRoles() {
         return roles;
     }
 
@@ -50,76 +60,47 @@ public class HeroCreateDTO {
         roles.add(role);
     }
 
-    public void setRoles(Set<RoleDTO> roles) {
+    public void setRoles(List<RoleDTO> roles) {
         this.roles = roles;
     }
 
-    public Integer getXp() {
-        return xp;
-    }
-
-    public void setXp(Integer xp) {
-        this.xp = xp;
-    }
-
-    public Integer getHealth() {
+    public int getHealth() {
         return health;
     }
 
-    public void setHealth(Integer health) {
+    public void setHealth(int health) {
         this.health = health;
     }
 
-    public boolean isCooldown() {
-        return cooldown;
+    public int getXp() {
+        return xp;
     }
 
-    public void setCooldown(boolean cooldown) {
-        this.cooldown = cooldown;
+    public void setXp(int xp) {
+        this.xp = xp;
     }
-
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.name);
-        hash = 37 * hash + Objects.hashCode(this.troop);
-        hash = 37 * hash + Objects.hashCode(this.roles);
-        hash = 37 * hash + Objects.hashCode(this.xp);
-        return hash;
+        return Objects.hashCode(getName());
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final HeroCreateDTO other = (HeroCreateDTO) obj;
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (!Objects.equals(this.troop, other.troop)) {
-            return false;
-        }
-        if (!Objects.equals(this.roles, other.roles)) {
-            return false;
-        }
-        if (!Objects.equals(this.xp, other.xp)) {
-            return false;
-        }
-        return true;
+        if (this == obj) return true;
+        if (obj == null || !(obj instanceof HeroDTO)) return false;
+
+        HeroDTO hero = (HeroDTO) obj;
+        return Objects.equals(getName(), hero.getName());
     }
 
     @Override
     public String toString() {
-        return "HeroCreateDTO{" + "name=" + name + ", troop=" + troop + ", role=" + roles + ", xp=" + xp + '}';
+        return "HeroCreateDTO{name=" + name +
+                ", troop=" + troop +
+                ", health=" + health +
+                ", xp=" + xp +
+                ", roles=" + roles +
+                "}";
     }
-
-
 }

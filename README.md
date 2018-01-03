@@ -31,10 +31,10 @@ curl -X DELETE localhost:8080/pa165/rest/roles/{id}
 
 ###### Create
 ```bash
-curl -X POST -H "Content-Type: application/json" localhost:8080/pa165/rest/roles/create --data '{"name":"Fighter","description":"Kung-Fu", "power":"MAGIC","damageMean":30.0,"damageVariance":1.0}'
+curl -X POST -H "Content-Type: application/json" localhost:8080/pa165/rest/roles/create --data '{"name":"Fighter","description":"Kung-Fu", "power":"MAGIC","damage":30,"cooldown":2}'
 ```
 
 ###### Edit
 ```bash
-curl -X PUT -H "Content-Type: application/json" localhost:8080/pa165/rest/roles/{id} --data '{"id":{id},"name":"Noob","description":"Easy target", "power":"MARTIAL_ARTS","damageMean":1.0,"damageVariance":10.0}'
+curl -X PUT -H "Content-Type: application/json" localhost:8080/pa165/rest/roles/{id} --data '{"id":{id},"name":"Noob","description":"Easy target", "power":"MARTIAL_ARTS","damage":2,"cooldown":3}'
 ```

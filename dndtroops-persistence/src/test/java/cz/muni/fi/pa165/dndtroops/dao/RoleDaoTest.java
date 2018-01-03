@@ -57,7 +57,7 @@ public class RoleDaoTest extends AbstractTestNGSpringContextTests {
     
     @Test
     public void findByNonExistingId(){
-        Long testId = new Long(56);            
+        Long testId = 56L;
         Assert.assertNull(roleDao.findRoleById(testId)); 
     }
         

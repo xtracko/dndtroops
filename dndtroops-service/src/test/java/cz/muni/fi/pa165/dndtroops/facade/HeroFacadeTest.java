@@ -102,14 +102,14 @@ public class HeroFacadeTest extends AbstractTestNGSpringContextTests {
         softly.assertThat(superman.getId()).isNotNull();
 
         softly.assertThat(heroFacade.getHeroByName("Joker").getRoles())
-                .hasSize(1);
-                //.containsExactlyInAnyOrder(human);
+                .hasSize(1)
+                .containsExactlyInAnyOrder(human);
         softly.assertThat(heroFacade.getHeroByName("Batman").getRoles())
-                .hasSize(1);
-                //.containsExactlyInAnyOrder(human);
+                .hasSize(1)
+                .containsExactlyInAnyOrder(human);
         softly.assertThat(heroFacade.getHeroByName("Superman").getRoles())
-                .hasSize(1);
-                //.containsExactlyInAnyOrder(alien);
+                .hasSize(1)
+                .containsExactlyInAnyOrder(alien);
 
         softly.assertThat(heroFacade.getHeroByName("Joker").getTroop())
                 .isNotNull();
@@ -130,9 +130,9 @@ public class HeroFacadeTest extends AbstractTestNGSpringContextTests {
         softly.assertThat(heroFacade.getHeroByName("Batman"))
                 .isNotNull()
                 .hasFieldOrPropertyWithValue("troop", villains);
-        softly.assertThat(troopFacade.findHeroesOfTroop(villains))
+        softly.assertThat(heroFacade.getHeroesByTroop(villains))
                 .contains(batman);
-        softly.assertThat(troopFacade.findHeroesOfTroop(superheroes))
+        softly.assertThat(heroFacade.getHeroesByTroop(superheroes))
                 .doesNotContain(batman);
         softly.assertAll();
     }
@@ -145,7 +145,7 @@ public class HeroFacadeTest extends AbstractTestNGSpringContextTests {
         softly.assertThat(heroFacade.getAllHeroes())
                 .hasSize(2)
                 .contains(joker, superman);
-        softly.assertThat(troopFacade.findHeroesOfTroop(superheroes))
+        softly.assertThat(heroFacade.getHeroesByTroop(superheroes))
                 .doesNotContain(batman);
         softly.assertAll();
     }

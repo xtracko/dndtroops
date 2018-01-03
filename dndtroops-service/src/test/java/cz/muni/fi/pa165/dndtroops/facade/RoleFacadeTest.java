@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pa165.dndtroops.facade;
 
 import cz.muni.fi.pa165.dndtroops.ServiceConfiguration;
@@ -20,7 +15,6 @@ import org.springframework.test.context.testng.AbstractTransactionalTestNGSpring
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- *
  * @author Martin Sestak
  */
 @DirtiesContext
@@ -42,22 +36,22 @@ public class RoleFacadeTest extends AbstractTransactionalTestNGSpringContextTest
         create_rogue.setName("Ninja");
         create_rogue.setDescription("Skilled rogue-ish warrior, trained by monks");
         create_rogue.setPower( Power.MARTIAL_ARTS);
-        create_rogue.setDamageMean(80);
-        create_rogue.setDamageVariance(2);
+        create_rogue.setDamage(80);
+        create_rogue.setCooldown(2);
         
         CreateRoleDTO create_soldier= new CreateRoleDTO();
         create_soldier.setName("Knight");
         create_soldier.setDescription("Very good fighter with weapons, from a noble family");        
         create_soldier.setPower(Power.WEAPONS);
-        create_rogue.setDamageMean(65);
-        create_rogue.setDamageVariance(2);
+        create_soldier.setDamage(65);
+        create_soldier.setCooldown(2);
         
         CreateRoleDTO create_mage = new CreateRoleDTO();
         create_mage.setName("Druid");
         create_mage.setDescription("Healer good at casting spells healing and making potions");
         create_mage.setPower(Power.MAGIC);
-        create_rogue.setDamageMean(70);
-        create_rogue.setDamageVariance(1);
+        create_mage.setDamage(70);
+        create_mage.setCooldown(1);
         
         rogue = roleFacade.createRole(create_rogue);
         soldier = roleFacade.createRole(create_soldier);

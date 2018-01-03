@@ -11,12 +11,11 @@ import java.util.List;
 
 /**
  * 
- * @author Martin Sestak
+ * @author Jiří Novotný
  */
 
 @Service
 public class RoleServiceImpl implements RoleService {
-
     @Autowired
     private RoleDao roleDao;
 
@@ -60,9 +59,13 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public float computeAttackingForce(Role role) {
+    public int computeAttackingForce(Role role) {
         // Note: the most difficult service method I could think off :(
-        return randomService.nextNormal() * role.getDamageVariance() + role.getDamageMean();
-    }
 
+        double mean = role.getDamage();
+        double variance = .1 * role.getDamage();
+
+        int attack = (int) (randomService.nextNormal() * variance + mean);
+        return (attack > 1) ? attack : 1;
+    }
 }

@@ -60,8 +60,8 @@ public interface RoleService {
      * Compute attacking force based on random attempt
      *
      * @param role a Role for which to compute random attacking force
-     * @return attack value
+     * @return attack value which is always bigger than 1
      */
-    float computeAttackingForce(Role role);
+    int computeAttackingForce(Role role);
 
 }

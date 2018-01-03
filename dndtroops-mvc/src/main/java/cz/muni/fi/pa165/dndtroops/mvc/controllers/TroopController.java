@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.dndtroops.mvc.controllers;
 
 import cz.muni.fi.pa165.dndtroops.dto.TroopCreateDTO;
 import cz.muni.fi.pa165.dndtroops.dto.TroopDTO;
+import cz.muni.fi.pa165.dndtroops.facade.HeroFacade;
 import cz.muni.fi.pa165.dndtroops.facade.TroopFacade;
 import cz.muni.fi.pa165.dndtroops.mvc.forms.TroopCreateDTOValidator;
 import cz.muni.fi.pa165.dndtroops.mvc.forms.TroopDTOValidator;
@@ -34,6 +35,9 @@ public class TroopController {
 
     @Autowired
     private TroopFacade troopFacade;
+
+    @Autowired
+    private HeroFacade heroFacade;
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -162,7 +166,7 @@ public class TroopController {
         }
 
         model.addAttribute("troop", troop);
-        model.addAttribute("heroes", troopFacade.findHeroesOfTroop(troop));
+        model.addAttribute("heroes", heroFacade.getHeroesByTroop(troop));
 
         return "troop/view";
     }

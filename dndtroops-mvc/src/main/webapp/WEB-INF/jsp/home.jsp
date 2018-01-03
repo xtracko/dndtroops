@@ -17,6 +17,21 @@
         Example of a role is "elf magician". Every hero could belong to up to one group and have assigned multiple
         roles. Administrator should be able to manage (CRUD) all entities. Hero could assign himself to some group and
         also can assign himself some role.
+
+        <hr>
+
+        <h4>Team no. 2</h4>
+        <h4><small>Active Members:</small></h4>
+        <ul>
+            <li>Jiří Novotný (team leader)</li>
+            <li>Martin Šesták</li>
+        </ul>
+
+        <h4><small>Former Members:</small></h4>
+        <ul>
+            <li>Vojtěch Duchoň - left us before 2nd milestone</li>
+            <li>Miroslav Mačor - left us before 3rd milestone; former "formal" team leader</li>
+        </ul>
     </div>
 
 </jsp:attribute>

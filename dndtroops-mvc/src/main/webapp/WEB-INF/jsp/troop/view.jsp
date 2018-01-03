@@ -15,6 +15,19 @@
 <my:pagetemplate title="Troop ${role.name}">
 <jsp:attribute name="body">
 
+    <%--<my:admin>--%>
+    <div class="row">
+        <div class="col-md-1">
+            <my:a href="/troop/edit/${troop.id}" class="btn btn-primary btn-sm">Edit</my:a>
+        </div>
+        <div class="col-md-1">
+            <form method="post" action="${pageContext.request.contextPath}/troop/delete/${troop.id}">
+                <button type="submit" class="btn btn-primary btn-sm">Delete</button>
+            </form>
+        </div>
+    </div>
+    <%--</my:admin>--%>
+
     <table class="table">
         <caption>Troop</caption>
         <tr>
@@ -37,13 +50,13 @@
     </table>
 
     <table class="table">
-        <caption>Heroes</caption>
+        <caption>Heroes of this Troop</caption>
         <thead>
         <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Xp</th>
             <th>Health</th>
+            <th>Xp</th>
         </tr>
         </thead>
         <tbody>
@@ -51,25 +64,12 @@
             <tr>
                 <td>${hero.id}</td>
                 <td><c:out value="${hero.name}"/></td>
-                <td>${hero.xp}</td>
                 <td>${hero.health}</td>
+                <td>${hero.xp}</td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
-
-    <%--<my:admin>--%>
-    <div class="row">
-        <div class="col-md-1">
-            <my:a href="/troop/edit/${troop.id}" class="btn btn-primary btn-sm">Edit</my:a>
-        </div>
-        <div class="col-md-1">
-            <form method="post" action="${pageContext.request.contextPath}/troop/delete/${troop.id}">
-                <button type="submit" class="btn btn-primary">Delete</button>
-            </form>
-        </div>
-    </div>
-    <%--</my:admin>--%>
 
 </jsp:attribute>
 </my:pagetemplate>

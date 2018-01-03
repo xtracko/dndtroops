@@ -1,12 +1,12 @@
 package cz.muni.fi.pa165.dndtroops.service;
 
-
 import cz.muni.fi.pa165.dndtroops.ServiceConfiguration;
 import cz.muni.fi.pa165.dndtroops.dao.HeroDao;
 import cz.muni.fi.pa165.dndtroops.entities.Hero;
 import cz.muni.fi.pa165.dndtroops.entities.Role;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
 import cz.muni.fi.pa165.dndtroops.enums.Power;
+import cz.muni.fi.pa165.dndtroops.service.battle.HeroState;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
 import org.hibernate.service.spi.ServiceException;
@@ -32,7 +32,6 @@ import static org.mockito.Mockito.*;
 
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class HeroServiceTest extends AbstractTransactionalTestNGSpringContextTests {
-
     @Mock
     private HeroDao heroDao;
     @Mock
@@ -52,7 +51,7 @@ public class HeroServiceTest extends AbstractTransactionalTestNGSpringContextTes
     private Hero batman;
     private Hero superman;
 
-    @BeforeClass
+    @BeforeMethod
     public void setupMocks() throws ServiceException {
         MockitoAnnotations.initMocks(this);
     }
@@ -65,8 +64,8 @@ public class HeroServiceTest extends AbstractTransactionalTestNGSpringContextTes
         human = new Role("Human", "Just a puny human...", Power.WEAPONS, 15, 10);
         alien = new Role("Alien", "Badass alien", Power.MAGIC, 20, 1);
 
-        batman = new Hero("Batman", superheroes, human, 1);
-        superman = new Hero("Superman", superheroes, alien, 2);
+        batman = new Hero("Batman", superheroes, 100, 1, human);
+        superman = new Hero("Superman", superheroes, 100, 2, alien);
     }
 
     @Test
@@ -111,74 +110,6 @@ public class HeroServiceTest extends AbstractTransactionalTestNGSpringContextTes
     public void deleteHeroTest() {
         heroService.deleteHero(superman);
         verify(heroDao).deleteHero(superman);
-    }
-
-    @Test
-    public void attackHeroSuccessfulTest() {
-        SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(batman.isCooldown()).isFalse();
-        softly.assertThat(superman.getHealth()).isEqualTo(100);
-
-        when(roleService.computeAttackingForce(human))
-                .thenReturn(10f);
-        when(randomService.nextBoolean(anyFloat()))
-                .thenReturn(false);
-
-        softly.assertThat(heroService.attackHero(batman, superman, human))
-                .isTrue();
-
-        softly.assertThat(batman.isCooldown()).isTrue();
-        softly.assertThat(superman.getHealth()).isEqualTo(95);
-        softly.assertAll();
-    }
-
-    @Test
-    public void attackHeroUnsuccessfulTest() {
-        batman.setCooldown(true);
-
-        SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(batman.isCooldown()).isTrue();
-        softly.assertThat(superman.getHealth()).isEqualTo(100);
-
-        when(roleService.computeAttackingForce(human))
-                .thenReturn(10f);
-        when(randomService.nextBoolean(anyFloat()))
-                .thenReturn(false);
-
-        softly.assertThat(heroService.attackHero(batman, superman, human))
-                .isFalse();
-
-        softly.assertThat(batman.isCooldown()).isTrue();
-        softly.assertThat(superman.getHealth()).isEqualTo(100);
-        softly.assertAll();
-    }
-
-    @Test
-    public void defendHeroMissTest() {
-        SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(batman.getHealth()).isEqualTo(100);
-
-        when(randomService.nextBoolean(anyFloat()))
-                .thenReturn(true);
-        heroService.defendHero(batman, 10);
-
-        softly.assertThat(batman.getHealth()).isEqualTo(100);
-        softly.assertThat(batman.isCooldown()).isFalse();
-        softly.assertAll();
-    }
-
-    @Test
-    public void defendHeroHitTest() {
-        SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(batman.getHealth()).isEqualTo(100);
-
-        when(randomService.nextBoolean(anyFloat()))
-                .thenReturn(false);
-        heroService.defendHero(batman, 10);
-
-        softly.assertThat(batman.getHealth()).isEqualTo(90);
-        softly.assertThat(batman.isCooldown()).isFalse();
-        softly.assertAll();
     }
 
     @Test
@@ -301,4 +232,88 @@ public class HeroServiceTest extends AbstractTransactionalTestNGSpringContextTes
                 .contains(batman, superman);
     }
 
+    @Test
+    public void winnerFightTest() {
+        when(randomService.nextInt(anyInt())).thenReturn(0);
+        when(roleService.computeAttackingForce(human)).thenReturn(2);
+        when(roleService.computeAttackingForce(alien)).thenReturn(30);
+
+        HeroState batmanState = new HeroState(batman);
+        HeroState supermanState = new HeroState(superman);
+        heroService.fight(batmanState, supermanState);
+
+        SoftAssertions softly = new SoftAssertions();
+        softly.assertThat(batmanState.isAlive()).isFalse();
+        softly.assertThat(supermanState.isAlive()).isTrue();
+        softly.assertThat(batman.getRoles())
+                .containsExactlyInAnyOrder(human);
+        softly.assertThat(superman.getRoles())
+                .containsExactlyInAnyOrder(human, alien);
+        softly.assertAll();
+    }
+
+    @Test
+    public void drawFightTest() {
+        human.setCooldown(1);
+        alien.setCooldown(1);
+
+        when(randomService.nextInt(anyInt())).thenReturn(0);
+        when(roleService.computeAttackingForce(human)).thenReturn(10);
+        when(roleService.computeAttackingForce(alien)).thenReturn(10);
+
+        HeroState batmanState = new HeroState(batman);
+        HeroState supermanState = new HeroState(superman);
+        heroService.fight(batmanState, supermanState);
+
+        SoftAssertions softly = new SoftAssertions();
+        softly.assertThat(batmanState.isAlive()).isFalse();
+        softly.assertThat(supermanState.isAlive()).isFalse();
+        softly.assertThat(batman.getRoles())
+                .containsExactlyInAnyOrder(human);
+        softly.assertThat(superman.getRoles())
+                .containsExactlyInAnyOrder(alien);
+        softly.assertAll();
+    }
+
+    @Test
+    public void fightWithoutRolesTest() {
+        HeroState one = new HeroState(new Hero("One", superheroes, 100, 1));
+        HeroState two = new HeroState(new Hero("Two", villains, 50, 1));
+        heroService.fight(one, two);
+
+        SoftAssertions softly = new SoftAssertions();
+        softly.assertThat(one.isAlive()).isTrue();
+        softly.assertThat(two.isAlive()).isFalse();
+        softly.assertThat(one.hero.getRoles()).isEmpty();
+        softly.assertThat(two.hero.getRoles()).isEmpty();
+        softly.assertAll();
+    }
+
+    @Test
+    public void fightTwoDeadHeroesTest() {
+        HeroState one = new HeroState(new Hero("One", superheroes, 0, 1, human));
+        HeroState two = new HeroState(new Hero("Two", villains, 0, 1, alien));
+        heroService.fight(one, two);
+
+        SoftAssertions softly = new SoftAssertions();
+        softly.assertThat(one.isAlive()).isFalse();
+        softly.assertThat(two.isAlive()).isFalse();
+        softly.assertThat(one.hero.getRoles()).containsExactly(human);
+        softly.assertThat(two.hero.getRoles()).containsExactly(alien);
+        softly.assertAll();
+    }
+
+    @Test
+    public void fightOneDeadHeroesTest() {
+        HeroState one = new HeroState(new Hero("One", superheroes, 1, 1));
+        HeroState two = new HeroState(new Hero("Two", villains, 0, 1, alien));
+        heroService.fight(one, two);
+
+        SoftAssertions softly = new SoftAssertions();
+        softly.assertThat(one.isAlive()).isTrue();
+        softly.assertThat(two.isAlive()).isFalse();
+        softly.assertThat(one.hero.getRoles()).isEmpty();
+        softly.assertThat(two.hero.getRoles()).containsExactly(alien);
+        softly.assertAll();
+    }
 }

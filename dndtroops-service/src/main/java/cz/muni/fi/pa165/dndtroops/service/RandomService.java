@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.dndtroops.service;
 
+import java.util.List;
+
 /**
  * @author Jiří Novotný
  */
@@ -10,7 +12,7 @@ public interface RandomService {
      *
      * @return random value from normal distribution
      */
-    float nextNormal();
+    double nextNormal();
 
     /**
      * Generate next integer value from uniform distribution from interval (0, bound]
@@ -27,4 +29,11 @@ public interface RandomService {
      * @return random boolean with a given probability
      */
     boolean nextBoolean(float probability);
+
+    /**
+     * Randomly permutes the specified collection.
+     *
+     * @param collection a collection to shuffle
+     */
+    void shuffle(List<?> collection);
 }

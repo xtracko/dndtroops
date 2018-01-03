@@ -4,6 +4,8 @@ import cz.muni.fi.pa165.dndtroops.dao.HeroDao;
 import cz.muni.fi.pa165.dndtroops.entities.Hero;
 import cz.muni.fi.pa165.dndtroops.entities.Role;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
+import cz.muni.fi.pa165.dndtroops.service.battle.HeroState;
+import cz.muni.fi.pa165.dndtroops.service.battle.RoleState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,12 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * @author Martin Sestak
+ * @author Martin Sestak and Jiří Novotný (changes to the non-trivial bussiness functionality)
  */
 @Service
 @Transactional
 public class HeroServiceImpl implements HeroService {
-
     @Autowired
     private HeroDao heroDao;
 
@@ -51,17 +52,9 @@ public class HeroServiceImpl implements HeroService {
     }
 
     @Override
-    public void changeTroop(Hero hero, Troop troop) {
-        if (hero == null) {
-            throw new IllegalArgumentException("Hero cannot be null!");
-        }
-        if (troop == null) {
-            throw new IllegalArgumentException("Troop cannot be null!");
-        }
-
+    public Hero changeTroop(Hero hero, Troop troop) {
         hero.setTroop(troop);
-        heroDao.updateHero(hero);
-
+        return heroDao.updateHero(hero);
     }
 
     @Override
@@ -71,21 +64,15 @@ public class HeroServiceImpl implements HeroService {
     }
 
     @Override
-    public void removeRole(Hero hero, Role role) {
+    public Hero removeRole(Hero hero, Role role) {
         hero.removeRole(role);
-        heroDao.updateHero(hero);
+        return heroDao.updateHero(hero);
     }
 
     @Override
-    public void changeXp(Hero hero, Integer xp) {
-        if (hero == null) {
-            throw new IllegalArgumentException("Hero cannot be null!");
-        }
-        if (xp == null) {
-            throw new IllegalArgumentException("Xp cannot be null!");
-        }
+    public Hero changeXp(Hero hero, int xp) {
         hero.setXp(xp);
-        heroDao.updateHero(hero);
+        return heroDao.updateHero(hero);
     }
 
     @Override
@@ -132,29 +119,51 @@ public class HeroServiceImpl implements HeroService {
     }
 
     @Override
-    public boolean attackHero(Hero attacker, Hero victim, Role role) {
-        float dmg = roleService.computeAttackingForce(role) * attacker.getXp() / victim.getXp();
+    public void fight(HeroState a, HeroState b) {
+        if (!a.isAlive() || !b.isAlive())
+            return;
 
-        if (!attacker.isCooldown() && victim.getHealth() > 0 && attacker.getHealth() > 0) {
-            attacker.setCooldown(true);
-            this.defendHero(victim, dmg);
-
-            heroDao.updateHero(attacker);
-            return true;
+        while (a.isAlive() && b.isAlive()) {
+            b.wound(chooseAttack(a));
+            a.wound(chooseAttack(b));
         }
-        return false;
+
+        if (a.isAlive()) {
+            learnRandomRoleOfAnotherHero(a.hero, b.hero);
+        }
+
+        if (b.isAlive()) {
+            learnRandomRoleOfAnotherHero(b.hero, a.hero);
+        }
     }
 
-    @Override
-    public void defendHero(Hero victim, float damage) {
-        if (randomService.nextBoolean(0.1f))
-            damage = 0; // it's a miss
+    private int chooseAttack(HeroState hero) {
+        randomService.shuffle(hero.getRoleStates());
 
-        int health = victim.getHealth() - Math.round(damage);
-        victim.setHealth(health > 0 ? health : 0);
-        victim.setCooldown(false);
+        for (RoleState roleState : hero.getRoleStates()) {
+            roleState.decrementCooldown();
+        }
 
-        heroDao.updateHero(victim);
+        for (RoleState roleState : hero.getRoleStates()) {
+            if (roleState.isCooldownActive()) {
+                roleState.resetCooldown();
+                return roleService.computeAttackingForce(roleState.role);
+            }
+        }
+
+        return 1;
     }
 
+    private void learnRandomRoleOfAnotherHero(Hero hero, Hero teacher) {
+        List<Role> teacherRoles = teacher.getRoles();
+
+        if (teacherRoles.isEmpty())
+            return;
+
+        int random = randomService.nextInt(teacherRoles.size());
+        Role role = teacherRoles.get(random);
+
+        hero.addRole(role);
+        heroDao.updateHero(hero);
+    }
 }

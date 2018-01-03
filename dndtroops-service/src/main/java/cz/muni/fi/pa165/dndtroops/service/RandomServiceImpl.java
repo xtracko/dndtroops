@@ -2,6 +2,8 @@ package cz.muni.fi.pa165.dndtroops.service;
 
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -14,8 +16,8 @@ public class RandomServiceImpl implements RandomService {
     private Random rng = new Random();
 
     @Override
-    public float nextNormal() {
-        return (float)rng.nextGaussian();
+    public double nextNormal() {
+        return rng.nextGaussian();
     }
 
     @Override
@@ -28,4 +30,8 @@ public class RandomServiceImpl implements RandomService {
         return Float.compare(probability, rng.nextFloat()) < 0;
     }
 
+    @Override
+    public void shuffle(List<?> collection) {
+        Collections.shuffle(collection, rng);
+    }
 }

@@ -6,8 +6,9 @@ import cz.muni.fi.pa165.dndtroops.entities.Troop;
 import java.util.List;
 
 /**
- * Data Access Object for Hero entity.
  * @author Martin Sestak
+ *
+ * Data Access Object for Hero entity.
  */
 public interface HeroDao {
 
@@ -63,7 +64,7 @@ public interface HeroDao {
       * @return List of all persisted Heroes with required troop or null if no heroes were found
       */
     public List<Hero> findHeroesByTroop(Troop troop);
-    
+
     /**
       * Find list of persisted Heroes by it's xp. If no heroes were found null is returned
       *

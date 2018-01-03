@@ -1,7 +1,3 @@
-/**
- * @author Jiří Novotný
- */
-
 package cz.muni.fi.pa165.dndtroops.dao;
 
 import cz.muni.fi.pa165.dndtroops.entities.Role;
@@ -10,6 +6,8 @@ import cz.muni.fi.pa165.dndtroops.enums.Power;
 import java.util.List;
 
 /**
+ * @author Jiří Novotný
+ *
  * Data Access Object for Role entity.
  */
 public interface RoleDao {

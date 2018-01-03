@@ -52,7 +52,7 @@ public class RoleServiceTest extends AbstractTransactionalTestNGSpringContextTes
     
     @BeforeMethod
     public void prepareRoles() {
-        rogue = new Role("Ninja", "Skilled rogue-ish warrior, trained by monks", Power.MARTIAL_ARTS, 0, 0);    
+        rogue = new Role("Ninja", "Skilled rogue-ish warrior, trained by monks", Power.MARTIAL_ARTS, 1, 0);
         soldier = new Role("Knight", "Very good fighter with weapons, from a noble family", Power.WEAPONS, 80, 1);
     }
     
@@ -144,19 +144,19 @@ public class RoleServiceTest extends AbstractTransactionalTestNGSpringContextTes
     
     @Test
     public void computeAttackingForceTest() {
-        float computedForce = roleService.computeAttackingForce(soldier);
-        Assertions.assertThat(computedForce).isNotEqualTo(0);
-        Assertions.assertThat(computedForce).isNotNull();
-        
+        when(randomService.nextNormal())
+                .thenReturn(0d);
+
+        Assertions.assertThat(roleService.computeAttackingForce(soldier))
+                .isEqualTo(80);
     }
     
     @Test
     public void computeAttackingZeroForceTest() {
-         float computedForce = roleService.computeAttackingForce(rogue);
-        Assertions.assertThat(computedForce).isEqualTo(0);
-        Assertions.assertThat(computedForce).isNotNull();
-        
+        when(randomService.nextNormal())
+                .thenReturn(-1d);
+
+        Assertions.assertThat(roleService.computeAttackingForce(rogue))
+                .isEqualTo(1);
     }
-   
-    
 }

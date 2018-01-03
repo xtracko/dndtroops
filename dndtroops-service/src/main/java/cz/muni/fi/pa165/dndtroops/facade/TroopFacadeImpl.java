@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.dndtroops.facade;
 
-import cz.muni.fi.pa165.dndtroops.dto.HeroDTO;
 import cz.muni.fi.pa165.dndtroops.dto.TroopCreateDTO;
 import cz.muni.fi.pa165.dndtroops.dto.TroopDTO;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
@@ -12,10 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * @author Vojtěch Duchoň
+ */
 @Service
 @Transactional
 public class TroopFacadeImpl implements TroopFacade {
-
     @Autowired
     private TroopService troopService;
 
@@ -53,13 +54,12 @@ public class TroopFacadeImpl implements TroopFacade {
     @Override
     public List<TroopDTO> findAllTroops() {
         return beanMappingService.mapTo(troopService.findAllTroops(),TroopDTO.class);
-
     }
 
     @Override
-    public List<HeroDTO> findHeroesOfTroop(TroopDTO t) {
-        Troop mappedTroop = beanMappingService.mapTo(t,Troop.class);
-        return  beanMappingService.mapTo(troopService.findHeroesOfTroop(mappedTroop),HeroDTO.class);
+    public TroopDTO battle(TroopDTO a, TroopDTO b) {
+        Troop aMapped = beanMappingService.mapTo(a, Troop.class);
+        Troop bMapped = beanMappingService.mapTo(b, Troop.class);
+        return beanMappingService.mapTo(troopService.battle(aMapped, bMapped), TroopDTO.class);
     }
-
 }

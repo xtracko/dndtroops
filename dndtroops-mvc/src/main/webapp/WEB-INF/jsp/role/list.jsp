@@ -23,8 +23,8 @@
             <th>Name</th>
             <th>Description</th>
             <th>Power</th>
-            <th>Damage Mean</th>
-            <th>Damage Variance</th>
+            <th>Damage</th>
+            <th>Cooldown</th>
         </tr>
         </thead>
         <tbody>
@@ -34,8 +34,8 @@
                 <td><c:out value="${role.name}"/></td>
                 <td><c:out value="${role.description}"/></td>
                 <td>${role.power}</td>
-                <td>${role.damageMean}</td>
-                <td>${role.damageVariance}</td>
+                <td>${role.damage}</td>
+                <td>${role.cooldown}</td>
 
                 <%--<my:admin>--%>
                     <td>

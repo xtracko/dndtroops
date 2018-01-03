@@ -13,18 +13,18 @@ public class CreateRoleDTO {
     private String name;
     private String description;
     private Power power;
-    private float damageMean;
-    private float damageVariance;
+    private int damage;
+    private int cooldown;
 
     public CreateRoleDTO() {
     }
 
-    public CreateRoleDTO(String name, String description, Power power, float damageMean, float damageVariance) {
+    public CreateRoleDTO(String name, String description, Power power, int damage, int cooldown) {
         this.name = name;
         this.description = description;
         this.power = power;
-        this.damageMean = damageMean;
-        this.damageVariance = damageVariance;
+        this.damage = damage;
+        this.cooldown = cooldown;
     }
 
     public String getName() {
@@ -51,20 +51,20 @@ public class CreateRoleDTO {
         this.power = power;
     }
 
-    public float getDamageMean() {
-        return damageMean;
+    public int getDamage() {
+        return damage;
     }
 
-    public void setDamageMean(float damageMean) {
-        this.damageMean = damageMean;
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 
-    public float getDamageVariance() {
-        return damageVariance;
+    public int getCooldown() {
+        return cooldown;
     }
 
-    public void setDamageVariance(float damageVariance) {
-        this.damageVariance = damageVariance;
+    public void setCooldown(int cooldown) {
+        this.cooldown = cooldown;
     }
 
     @Override

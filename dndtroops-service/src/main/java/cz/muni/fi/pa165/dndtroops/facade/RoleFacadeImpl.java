@@ -59,7 +59,7 @@ public class RoleFacadeImpl implements RoleFacade {
     }
 
     @Override
-    public float computeAttackingForce(RoleDTO role) {
+    public int computeAttackingForce(RoleDTO role) {
         return roleService.computeAttackingForce(beanMappingService.mapTo(role, Role.class));
     }
 }

@@ -31,20 +31,29 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     @Override
     @SuppressWarnings("unused")
     public void loadData() throws IOException {
-        Role assassin = role("Assassin", "Attack Damage Carry", Power.MARTIAL_ARTS, 40, 30);
-        Role marksman = role("Marksman", "Attack Damage Carry", Power.WEAPONS, 50, 10);
-        Role tank = role("Tank", "Has tanking powers", Power.WEAPONS, 15, 20);
+        loadRoles();
+        loadTroops();
+    }
+
+    @SuppressWarnings("unused")
+    private void loadRoles() throws IOException {
+        Role assassin = role("Assassin", "Attack Damage Carry", Power.MARTIAL_ARTS, 40, 7);
+        Role marksman = role("Marksman", "Attack Damage Carry", Power.WEAPONS, 50, 2);
+        Role tank = role("Tank", "Has tanking powers", Power.WEAPONS, 15, 10);
 
         log.info("Roles loaded.");
+    }
 
+    @SuppressWarnings("unused")
+    private void loadTroops() throws IOException {
         Troop heroes = troop("Heroes", "Save the queen", 541);
         Troop peasants = troop("Peasants", "Save the king", 157);
 
         log.info("Troops loaded.");
     }
 
-    private Role role(String name, String description, Power power, float dmgMean, float dmgVariance) {
-        Role role = new Role(name, description, power, dmgMean, dmgVariance);
+    private Role role(String name, String description, Power power, int damage, int cooldown) {
+        Role role = new Role(name, description, power, damage, cooldown);
 
         roleService.createRole(role);
         return role;
