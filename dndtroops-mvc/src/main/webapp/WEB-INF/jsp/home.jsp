@@ -23,14 +23,14 @@
         <h4>Team no. 2</h4>
         <h4><small>Active Members:</small></h4>
         <ul>
-            <li>Jiří Novotný (team leader)</li>
+            <li>Jiří Novotný</li>
             <li>Martin Šesták</li>
         </ul>
 
         <h4><small>Former Members:</small></h4>
         <ul>
             <li>Vojtěch Duchoň - left us before 2nd milestone</li>
-            <li>Miroslav Mačor - left us before 3rd milestone; former "formal" team leader</li>
+            <li>Miroslav Mačor - left us before 3rd milestone; former team leader</li>
         </ul>
     </div>
 
