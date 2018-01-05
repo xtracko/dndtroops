@@ -13,7 +13,7 @@ public class HeroCreateDTO {
     @Size(min = 3, max = 255)
     private String name;
 
-    @NotNull
+    
     private TroopDTO troop;
 
     @Min(value = 1)
@@ -39,15 +39,23 @@ public class HeroCreateDTO {
 
         Collections.addAll(this.roles, roles);
     }
-    public HeroCreateDTO(String name, long troop, int health, int xp, long role) {
-        this.name = name;
-        this.troopId = troop;
-        this.health = health;
-        this.xp = xp;
-        this.roleId=role;
 
-        //Collections.addAll(this.roles, roles);
+    public long getRoleId() {
+        return roleId;
     }
+
+    public void setRoleId(long roleId) {
+        this.roleId = roleId;
+    }
+    
+    public long getTroopId() {
+        return roleId;
+    }
+
+    public void setTroopId(long roleId) {
+        this.roleId = roleId;
+    }
+    
 
     public String getName() {
         return name;
@@ -76,9 +84,7 @@ public class HeroCreateDTO {
         long val = Long.valueOf(id);
         this.troopId = val;
     }
-    public long getTroopId() {
-        return this.troopId;
-    }
+   
 
     public void setRoles(List<RoleDTO> roles) {
         this.roles = roles;

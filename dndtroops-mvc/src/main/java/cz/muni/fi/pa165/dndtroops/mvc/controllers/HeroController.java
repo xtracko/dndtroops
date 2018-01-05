@@ -27,6 +27,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -90,30 +91,23 @@ public class HeroController {
         return "hero/create";
     }
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(@RequestParam("troop") String troop,@RequestParam(value = "roles", required = false) String[] roles, @Valid @ModelAttribute("data")  HeroCreateDTO data, BindingResult bindingResult,
+    public String create(/*@RequestParam("troop") String troop,@RequestParam(value = "roles", required = false) String[] roles, */@Valid @ModelAttribute("data")  HeroCreateDTO data, BindingResult bindingResult,
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         log.debug("create(data={})", data);
+        System.out.println("----------------------------"+data.toString()+"-------------------------------------------------");
         
-        long troopId = Long.valueOf(troop);        
-        data.setTroop(troopFacade.findTroopById(troopId));
         
-        if (roles != null){
-            for (String id: roles) {           
-                long roleId = Long.valueOf(id);//Do your stuff here
-                data.addRole(roleFacade.findById(roleId));
-            }
-        
-        }
-        if (bindingResult.hasErrors() && (data.getRoles().isEmpty() || data.getTroop()== null || data.getName().isEmpty())) {
+         data.setTroop(troopFacade.findTroopById(data.getTroopId()));
+         data.addRole(roleFacade.findById(data.getRoleId()));
+         
+        if (bindingResult.hasErrors() ){
             for (ObjectError ge : bindingResult.getGlobalErrors()) { 
                 log.trace("ObjectError: {}", ge); 
             }
             for (FieldError fe : bindingResult.getFieldErrors()) {
-                if(fe.getField().toString().equalsIgnoreCase("name")){
-                    model.addAttribute(fe.getField() + "_error","dsdsds");
-                    log.trace("FieldError: {}", fe);
-                }
                 
+                model.addAttribute(fe.getField() + "_error",true);
+                log.trace("FieldError: {}", fe);
             }
             model.addAttribute("roles", roleFacade.getAllRoles());
             model.addAttribute("troops", troopFacade.findAllTroops());
@@ -130,6 +124,62 @@ public class HeroController {
             redirectAttributes.addFlashAttribute("alert_danger", "Cannot create hero. Reason: " + ex.getMessage());
             return "redirect:/hero/create";
         }
+    }
+    
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String edit(@PathVariable long id, Model model, RedirectAttributes redirectAttributes) {
+        log.debug("edit(id={})", id);
+
+        HeroDTO hero = heroFacade.getHeroById(id);
+
+        if (hero == null) {
+            redirectAttributes.addFlashAttribute("alert_danger", "Hero with ID " + id + " does not exists.");
+            return "redirect:/hero/list";
+        }
+
+        model.addAttribute("roles", roleFacade.getAllRoles());
+        model.addAttribute("troops", troopFacade.findAllTroops());
+        model.addAttribute("hero", hero);
+        return "hero/edit";
+    }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+    public String edit(@PathVariable long id, @Valid @ModelAttribute("data") HeroDTO data, BindingResult bindingResult, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+        log.debug("edit(id={}, data={})", id, data);
+
+        if (bindingResult.hasErrors()) {
+            for (ObjectError ge : bindingResult.getGlobalErrors()) {
+                log.trace("ObjectError: {}", ge);
+            }
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                model.addAttribute(fe.getField() + "_error", true);
+                log.trace("FieldError: {}", fe);
+            }
+            return "hero/edit";
+        }
+
+        data.setTroop(troopFacade.findTroopById(data.getTroopId()));
+        data.setRoles(Arrays.asList(roleFacade.findById(data.getRoleId())));
+        try {
+           heroFacade.updateHero(data);
+            redirectAttributes.addFlashAttribute("alert_success", "Hero with ID " + id + " was successfully edited.");
+        } catch (Exception ex) {
+            log.warn("cannot edit role with ID {}", id);
+            redirectAttributes.addFlashAttribute("alert_danger", "Cannot edit Hero with ID " + id + ". Reason: " + ex.getMessage());
+        }
+        model.addAttribute("roles", roleFacade.getAllRoles());
+        model.addAttribute("troops", troopFacade.findAllTroops());
+        model.addAttribute("hero", heroFacade.getHeroById(id));
+        return "redirect:/hero/list";
+    }
+    
+        @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+        HeroDTO hero = heroFacade.getHeroById(id);
+        heroFacade.deleteHero(hero);
+        log.debug("delete({})", id);
+        redirectAttributes.addFlashAttribute("alert_success", "Hero \"" + hero.getName() + "\" was deleted.");
+        return "redirect:" + uriBuilder.path("/hero/list").toUriString();
     }
     
 }

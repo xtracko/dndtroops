@@ -23,22 +23,22 @@
             </div>
         </div>
 
-        <div class="form-group ${troop_error?'has-error':''}">
-            <form:label path="name" cssClass="col-sm-2 control-label">Troop</form:label>
+        
+            <form:label path="troopId" cssClass="col-sm-2 control-label">Troop</form:label>
             <div class="col-sm-10">
-                <form:select path="troop" cssClass="form-control">
+                <form:select path="troopId" cssClass="form-control">
                     <c:forEach items="${troops}" var="troop">
                      <form:option value="${troop.id}"><c:out value="${troop.name}"/></form:option> 
                     </c:forEach>
                 </form:select>
             </div>
-        </div>
+        
             
-            <div class="form-group ${role_error?'has-error':''}">
-            <form:label path="name" cssClass="col-sm-2 control-label">Role</form:label>
+            
+            <form:label path="roleId" cssClass="col-sm-2 control-label">Role</form:label>
             <div class="col-sm-10">
                 <c:set var="count" value="0" scope="page" />
-                <form:select path="roles" cssClass="form-control">               
+                <form:select path="roleId" cssClass="form-control">               
                     <c:forEach items="${roles}" var="role"> 
                         <c:set var="count" value="${count + 1}" scope="page"/> 
                         <c:choose>
@@ -53,7 +53,7 @@
                 </form:select>
                 
             </div>
-        </div>   
+          
 
 
         <button class="btn btn-primary" type="submit">Create</button>
