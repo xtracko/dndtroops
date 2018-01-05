@@ -18,9 +18,13 @@ public class HeroDTOValidator implements Validator{
 
     @Override
     public void validate(Object o, Errors errors) {
+        System.out.println("*************hero******"); 
       ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "field.required");
+      ValidationUtils.rejectIfEmptyOrWhitespace(errors, "roles", "fielxxxxxxxxxxx");
+      
 
         HeroDTO heroDTO = (HeroDTO) o;
+        System.out.println("************"+o.toString()+"*******"); 
         if (Float.compare(heroDTO.getHealth(), 0) < 0)
             errors.rejectValue("damageVariance", "field.non-negative");
     }

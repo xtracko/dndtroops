@@ -31,24 +31,30 @@
                      <form:option value="${troop.id}"><c:out value="${troop.name}"/></form:option> 
                     </c:forEach>
                 </form:select>
-                <form:errors path="troop" cssClass="help-block"/>
             </div>
         </div>
             
             <div class="form-group ${role_error?'has-error':''}">
             <form:label path="name" cssClass="col-sm-2 control-label">Role</form:label>
             <div class="col-sm-10">
-                <form:select path="role" cssClass="form-control">
-                    <c:forEach items="${roles}" var="role">
-                     <form:option value="${role.id}"><c:out value="${role.name}"/></form:option> 
+                <c:set var="count" value="0" scope="page" />
+                <form:select path="roles" cssClass="form-control">               
+                    <c:forEach items="${roles}" var="role"> 
+                        <c:set var="count" value="${count + 1}" scope="page"/> 
+                        <c:choose>
+                            <c:when test = "${count eq 1}">
+                                <form:option selected="selected" value="${role.id}"><c:out value="${role.name}"/></form:option> 
+                            </c:when>
+                            <c:otherwise>
+                                <form:option value="${role.id}"><c:out value="${role.name}"/></form:option>   
+                            </c:otherwise>
+                        </c:choose>
                     </c:forEach>
                 </form:select>
-                <form:errors path="role" cssClass="help-block"/>
+                
             </div>
-        </div>    
+        </div>   
 
-
-       
 
         <button class="btn btn-primary" type="submit">Create</button>
     </form:form>

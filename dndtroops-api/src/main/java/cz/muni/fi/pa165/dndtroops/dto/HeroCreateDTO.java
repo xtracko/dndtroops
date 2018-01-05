@@ -23,6 +23,10 @@ public class HeroCreateDTO {
     private int xp = 0;
 
     private List<RoleDTO> roles = new ArrayList<>();
+    
+    long roleId;
+    
+    long troopId;
 
 
     public HeroCreateDTO() {}
@@ -34,6 +38,15 @@ public class HeroCreateDTO {
         this.xp = xp;
 
         Collections.addAll(this.roles, roles);
+    }
+    public HeroCreateDTO(String name, long troop, int health, int xp, long role) {
+        this.name = name;
+        this.troopId = troop;
+        this.health = health;
+        this.xp = xp;
+        this.roleId=role;
+
+        //Collections.addAll(this.roles, roles);
     }
 
     public String getName() {
@@ -58,6 +71,13 @@ public class HeroCreateDTO {
 
     public void addRole(RoleDTO role) {
         roles.add(role);
+    }
+    public void setTroopId(String id) {
+        long val = Long.valueOf(id);
+        this.troopId = val;
+    }
+    public long getTroopId() {
+        return this.troopId;
     }
 
     public void setRoles(List<RoleDTO> roles) {

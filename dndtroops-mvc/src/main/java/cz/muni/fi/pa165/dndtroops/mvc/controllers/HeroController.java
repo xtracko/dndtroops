@@ -13,6 +13,8 @@ import cz.muni.fi.pa165.dndtroops.mvc.forms.CreateRoleDTOValidator;
 import cz.muni.fi.pa165.dndtroops.mvc.forms.HeroDTOValidator;
 import cz.muni.fi.pa165.dndtroops.mvc.forms.RoleDTOValidator;
 import java.util.ArrayList;
+import java.util.Arrays;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,6 +49,7 @@ public class HeroController {
     
     @Autowired
     private TroopFacade troopFacade;
+    
     
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -83,26 +86,42 @@ public class HeroController {
                
         
         model.addAttribute("data", new HeroCreateDTO());
-        
+       
         return "hero/create";
     }
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(@Valid @ModelAttribute("data")  HeroCreateDTO data, BindingResult bindingResult,
+    public String create(@RequestParam("troop") String troop,@RequestParam(value = "roles", required = false) String[] roles, @Valid @ModelAttribute("data")  HeroCreateDTO data, BindingResult bindingResult,
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         log.debug("create(data={})", data);
-
-        if (bindingResult.hasErrors()) {
-            for (ObjectError ge : bindingResult.getGlobalErrors()) {
-                log.trace("ObjectError: {}", ge);
+        
+        long troopId = Long.valueOf(troop);        
+        data.setTroop(troopFacade.findTroopById(troopId));
+        
+        if (roles != null){
+            for (String id: roles) {           
+                long roleId = Long.valueOf(id);//Do your stuff here
+                data.addRole(roleFacade.findById(roleId));
+            }
+        
+        }
+        if (bindingResult.hasErrors() && (data.getRoles().isEmpty() || data.getTroop()== null || data.getName().isEmpty())) {
+            for (ObjectError ge : bindingResult.getGlobalErrors()) { 
+                log.trace("ObjectError: {}", ge); 
             }
             for (FieldError fe : bindingResult.getFieldErrors()) {
-                model.addAttribute(fe.getField() + "_error", true);
-                log.trace("FieldError: {}", fe);
+                if(fe.getField().toString().equalsIgnoreCase("name")){
+                    model.addAttribute(fe.getField() + "_error","dsdsds");
+                    log.trace("FieldError: {}", fe);
+                }
+                
             }
+            model.addAttribute("roles", roleFacade.getAllRoles());
+            model.addAttribute("troops", troopFacade.findAllTroops());
+            
             return "hero/create";
         }
 
-        try {
+        try {            
             HeroDTO hero = heroFacade.createHero(data);
             redirectAttributes.addFlashAttribute("alert_success", "Hero \"" + hero.getName() + "\" was created");
             return "redirect:/hero/list";
