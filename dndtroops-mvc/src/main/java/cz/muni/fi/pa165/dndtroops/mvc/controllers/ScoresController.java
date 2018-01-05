@@ -20,7 +20,7 @@ import java.util.List;
 
 @Controller
 public class ScoresController {
-    private static final Logger log = LoggerFactory.getLogger(RoleController.class);
+    private static final Logger log = LoggerFactory.getLogger(ScoresController.class);
 
     @Autowired
     private HeroFacade heroFacade;

@@ -38,10 +38,6 @@
                 <td><c:out value="${hero.troop.id}"/></td>
 
                 <td>
-                    <my:a href="/hero/view/${hero.id}" class="btn btn-primary btn-sm">View Hero</my:a>
-                </td>
-
-                <td>
                     <my:a href="/troop/view/${hero.troop.id}" class="btn btn-primary btn-sm">View Troop</my:a>
                 </td>
             </tr>
