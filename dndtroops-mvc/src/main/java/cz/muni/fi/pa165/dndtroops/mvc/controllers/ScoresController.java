@@ -19,19 +19,25 @@ import java.util.List;
  */
 
 @Controller
-public class HighscoresController {
+public class ScoresController {
     private static final Logger log = LoggerFactory.getLogger(RoleController.class);
 
     @Autowired
     private HeroFacade heroFacade;
 
-    @RequestMapping(value = "/highscores", method = RequestMethod.GET)
-    public String highscores(Model model) {
+    @RequestMapping(value = "/scores", method = RequestMethod.GET)
+    public String scores(Model model) {
+        log.debug("scores()");
+
         List<HeroDTO> heroes = heroFacade.getAllHeroes();
 
-        heroes.sort(Collections.reverseOrder(Comparator.comparingLong(hero -> hero.getTroop().getGoldenMoney())));
+        heroes.sort(Collections.reverseOrder(
+                Comparator.comparingLong(hero -> hero.getTroop().getGoldenMoney())
+                )
+        );
+
         model.addAttribute("heroes", heroes);
 
-        return "highscores";
+        return "scores";
     }
 }

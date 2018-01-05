@@ -12,13 +12,13 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<my:pagetemplate title="High Scores">
+<my:pagetemplate title="Scores">
 <jsp:attribute name="body">
 
-    <p>The High Scores table is computed according to the troop's money.</p>
+    <p>The scores table is computed according to the troop's money.</p>
 
     <table class="table">
-        <caption>High Scores</caption>
+        <caption>Scores</caption>
         <thead>
         <tr>
             <th>Hero's ID</th>

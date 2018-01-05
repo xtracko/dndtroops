@@ -91,7 +91,7 @@ public class HeroController {
         return "hero/create";
     }
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(/*@RequestParam("troop") String troop,@RequestParam(value = "roles", required = false) String[] roles, */@Valid @ModelAttribute("data")  HeroCreateDTO data, BindingResult bindingResult,
+    public String create(@Valid @ModelAttribute("data")  HeroCreateDTO data, BindingResult bindingResult,
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         log.debug("create(data={})", data);
         System.out.println("----------------------------"+data.toString()+"-------------------------------------------------");
