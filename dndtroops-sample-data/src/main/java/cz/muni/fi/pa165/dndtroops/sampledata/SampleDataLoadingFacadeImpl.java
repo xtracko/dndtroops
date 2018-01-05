@@ -1,8 +1,10 @@
 package cz.muni.fi.pa165.dndtroops.sampledata;
 
+import cz.muni.fi.pa165.dndtroops.entities.Hero;
 import cz.muni.fi.pa165.dndtroops.entities.Role;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
 import cz.muni.fi.pa165.dndtroops.enums.Power;
+import cz.muni.fi.pa165.dndtroops.service.HeroService;
 import cz.muni.fi.pa165.dndtroops.service.RoleService;
 import cz.muni.fi.pa165.dndtroops.service.TroopService;
 import org.slf4j.Logger;
@@ -27,29 +29,50 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
     @Autowired
     private TroopService troopService;
+    
+    @Autowired
+    private HeroService heroService;
+    
+    Role assassin;
+    Role marksman;
+    Role tank;
+    
+    Troop heroes;
+    Troop peasants;
+    
 
     @Override
     @SuppressWarnings("unused")
     public void loadData() throws IOException {
         loadRoles();
         loadTroops();
+        loadHeroes();
     }
 
     @SuppressWarnings("unused")
     private void loadRoles() throws IOException {
-        Role assassin = role("Assassin", "Attack Damage Carry", Power.MARTIAL_ARTS, 40, 7);
-        Role marksman = role("Marksman", "Attack Damage Carry", Power.WEAPONS, 50, 2);
-        Role tank = role("Tank", "Has tanking powers", Power.WEAPONS, 15, 10);
+        assassin = role("Assassin", "Attack Damage Carry", Power.MARTIAL_ARTS, 40, 7);
+        marksman = role("Marksman", "Attack Damage Carry", Power.WEAPONS, 50, 2);
+        tank = role("Tank", "Has tanking powers", Power.WEAPONS, 15, 10);
 
         log.info("Roles loaded.");
     }
 
     @SuppressWarnings("unused")
     private void loadTroops() throws IOException {
-        Troop heroes = troop("Heroes", "Save the queen", 541);
-        Troop peasants = troop("Peasants", "Save the king", 157);
+        heroes = troop("Heroes", "Save the queen", 541);
+        peasants = troop("Peasants", "Save the king", 157);
 
         log.info("Troops loaded.");
+    }
+    
+    @SuppressWarnings("unused")
+    private void loadHeroes() throws IOException {    
+        Hero batman = hero("Batman", marksman, heroes, 12);
+        Hero superman = hero("Superman", tank, heroes, 5);
+        Hero joker = hero("Joker", tank, peasants, 10);
+        
+        log.info("Heroes loaded.");
     }
 
     private Role role(String name, String description, Power power, int damage, int cooldown) {
@@ -67,5 +90,17 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
         troopService.createTroop(troop);
         return troop;
+    }
+    
+    private Hero hero(String name, Role role, Troop troop,int xp){
+        Hero hero = new Hero();
+        hero.setName(name);
+        hero.addRole(role);
+        hero.setTroop(troop);
+        hero.setXp(xp);
+        hero.setHealth(100);  
+    
+        heroService.createHero(hero);
+    return hero;
     }
 }

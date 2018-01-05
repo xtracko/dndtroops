@@ -100,7 +100,7 @@ public class TroopController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, RedirectAttributes redirectAttributes) {
         log.debug("delete(id={})", id);
-
+        
         try {
             troopFacade.deleteTroop(id);
             redirectAttributes.addFlashAttribute("alert_success", "Troop was successfully deleted.");
