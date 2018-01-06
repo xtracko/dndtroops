@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.dndtroops.mvc.controllers;
 
+import cz.muni.fi.pa165.dndtroops.dto.AdminDTO;
 import cz.muni.fi.pa165.dndtroops.dto.TroopCreateDTO;
 import cz.muni.fi.pa165.dndtroops.dto.TroopDTO;
 import cz.muni.fi.pa165.dndtroops.facade.HeroFacade;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Jiří Novotný
@@ -50,9 +52,10 @@ public class TroopController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(Model model) {
+    public String list(Model model,HttpServletRequest req) {
         log.debug("list()");
-
+        
+        model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
         try {
             model.addAttribute("troops", troopFacade.findAllTroops());
         } catch (Exception ex) {
@@ -63,18 +66,20 @@ public class TroopController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String create(Model model) {
+    public String create(Model model,HttpServletRequest req) {
         log.debug("create()");
-
+        
+        model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
         model.addAttribute("data", new TroopCreateDTO());
         return "troop/create";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@Valid @ModelAttribute("data") TroopCreateDTO data, BindingResult bindingResult, Model model,
-                         RedirectAttributes redirectAttributes) {
+                         RedirectAttributes redirectAttributes,HttpServletRequest req) {
         log.debug("create(data={})", data);
 
+        model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
         if (bindingResult.hasErrors()) {
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
                 log.trace("ObjectError: {}", ge);
@@ -98,9 +103,10 @@ public class TroopController {
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public String delete(@PathVariable long id, RedirectAttributes redirectAttributes) {
+    public String delete(@PathVariable long id, Model model, RedirectAttributes redirectAttributes,HttpServletRequest req) {
         log.debug("delete(id={})", id);
         
+        model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
         try {
             troopFacade.deleteTroop(id);
             redirectAttributes.addFlashAttribute("alert_success", "Troop was successfully deleted.");
@@ -113,11 +119,11 @@ public class TroopController {
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public String edit(@PathVariable long id, Model model, RedirectAttributes redirectAttributes) {
+    public String edit(@PathVariable long id, Model model, RedirectAttributes redirectAttributes,HttpServletRequest req) {
         log.debug("edit(id={})", id);
 
         TroopDTO troop = troopFacade.findTroopById(id);
-
+        model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
         if (troop == null) {
             redirectAttributes.addFlashAttribute("alert_danger", "Troop with ID " + id + " does not exists.");
             return "redirect:/troop/list";
@@ -129,9 +135,10 @@ public class TroopController {
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public String edit(@PathVariable long id, @Valid @ModelAttribute("data") TroopDTO data, BindingResult bindingResult,
-                       Model model, RedirectAttributes redirectAttributes) {
+                       Model model, RedirectAttributes redirectAttributes,HttpServletRequest req) {
         log.debug("edit(id={}, data={})", id, data);
-
+        
+        model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
         if (bindingResult.hasErrors()) {
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
                 log.trace("ObjectError: {}", ge);
@@ -155,11 +162,12 @@ public class TroopController {
     }
 
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
-    public String view(@PathVariable long id, Model model, RedirectAttributes redirectAttributes) {
+    public String view(@PathVariable long id, Model model, RedirectAttributes redirectAttributes,HttpServletRequest req) {
         log.debug("view(id={})", id);
 
         TroopDTO troop = troopFacade.findTroopById(id);
-
+        
+        model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
         if (troop == null) {
             redirectAttributes.addFlashAttribute("alert_danger", "Cannot troop with ID " + id + " does not exists");
             return "redirect:/troop/list";

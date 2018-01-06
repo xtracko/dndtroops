@@ -11,9 +11,9 @@
 <my:pagetemplate title="Heroes">
 <jsp:attribute name="body">
 
-    <%--<my:admin>--%>
+    <c:if test="${authenticatedUser.isAdmin}">
         <my:a href="/hero/create" class="btn btn-primary">Create New Hero</my:a>
-    <%--</my:admin>--%>
+    </c:if>
 
     <table class="table">
         <thead>

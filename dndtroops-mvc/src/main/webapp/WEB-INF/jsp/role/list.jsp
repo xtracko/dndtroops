@@ -12,9 +12,9 @@
 <my:pagetemplate title="Roles">
 <jsp:attribute name="body">
 
-    <%--<my:admin>--%>
+    <c:if test="${authenticatedUser.isAdmin}">
         <my:a href="/role/create" class="btn btn-primary">Create New Role</my:a>
-    <%--</my:admin>--%>
+    </c:if>
 
     <table class="table">
         <thead>
@@ -37,7 +37,7 @@
                 <td>${role.damage}</td>
                 <td>${role.cooldown}</td>
 
-                <%--<my:admin>--%>
+                <c:if test="${authenticatedUser.isAdmin}">
                     <td>
                         <my:a href="/role/edit/${role.id}" class="btn btn-primary btn-sm">Edit</my:a>
                     </td>
@@ -46,7 +46,7 @@
                             <button type="submit" class="btn btn-primary btn-sm">Delete</button>
                         </form>
                     </td>
-                <%--</my:admin>--%>
+                </c:if>
             </tr>
         </c:forEach>
         </tbody>
