@@ -31,14 +31,15 @@
             <div style="font-size: 18px; color: rgb(157,157,157); margin-top:10px;padding-top: 2px;margin-right: 20px"><f:message key="navigation.home"/></div>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
-            
-            <c:if test="${not empty authenticatedUser}">     
             <ul class="nav navbar-nav">
                 <li><my:a href="/scores"><f:message key="navigation.scores"/></my:a></li>
+            <c:if test="${not empty authenticatedUser}">            
                 <li><my:a href="/troop/list"><f:message key="navigation.troops"/></my:a></li>
                 <li><my:a href="/hero/list"><f:message key="navigation.heroes"/></my:a></li>
                 <li><my:a href="/role/list"><f:message key="navigation.roles"/></my:a></li>
-                <li><my:a href="/admin/battle"><f:message key="navigation.battle"/></my:a></li>
+                <c:if test="${authenticatedUser.isAdmin}">
+                    <li><my:a href="/admin/battle"><f:message key="navigation.battle"/></my:a></li>
+                </c:if>
             </ul>
             </c:if>
              <c:if test="${empty authenticatedUser}">
