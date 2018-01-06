@@ -36,6 +36,14 @@
             <li>Vojtěch Duchoň - left us before 2nd milestone</li>
             <li>Miroslav Mačor - left us before 3rd milestone; former team leader</li>
         </ul>
+
+        <hr>
+
+        <h4>Login:Password</h4>
+        <ul>
+            <li>admin:admin</li>
+            <li>user:user</li>
+        </ul>
     </div>
 
 </jsp:attribute>

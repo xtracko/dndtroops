@@ -81,8 +81,8 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     }
     @SuppressWarnings("unused")
     private void loadUsers() throws IOException {    
-        Administrator admin = admin("Admin", "Admin", true);
-        Administrator user = admin("User", "User", false);
+        Administrator admin = admin("admin", "admin", true);
+        Administrator user = admin("user", "user", false);
         
         log.info("Users loaded.");
     }

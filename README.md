@@ -16,8 +16,8 @@ Every hero could belong to up to one group and have assigned multiple roles. Adm
 
 | Username  | Password|
 | ------------- | ------------- |
-| Admin | Admin  |
-| User  | User  |
+| admin | admin  |
+| user  | user  |
 
 ### Role REST
 
