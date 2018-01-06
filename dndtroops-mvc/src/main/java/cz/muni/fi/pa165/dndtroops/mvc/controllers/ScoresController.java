@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.dndtroops.mvc.controllers;
 
+import cz.muni.fi.pa165.dndtroops.dto.AdminDTO;
 import cz.muni.fi.pa165.dndtroops.dto.HeroDTO;
 import cz.muni.fi.pa165.dndtroops.facade.HeroFacade;
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Jiří Novotný
@@ -26,7 +28,7 @@ public class ScoresController {
     private HeroFacade heroFacade;
 
     @RequestMapping(value = "/scores", method = RequestMethod.GET)
-    public String scores(Model model) {
+    public String scores(Model model,HttpServletRequest req) {
         log.debug("scores()");
 
         List<HeroDTO> heroes = heroFacade.getAllHeroes();
@@ -35,7 +37,8 @@ public class ScoresController {
                 Comparator.comparingLong(hero -> hero.getTroop().getGoldenMoney())
                 )
         );
-
+        model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
+        
         model.addAttribute("heroes", heroes);
 
         return "scores";

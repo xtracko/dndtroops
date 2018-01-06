@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.dndtroops.mvc.controllers;
 
+import cz.muni.fi.pa165.dndtroops.dto.AdminDTO;
 import cz.muni.fi.pa165.dndtroops.dto.TroopDTO;
 import cz.muni.fi.pa165.dndtroops.facade.TroopFacade;
 import cz.muni.fi.pa165.dndtroops.mvc.models.BattleModel;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Jiří Novotný
@@ -28,7 +30,7 @@ public class AdminController {
     private TroopFacade troopFacade;
 
     @RequestMapping(value = "/battle", method = RequestMethod.GET)
-    public String battle(Model model, RedirectAttributes redirectAttributes) {
+    public String battle(Model model, RedirectAttributes redirectAttributes,HttpServletRequest req) {
         log.debug("battle()");
 
         List<TroopDTO> troops = troopFacade.findAllTroops();
@@ -36,7 +38,7 @@ public class AdminController {
         if (troops.isEmpty()) {
             redirectAttributes.addFlashAttribute("alert_danger", "No troops to battle. Create a couple of troops first.");
         }
-
+        model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
         model.addAttribute("notroops", troops.isEmpty());
         model.addAttribute("troops", troops);
         model.addAttribute("battle", new BattleModel());
@@ -45,13 +47,14 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/battle", method = RequestMethod.POST)
-    public String battle(@ModelAttribute("battle") BattleModel battle, Model model, RedirectAttributes redirectAttributes) {
+    public String battle(@ModelAttribute("battle") BattleModel battle, Model model, RedirectAttributes redirectAttributes, HttpServletRequest req) {
         try {
             log.debug("battle(troop1={}, troop2={})", battle.getTroop1(), battle.getTroop2());
 
             TroopDTO troop1 = troopFacade.findTroopById(battle.getTroop1());
             TroopDTO troop2 = troopFacade.findTroopById(battle.getTroop2());
-
+            model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
+            
             if (troop1 == null) {
                 redirectAttributes.addFlashAttribute("alert_danger", "Troop with ID " + battle.getTroop1() + " does not exists.");
                 return "redirect:/admin/battle";
