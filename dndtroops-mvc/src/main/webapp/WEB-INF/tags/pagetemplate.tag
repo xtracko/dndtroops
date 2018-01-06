@@ -28,7 +28,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <div style="font-size: 18px; color: rgb(157,157,157); margin-top:10px;padding-top: 2px;margin-right: 20px"><f:message key="navigation.home"/></div>
+            <div style="margin-top:10px;padding-top: 2px;margin-right: 20px">
+                <a style="font-size: 18px; color: rgb(157,157,157)" href="${pageContext.request.contextPath}">
+                    <f:message key="navigation.home"/>
+                </a>
+            </div>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">

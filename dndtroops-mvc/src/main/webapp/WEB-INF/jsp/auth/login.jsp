@@ -14,14 +14,11 @@
     <jsp:attribute name="body">
     
         <form method="POST" action="${pageContext.request.contextPath}/auth/login">
-       <label for="username">Username</label>
-        <input id="username" type="text" name="username" placeholder="example: user@gmail.com" required class="form-control"/>
+        <label for="username">Username</label>
+        <input id="username" type="text" name="username" placeholder="User" required class="form-control"/>
 
         <label for="password">Password</label>
         <input id="password" type="password" name="password" placeholder="Password" required class="form-control"/>
-
-            
-        
 
         <button class="btn btn-lg btn-primary" type="submit"> Login</button>
         <br/>

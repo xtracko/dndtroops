@@ -60,14 +60,23 @@
             <c:set var="count" value="0" scope="page" />
             <form:select multiple="true" path="roleId" cssClass="form-control">
                 <c:forEach items="${roles}" var="role">
+
+                    <c:set var="contains" value="false" />
+                    <c:forEach var="item" items="${hero.roles}">
+                      <c:if test="${item eq role}">
+                        <c:set var="contains" value="true" />
+                      </c:if>
+                    </c:forEach>
+
                     <c:choose>
-                        <c:when test = "${role.id eq hero.role.id}">
-                            <form:option selected="selected" value="${role.id}"><c:out value="${role.name}"/></form:option>
+                        <c:when test = "${contains}">
+                            <form:option value="${role.id}" selected="selected"><c:out value="${role.name}" /></form:option>
                         </c:when>
                         <c:otherwise>
-                            <form:option value="${role.id}"><c:out value="${role.name}"/></form:option>
+                            <form:option value="${role.id}"><c:out value="${role.name}" /></form:option>
                         </c:otherwise>
                     </c:choose>
+
                 </c:forEach>
             </form:select>
         </div>

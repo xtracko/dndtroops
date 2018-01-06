@@ -21,11 +21,20 @@ import javax.servlet.http.HttpServletRequest;
  */
 
 @Controller
-public class ScoresController {
-    private static final Logger log = LoggerFactory.getLogger(ScoresController.class);
+public class RootController {
+    private static final Logger log = LoggerFactory.getLogger(RootController.class);
 
     @Autowired
     private HeroFacade heroFacade;
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String home(Model model, HttpServletRequest req) {
+        log.debug("home()");
+
+        model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
+
+        return "home";
+    }
 
     @RequestMapping(value = "/scores", method = RequestMethod.GET)
     public String scores(Model model,HttpServletRequest req) {

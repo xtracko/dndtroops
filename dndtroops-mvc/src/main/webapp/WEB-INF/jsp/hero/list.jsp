@@ -35,9 +35,9 @@
                 <td>${hero.xp}</td>
                 <td>${hero.health}</td>
                 <td>
-                    <c:forEach items="${hero.getRoles()}" var="role">
-                     <c:out value="${role.name}" /> 
-                     <c:out value=" " /> 
+                    <c:forEach items="${hero.roles}" var="role">
+                        <c:out value="${role.name}" />
+                        <c:out value=", " />
                     </c:forEach>
                 </td>  
 

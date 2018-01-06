@@ -73,9 +73,9 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     
     @SuppressWarnings("unused")
     private void loadHeroes() throws IOException {    
-        Hero batman = hero("Batman", marksman, heroes, 12);
-        Hero superman = hero("Superman", tank, heroes, 5);
-        Hero joker = hero("Joker", tank, peasants, 10);
+        Hero batman = hero("Batman", heroes, 12, marksman);
+        Hero superman = hero("Superman", heroes, 5, tank);
+        Hero joker = hero("Joker", peasants, 10, tank, assassin);
         
         log.info("Heroes loaded.");
     }
@@ -104,16 +104,10 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         return troop;
     }
     
-    private Hero hero(String name, Role role, Troop troop,int xp){
-        Hero hero = new Hero();
-        hero.setName(name);
-        hero.addRole(role);
-        hero.setTroop(troop);
-        hero.setXp(xp);
-        hero.setHealth(100);  
-    
+    private Hero hero(String name, Troop troop, int xp, Role... roles){
+        Hero hero = new Hero(name, troop, 100, xp, roles);
         heroService.createHero(hero);
-    return hero;
+        return hero;
     }
     private Administrator admin(String name, String password, boolean isAdmin){
         Administrator admin = new Administrator(name);
