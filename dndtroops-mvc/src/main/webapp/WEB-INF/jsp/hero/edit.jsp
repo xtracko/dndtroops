@@ -1,7 +1,7 @@
 <%-- 
     Document   : edit
     Created on : 3.1.2018, 23:26:08
-    Author     : Martin Sestak
+    Author     : Martin Sestak and Jiří Novotný (hero edit functionality)
 --%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" trimDirectiveWhitespaces="false" session="false" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
@@ -38,47 +38,42 @@
             </div>
         </div>      
 
-        <form:label path="troopId" cssClass="col-sm-2 control-label">Troop</form:label>
-        <div class="col-sm-10">
-            <form:select path="troopId" cssClass="form-control">
-                <c:forEach items="${troops}" var="troop">
-                    <c:choose>
-                        <c:when test = "${troop.id eq hero.troop.id}">
-                            <form:option selected="selected" value="${troop.id}"><c:out value="${troop.name}"/></form:option>
-                        </c:when>
-                        <c:otherwise>
-                            <form:option value="${troop.id}"><c:out value="${troop.name}"/></form:option>
-                        </c:otherwise>
-                    </c:choose>
-
-                </c:forEach>
-            </form:select>
+        <div class="form-group ${troop_error?'has-error':''}">
+            <form:label path="troop" cssClass="col-sm-2 control-label">Troop</form:label>
+            <div class="col-sm-10">
+                <form:select path="troop" cssClass="form-control">
+                    <form:options items="${troops}" itemLabel="name" itemValue="id" />
+                </form:select>
+                <form:errors path="troop" cssClass="help-block"/>
+            </div>
         </div>
-            
-        <form:label path="roleId" cssClass="col-sm-2 control-label">Role</form:label>
-        <div class="col-sm-10">
-            <c:set var="count" value="0" scope="page" />
-            <form:select multiple="true" path="roleId" cssClass="form-control">
-                <c:forEach items="${roles}" var="role">
 
-                    <c:set var="contains" value="false" />
-                    <c:forEach var="item" items="${hero.roles}">
-                      <c:if test="${item eq role}">
-                        <c:set var="contains" value="true" />
-                      </c:if>
+        <div class="form-group ${roles_error?'has-error':''}">
+            <form:label path="roles" cssClass="col-sm-2 control-label">Roles</form:label>
+            <div class="col-sm-10">
+                <form:select multiple="true" path="roles" cssClass="form-control">
+                    <c:forEach items="${roles}" var="role">
+
+                        <c:set var="contains" value="false" />
+                        <c:forEach var="item" items="${hero.roles}">
+                          <c:if test="${item eq role}">
+                            <c:set var="contains" value="true" />
+                          </c:if>
+                        </c:forEach>
+
+                        <c:choose>
+                            <c:when test = "${contains}">
+                                <form:option value="${role.id}" label="${role.name}" selected="selected" />
+                            </c:when>
+                            <c:otherwise>
+                                <form:option value="${role.id}" label="${role.name}" />
+                            </c:otherwise>
+                        </c:choose>
+
                     </c:forEach>
-
-                    <c:choose>
-                        <c:when test = "${contains}">
-                            <form:option value="${role.id}" selected="selected"><c:out value="${role.name}" /></form:option>
-                        </c:when>
-                        <c:otherwise>
-                            <form:option value="${role.id}"><c:out value="${role.name}" /></form:option>
-                        </c:otherwise>
-                    </c:choose>
-
-                </c:forEach>
-            </form:select>
+                </form:select>
+                <form:errors path="roles" cssClass="help-block"/>
+            </div>
         </div>
 
         <button class="btn btn-primary" type="submit">Edit</button>

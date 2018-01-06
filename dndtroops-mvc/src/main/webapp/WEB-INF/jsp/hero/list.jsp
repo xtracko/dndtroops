@@ -23,7 +23,7 @@
             <th>Troop</th>
             <th>XP</th>
             <th>Health</th>
-            <th>Role</th>
+            <th>Roles</th>
         </tr>
         </thead>
         <tbody>

@@ -19,8 +19,6 @@ public class HeroDTO implements Serializable {
     private int xp = 0;
     
     private List<RoleDTO> roles = new ArrayList<>();
-    private long troopId;
-    private long roleId;
 
     public HeroDTO() {
     }
@@ -48,22 +46,6 @@ public class HeroDTO implements Serializable {
         return id;
     }
 
-    public long getTroopId() {
-        return troopId;
-    }
-
-    public void setTroopId(long troopId) {
-        this.troopId = troopId;
-    }
-
-    public long getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(long roleId) {
-        this.roleId = roleId;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -82,10 +64,6 @@ public class HeroDTO implements Serializable {
 
     public void setTroop(TroopDTO troop) {
         this.troop = troop;
-    }
-    
-    public RoleDTO getRole(){
-        return this.roles.get(0);
     }
 
     public List<RoleDTO> getRoles() {
