@@ -23,20 +23,21 @@
             </div>
         </div>
 
-        <form:label path="troopId" cssClass="col-sm-2 control-label">Troop</form:label>
-        <div class="col-sm-10">
-            <form:select path="troopId" cssClass="form-control">
-                <c:forEach items="${troops}" var="troop">
-                 <form:option value="${troop.id}"><c:out value="${troop.name}"/></form:option>
-                </c:forEach>
-            </form:select>
+        <div class="form-group ${troop_error?'has-error':''}">
+            <form:label path="troop" cssClass="col-sm-2 control-label">Troop</form:label>
+            <div class="col-sm-10">
+                <form:select path="troop" cssClass="form-control">
+                    <form:options items="${troops}" itemLabel="name" itemValue="id" />
+                </form:select>
+                <form:errors path="troop" cssClass="help-block"/>
+            </div>
         </div>
             
 
-        <form:label path="roleId" cssClass="col-sm-2 control-label">Role</form:label>
+        <form:label path="roles" cssClass="col-sm-2 control-label">Role</form:label>
         <div class="col-sm-10">
             <c:set var="count" value="0" scope="page" />
-            <form:select multiple="true" path="roleId" cssClass="form-control">
+            <form:select multiple="true" path="roles" cssClass="form-control">
                 <c:forEach items="${roles}" var="role">
 
                     <c:set var="contains" value="false" />

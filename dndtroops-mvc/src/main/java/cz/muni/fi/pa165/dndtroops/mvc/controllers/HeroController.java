@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.beans.PropertyEditorSupport;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Martin Sestak and Jiří Novotný (hero edit functionality)
@@ -46,6 +47,35 @@ public class HeroController {
     protected void initBinder(WebDataBinder binder) {
         if (binder.getTarget() instanceof HeroCreateDTO) {
             binder.addValidators(new CreateHeroDTOValidator());
+        }
+        if (binder.getTarget() instanceof HeroCreateDTO) {
+            binder.addValidators(new CreateHeroDTOValidator());
+            binder.registerCustomEditor(TroopDTO.class, new PropertyEditorSupport() {
+                @Override
+                public void setAsText(String text) throws IllegalArgumentException {
+                    TroopDTO troop = troopFacade.findTroopById(Long.parseLong(text));
+                    setValue(troop);
+                }
+
+                @Override
+                public String getAsText() {
+                    TroopDTO troop = (TroopDTO) getValue();
+                    return (troop != null ? troop.getId().toString() : null);
+                }
+            });
+            binder.registerCustomEditor(RoleDTO.class, new PropertyEditorSupport() {
+                @Override
+                public void setAsText(String text) throws IllegalArgumentException {
+                    RoleDTO role = roleFacade.findById(Long.parseLong(text));
+                    setValue(role);
+                }
+
+                @Override
+                public String getAsText() {
+                    RoleDTO role = (RoleDTO) getValue();
+                    return (role != null ? role.getId().toString() : null);
+                }
+            });
         }
 
         if (binder.getTarget() instanceof HeroDTO) {
@@ -92,16 +122,24 @@ public class HeroController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String create(Model model, HttpServletRequest req) {
+    public String create(Model model, HttpServletRequest req,RedirectAttributes redirectAttributes) {
         log.debug("create()");
 
         model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
         model.addAttribute("roles", roleFacade.getAllRoles());
         try {
-            model.addAttribute("troops", troopFacade.findAllTroops());
+            List<TroopDTO> troops = troopFacade.findAllTroops();
+            
+            if(troops.isEmpty()){
+                redirectAttributes.addFlashAttribute("alert_danger", "No troop is currently created in the system, please create troop before creating new hero");
+                return "redirect:/troop/create";
+            }
+            
+            model.addAttribute("troops", troops);
         } catch (Exception ex) {
             model.addAttribute("troops", new ArrayList<>());
             model.addAttribute("alert_danger", "Ooops - " + ex.getMessage());
+            return "redirect:/hero/list";
         }
 
 
@@ -116,8 +154,6 @@ public class HeroController {
         log.debug("create(data={})", data);
 
 
-        data.setTroop(troopFacade.findTroopById(data.getTroopId()));
-        data.addRole(roleFacade.findById(data.getRoleId()));
 
         if (bindingResult.hasErrors()) {
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
@@ -131,7 +167,6 @@ public class HeroController {
             model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
             model.addAttribute("roles", roleFacade.getAllRoles());
             model.addAttribute("troops", troopFacade.findAllTroops());
-
             return "hero/create";
         }
 
