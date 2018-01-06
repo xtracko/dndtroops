@@ -101,8 +101,10 @@ public class HeroController {
     }
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@Valid @ModelAttribute("data")  HeroCreateDTO data, BindingResult bindingResult,
+
                          Model model, RedirectAttributes redirectAttributes, HttpServletRequest req, UriComponentsBuilder uriBuilder) {
         log.debug("create(data={})", data);        
+
         
          data.setTroop(troopFacade.findTroopById(data.getTroopId()));
          data.addRole(roleFacade.findById(data.getRoleId()));

@@ -112,7 +112,7 @@ public class TroopController {
             redirectAttributes.addFlashAttribute("alert_success", "Troop was successfully deleted.");
         } catch (Exception ex) {
             log.warn("cannot delete troop with ID {}", id);
-            redirectAttributes.addFlashAttribute("alert_danger", "Cannot delete troop with ID " + id + ". Reason: " + ex.getMessage());
+            redirectAttributes.addFlashAttribute("alert_danger", "Cannot delete troop with ID " + id + ". This also could mean that the Troop owns some heroes and you should remove the heroes before deleting the troop. Reason: " + ex.getMessage());
         }
 
         return "redirect:/troop/list";

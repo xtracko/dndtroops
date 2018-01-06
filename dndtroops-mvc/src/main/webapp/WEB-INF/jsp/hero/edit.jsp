@@ -38,45 +38,40 @@
             </div>
         </div>      
 
-            <form:label path="troopId" cssClass="col-sm-2 control-label">Troop</form:label>
-            <div class="col-sm-10">
-                <form:select path="troopId" cssClass="form-control">
-                    <c:forEach items="${troops}" var="troop">
-                        <c:choose>
-                            <c:when test = "${troop.id eq hero.troop.id}">
-                                <form:option selected="selected" value="${troop.id}"><c:out value="${troop.name}"/></form:option> 
-                            </c:when>
-                            <c:otherwise>
-                                <form:option value="${troop.id}"><c:out value="${troop.name}"/></form:option>   
-                            </c:otherwise>
-                        </c:choose>
-                     
-                    </c:forEach>
-                </form:select>
-            </div>
-        
-            
-            
-            <form:label path="roleId" cssClass="col-sm-2 control-label">Role</form:label>
-            <div class="col-sm-10">
-                <c:set var="count" value="0" scope="page" />
-                <form:select path="roleId" cssClass="form-control">               
-                    <c:forEach items="${roles}" var="role"> 
-                        <c:choose>
-                            <c:when test = "${role.id eq hero.role.id}">
-                                <form:option selected="selected" value="${role.id}"><c:out value="${role.name}"/></form:option> 
-                            </c:when>
-                            <c:otherwise>
-                                <form:option value="${role.id}"><c:out value="${role.name}"/></form:option>   
-                            </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
-                </form:select>
-                
-            </div>
-          
+        <form:label path="troopId" cssClass="col-sm-2 control-label">Troop</form:label>
+        <div class="col-sm-10">
+            <form:select path="troopId" cssClass="form-control">
+                <c:forEach items="${troops}" var="troop">
+                    <c:choose>
+                        <c:when test = "${troop.id eq hero.troop.id}">
+                            <form:option selected="selected" value="${troop.id}"><c:out value="${troop.name}"/></form:option>
+                        </c:when>
+                        <c:otherwise>
+                            <form:option value="${troop.id}"><c:out value="${troop.name}"/></form:option>
+                        </c:otherwise>
+                    </c:choose>
 
-        <br />
+                </c:forEach>
+            </form:select>
+        </div>
+            
+        <form:label path="roleId" cssClass="col-sm-2 control-label">Role</form:label>
+        <div class="col-sm-10">
+            <c:set var="count" value="0" scope="page" />
+            <form:select multiple="true" path="roleId" cssClass="form-control">
+                <c:forEach items="${roles}" var="role">
+                    <c:choose>
+                        <c:when test = "${role.id eq hero.role.id}">
+                            <form:option selected="selected" value="${role.id}"><c:out value="${role.name}"/></form:option>
+                        </c:when>
+                        <c:otherwise>
+                            <form:option value="${role.id}"><c:out value="${role.name}"/></form:option>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </form:select>
+        </div>
+
         <button class="btn btn-primary" type="submit">Edit</button>
         <my:a href="/hero/list" class="btn btn-primary">Cancel</my:a>
     </form:form>

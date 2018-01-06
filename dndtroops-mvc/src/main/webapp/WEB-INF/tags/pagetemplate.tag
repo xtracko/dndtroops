@@ -34,9 +34,11 @@
             
             <c:if test="${not empty authenticatedUser}">     
             <ul class="nav navbar-nav">
-                <li><my:a href="/role/list"><f:message key="navigation.roles"/></my:a></li>
+                <li><my:a href="/scores"><f:message key="navigation.scores"/></my:a></li>
                 <li><my:a href="/troop/list"><f:message key="navigation.troops"/></my:a></li>
                 <li><my:a href="/hero/list"><f:message key="navigation.heroes"/></my:a></li>
+                <li><my:a href="/role/list"><f:message key="navigation.roles"/></my:a></li>
+                <li><my:a href="/admin/battle"><f:message key="navigation.battle"/></my:a></li>
             </ul>
             </c:if>
              <c:if test="${empty authenticatedUser}">

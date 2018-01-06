@@ -1,7 +1,7 @@
 <%-- 
     Document   : create
     Created on : 3.1.2018, 23:25:32
-    Author     : Martin
+    Author     : Martin Šesták
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" trimDirectiveWhitespaces="false" session="false" %>
@@ -23,18 +23,16 @@
             </div>
         </div>
 
-        
-            <form:label path="troopId" cssClass="col-sm-2 control-label">Troop</form:label>
-            <div class="col-sm-10">
-                <form:select path="troopId" cssClass="form-control">
-                    <c:forEach items="${troops}" var="troop">
-                     <form:option value="${troop.id}"><c:out value="${troop.name}"/></form:option> 
-                    </c:forEach>
-                </form:select>
-            </div>
-        
+        <form:label path="troopId" cssClass="col-sm-2 control-label">Troop</form:label>
+        <div class="col-sm-10">
+            <form:select path="troopId" cssClass="form-control">
+                <c:forEach items="${troops}" var="troop">
+                 <form:option value="${troop.id}"><c:out value="${troop.name}"/></form:option>
+                </c:forEach>
+            </form:select>
+        </div>
             
-            
+
             <form:label path="roleId" cssClass="col-sm-2 control-label">Role</form:label>
             <div class="col-sm-10">
                 <c:set var="count" value="0" scope="page" />
@@ -56,8 +54,9 @@
           
 
 <div>
-        <button class="btn btn-primary" type="submit">Login</button>
+        <button class="btn btn-primary" type="submit">Create</button>
         </div>
+
     </form:form>
 
 </jsp:attribute>
