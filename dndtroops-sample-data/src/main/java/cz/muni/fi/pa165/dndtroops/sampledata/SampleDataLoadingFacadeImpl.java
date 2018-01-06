@@ -1,9 +1,11 @@
 package cz.muni.fi.pa165.dndtroops.sampledata;
 
+import cz.muni.fi.pa165.dndtroops.entities.Administrator;
 import cz.muni.fi.pa165.dndtroops.entities.Hero;
 import cz.muni.fi.pa165.dndtroops.entities.Role;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
 import cz.muni.fi.pa165.dndtroops.enums.Power;
+import cz.muni.fi.pa165.dndtroops.service.AdminService;
 import cz.muni.fi.pa165.dndtroops.service.HeroService;
 import cz.muni.fi.pa165.dndtroops.service.RoleService;
 import cz.muni.fi.pa165.dndtroops.service.TroopService;
@@ -32,6 +34,8 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     
     @Autowired
     private HeroService heroService;
+    @Autowired
+    private AdminService adminService;
     
     Role assassin;
     Role marksman;
@@ -47,6 +51,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         loadRoles();
         loadTroops();
         loadHeroes();
+        loadUsers();
     }
 
     @SuppressWarnings("unused")
@@ -73,6 +78,13 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         Hero joker = hero("Joker", tank, peasants, 10);
         
         log.info("Heroes loaded.");
+    }
+    @SuppressWarnings("unused")
+    private void loadUsers() throws IOException {    
+        Administrator admin = admin("Admin", "Admin", true);
+        Administrator user = admin("User", "User", false);
+        
+        log.info("Users loaded.");
     }
 
     private Role role(String name, String description, Power power, int damage, int cooldown) {
@@ -102,5 +114,12 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     
         heroService.createHero(hero);
     return hero;
+    }
+    private Administrator admin(String name, String password, boolean isAdmin){
+        Administrator admin = new Administrator(name);
+        admin.setIsAdmin(isAdmin);
+        
+        adminService.createAdministrator(admin, password);
+        return admin;
     }
 }

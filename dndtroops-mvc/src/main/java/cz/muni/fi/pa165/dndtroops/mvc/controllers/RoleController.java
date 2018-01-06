@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.dndtroops.mvc.controllers;
 
+import cz.muni.fi.pa165.dndtroops.dto.AdminDTO;
 import cz.muni.fi.pa165.dndtroops.dto.CreateRoleDTO;
 import cz.muni.fi.pa165.dndtroops.dto.RoleDTO;
 import cz.muni.fi.pa165.dndtroops.enums.Power;
@@ -21,6 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Jiří Novotný
@@ -45,7 +47,9 @@ public class RoleController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(@RequestParam(required = false) String power, Model model) {
+    public String list(@RequestParam(required = false) String power, Model model,HttpServletRequest req) {
+        model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
+        
         if (power == null) {
             log.debug("list()");
             model.addAttribute("roles", roleFacade.getAllRoles());
@@ -61,18 +65,19 @@ public class RoleController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String create(Model model) {
+    public String create(Model model,HttpServletRequest req) {
         log.debug("create()");
-
+        
+        model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
         model.addAttribute("data", new CreateRoleDTO());
         return "role/create";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@Valid @ModelAttribute("data") CreateRoleDTO data, BindingResult bindingResult,
-                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder,HttpServletRequest req) {
         log.debug("create(data={})", data);
-
+        model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
         if (bindingResult.hasErrors()) {
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
                 log.trace("ObjectError: {}", ge);
@@ -96,9 +101,9 @@ public class RoleController {
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public String edit(@PathVariable long id, Model model, RedirectAttributes redirectAttributes) {
+    public String edit(@PathVariable long id, Model model, RedirectAttributes redirectAttributes,HttpServletRequest req) {
         log.debug("edit(id={})", id);
-
+        model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
         RoleDTO role = roleFacade.findById(id);
 
         if (role == null) {
@@ -111,9 +116,9 @@ public class RoleController {
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-    public String edit(@PathVariable long id, @Valid @ModelAttribute("data") RoleDTO data, BindingResult bindingResult, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+    public String edit(@PathVariable long id, @Valid @ModelAttribute("data") RoleDTO data, BindingResult bindingResult, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes,HttpServletRequest req) {
         log.debug("edit(id={}, data={})", id, data);
-
+         model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
         if (bindingResult.hasErrors()) {
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
                 log.trace("ObjectError: {}", ge);
@@ -137,9 +142,9 @@ public class RoleController {
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+    public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes,HttpServletRequest req) {
         log.debug("delete(id={})", id);
-
+        model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
         try {
             roleFacade.deleteRole(id);
             redirectAttributes.addFlashAttribute("alert_success", "Role successfully was deleted.");

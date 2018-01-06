@@ -11,9 +11,9 @@
 <my:pagetemplate title="Heroes">
 <jsp:attribute name="body">
 
-    <%--<my:admin>--%>
+    <c:if test="${authenticatedUser.isAdmin}">
         <my:a href="/hero/create" class="btn btn-primary">Create New Hero</my:a>
-    <%--</my:admin>--%>
+    </c:if>
 
     <table class="table">
         <thead>
@@ -41,7 +41,7 @@
                     </c:forEach>
                 </td>  
 
-                <%--<my:admin>--%>
+                <c:if test="${authenticatedUser.isAdmin}">
                     <td>
                         <my:a href="/hero/edit/${hero.id}" class="btn btn-primary btn-sm">Edit</my:a>
                     </td>
@@ -50,7 +50,7 @@
                             <button type="submit" class="btn btn-primary btn-sm">Delete</button>
                         </form>
                     </td>
-                <%--</my:admin>--%>
+                </c:if>
             </tr>
         </c:forEach>
         </tbody>

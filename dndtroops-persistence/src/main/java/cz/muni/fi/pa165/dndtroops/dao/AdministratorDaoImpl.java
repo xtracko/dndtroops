@@ -49,9 +49,13 @@ public class AdministratorDaoImpl implements AdministratorDao {
 
     @Override
     public Administrator findAdministratorByName(String name) {
-        return em.createQuery("SELECT a FROM Administrator a WHERE name = :name", Administrator.class)
+        try {
+            return em.createQuery("SELECT a FROM Administrator a WHERE name = :name", Administrator.class)
                 .setParameter("name", name)
                 .getSingleResult();
+        }catch (NoResultException e){
+            return null;
+        }
     }
 
     @Override

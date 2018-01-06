@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.dndtroops.facade;
 
 import cz.muni.fi.pa165.dndtroops.dto.AdminDTO;
 import cz.muni.fi.pa165.dndtroops.dto.CreateAdminDTO;
+import cz.muni.fi.pa165.dndtroops.dto.UserAuthenticateDTO;
 import cz.muni.fi.pa165.dndtroops.entities.Administrator;
 import cz.muni.fi.pa165.dndtroops.service.AdminService;
 import cz.muni.fi.pa165.dndtroops.service.BeanMappingService;
@@ -25,9 +26,9 @@ public class AdminFacadeImpl implements AdminFacade {
     private BeanMappingService beanMappingService;
 
     @Override
-    public AdminDTO createAdministrator(CreateAdminDTO admin) {
+    public AdminDTO createAdministrator(AdminDTO admin,String unencryptedPassword) {
         Administrator mapped = beanMappingService.mapTo(admin, Administrator.class);
-        adminService.createAdministrator(mapped);
+        adminService.createAdministrator(mapped,unencryptedPassword);
         return beanMappingService.mapTo(mapped, AdminDTO.class);
     }
     @Override
@@ -51,6 +52,18 @@ public class AdminFacadeImpl implements AdminFacade {
     }
     @Override
     public AdminDTO findAdministratorByName(String name){
-        return beanMappingService.mapTo(adminService.findAdministratorByName(name), AdminDTO.class);
+        Administrator admin = adminService.findAdministratorByName(name); 
+        return admin == null ? null : beanMappingService.mapTo(admin, AdminDTO.class);
+    }
+
+    @Override
+    public boolean authenticate(UserAuthenticateDTO u) {
+        return adminService.authenticate(
+                adminService.findAdministratorByName(u.getName()), u.getPassword());
+    }
+
+    @Override
+    public boolean isAdmin(AdminDTO admin) {
+        return adminService.isAdmin(adminService.findAdministratorByName(admin.getName())  );
     }
 }

@@ -30,7 +30,7 @@ public class AdminServiceTest extends AbstractTransactionalTestNGSpringContextTe
     public void testExample() throws Exception {
         String name = "Peter";
         Administrator admin = new Administrator(name);
-        adminService.createAdministrator(admin);
+        adminService.createAdministrator(admin,"pass");
         assertEquals(admin, adminService.findAdministratorByName(name));
     }
 

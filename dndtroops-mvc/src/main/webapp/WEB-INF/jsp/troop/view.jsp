@@ -15,7 +15,7 @@
 <my:pagetemplate title="Troop ${role.name}">
 <jsp:attribute name="body">
 
-    <%--<my:admin>--%>
+    <c:if test="${authenticatedUser.isAdmin}">
     <div class="row">
         <div class="col-md-1">
             <my:a href="/troop/edit/${troop.id}" class="btn btn-primary btn-sm">Edit</my:a>
@@ -26,7 +26,7 @@
             </form>
         </div>
     </div>
-    <%--</my:admin>--%>
+    </c:if>
 
     <table class="table">
         <caption>Troop</caption>

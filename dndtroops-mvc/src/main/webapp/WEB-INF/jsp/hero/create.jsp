@@ -32,25 +32,31 @@
             </form:select>
         </div>
             
-        <form:label path="roleId" cssClass="col-sm-2 control-label">Role</form:label>
-        <div class="col-sm-10">
-            <c:set var="count" value="0" scope="page" />
-            <form:select multiple="true" path="roleId" cssClass="form-control">
-                <c:forEach items="${roles}" var="role">
-                    <c:set var="count" value="${count + 1}" scope="page"/>
-                    <c:choose>
-                        <c:when test = "${count eq 1}">
-                            <form:option selected="selected" value="${role.id}"><c:out value="${role.name}"/></form:option>
-                        </c:when>
-                        <c:otherwise>
-                            <form:option value="${role.id}"><c:out value="${role.name}"/></form:option>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-            </form:select>
+
+            <form:label path="roleId" cssClass="col-sm-2 control-label">Role</form:label>
+            <div class="col-sm-10">
+                <c:set var="count" value="0" scope="page" />
+                <form:select path="roleId" cssClass="form-control">               
+                    <c:forEach items="${roles}" var="role"> 
+                        <c:set var="count" value="${count + 1}" scope="page"/> 
+                        <c:choose>
+                            <c:when test = "${count eq 1}">
+                                <form:option selected="selected" value="${role.id}"><c:out value="${role.name}"/></form:option> 
+                            </c:when>
+                            <c:otherwise>
+                                <form:option value="${role.id}"><c:out value="${role.name}"/></form:option>   
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </form:select>
+                
+            </div>
+          
+
+<div>
+        <button class="btn btn-primary" type="submit">Create</button>
         </div>
 
-        <button class="btn btn-primary" type="submit">Create</button>
     </form:form>
 
 </jsp:attribute>
