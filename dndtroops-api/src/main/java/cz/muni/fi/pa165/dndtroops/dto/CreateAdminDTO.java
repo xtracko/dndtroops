@@ -8,9 +8,14 @@ import java.util.Objects;
 
 public class CreateAdminDTO {
     private String name;
-
+    private boolean isAdmin;
+    
+    private String passwordHash;
+    
     public CreateAdminDTO(String name){
         this.name = name;
+        this.isAdmin=false;
+        
     }
 
     public String getName() {
@@ -21,18 +26,55 @@ public class CreateAdminDTO {
         this.name = name;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof AdminDTO)) return false;
+    public boolean isIsAdmin() {
+        return isAdmin;
+    }
 
-        AdminDTO role = (AdminDTO) obj;
-        return Objects.equals(getName(), role.getName());
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getName());
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.name);
+        hash = 47 * hash + (this.isAdmin ? 1 : 0);
+        hash = 47 * hash + Objects.hashCode(this.passwordHash);
+        return hash;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CreateAdminDTO other = (CreateAdminDTO) obj;
+        if (this.isAdmin != other.isAdmin) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.passwordHash, other.passwordHash)) {
+            return false;
+        }
+        return true;
+    }
+
+    
 
 }

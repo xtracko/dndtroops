@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.dndtroops.mvc.controllers;
 
+import cz.muni.fi.pa165.dndtroops.dto.AdminDTO;
 import cz.muni.fi.pa165.dndtroops.dto.CreateRoleDTO;
 import cz.muni.fi.pa165.dndtroops.dto.HeroCreateDTO;
 import cz.muni.fi.pa165.dndtroops.dto.HeroDTO;
@@ -63,8 +64,15 @@ public class HeroController {
     }
     
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(Model model) {
-        
+    public String list(Model model,
+                       HttpServletRequest req,
+                       RedirectAttributes redirectAttributes) {
+         /*if (!isAuthenticated(req, redirectAttributes, true)) {
+            redirectAttributes.addFlashAttribute("alert_danger", "Admin role required");
+            return AUTH_PAGE_URL;
+        }*/
+
+        model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
             log.debug("list()");
             model.addAttribute("heroes", heroFacade.getAllHeroes());
         
@@ -73,9 +81,10 @@ public class HeroController {
     }
     
      @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String create(Model model) {
+    public String create(Model model, HttpServletRequest req) {
         log.debug("create()");
         
+        model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
         model.addAttribute("roles", roleFacade.getAllRoles());
         try {
             model.addAttribute("troops", troopFacade.findAllTroops());
@@ -91,11 +100,9 @@ public class HeroController {
         return "hero/create";
     }
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(/*@RequestParam("troop") String troop,@RequestParam(value = "roles", required = false) String[] roles, */@Valid @ModelAttribute("data")  HeroCreateDTO data, BindingResult bindingResult,
-                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
-        log.debug("create(data={})", data);
-        System.out.println("----------------------------"+data.toString()+"-------------------------------------------------");
-        
+    public String create(@Valid @ModelAttribute("data")  HeroCreateDTO data, BindingResult bindingResult,
+                         Model model, RedirectAttributes redirectAttributes, HttpServletRequest req, UriComponentsBuilder uriBuilder) {
+        log.debug("create(data={})", data);        
         
          data.setTroop(troopFacade.findTroopById(data.getTroopId()));
          data.addRole(roleFacade.findById(data.getRoleId()));
@@ -109,6 +116,7 @@ public class HeroController {
                 model.addAttribute(fe.getField() + "_error",true);
                 log.trace("FieldError: {}", fe);
             }
+             model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
             model.addAttribute("roles", roleFacade.getAllRoles());
             model.addAttribute("troops", troopFacade.findAllTroops());
             
@@ -127,7 +135,7 @@ public class HeroController {
     }
     
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public String edit(@PathVariable long id, Model model, RedirectAttributes redirectAttributes) {
+    public String edit(@PathVariable long id, Model model, RedirectAttributes redirectAttributes, HttpServletRequest req) {
         log.debug("edit(id={})", id);
 
         HeroDTO hero = heroFacade.getHeroById(id);
@@ -136,7 +144,7 @@ public class HeroController {
             redirectAttributes.addFlashAttribute("alert_danger", "Hero with ID " + id + " does not exists.");
             return "redirect:/hero/list";
         }
-
+        model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
         model.addAttribute("roles", roleFacade.getAllRoles());
         model.addAttribute("troops", troopFacade.findAllTroops());
         model.addAttribute("hero", hero);
@@ -144,7 +152,7 @@ public class HeroController {
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-    public String edit(@PathVariable long id, @Valid @ModelAttribute("data") HeroDTO data, BindingResult bindingResult, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+    public String edit(@PathVariable long id, @Valid @ModelAttribute("data") HeroDTO data, BindingResult bindingResult, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes,HttpServletRequest req) {
         log.debug("edit(id={}, data={})", id, data);
 
         if (bindingResult.hasErrors()) {
@@ -167,6 +175,7 @@ public class HeroController {
             log.warn("cannot edit role with ID {}", id);
             redirectAttributes.addFlashAttribute("alert_danger", "Cannot edit Hero with ID " + id + ". Reason: " + ex.getMessage());
         }
+        model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
         model.addAttribute("roles", roleFacade.getAllRoles());
         model.addAttribute("troops", troopFacade.findAllTroops());
         model.addAttribute("hero", heroFacade.getHeroById(id));
@@ -174,12 +183,27 @@ public class HeroController {
     }
     
         @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+    public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes, HttpServletRequest req) {
         HeroDTO hero = heroFacade.getHeroById(id);
         heroFacade.deleteHero(hero);
         log.debug("delete({})", id);
+        model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
         redirectAttributes.addFlashAttribute("alert_success", "Hero \"" + hero.getName() + "\" was deleted.");
         return "redirect:" + uriBuilder.path("/hero/list").toUriString();
     }
     
+    private Boolean isAuthenticated(HttpServletRequest req, RedirectAttributes redirectAttributes,
+                                    Boolean shouldBeAdmin) {
+        AdminDTO authUser = (AdminDTO) req.getSession().getAttribute("authenticatedUser");
+        if (authUser == null) {
+            if (redirectAttributes != null) {
+                redirectAttributes.addFlashAttribute("alert_danger", "Admin role required");
+            }
+
+            log.error("user should be authenticated or admin for this operation");
+            return false;
+        }
+
+        return shouldBeAdmin ? authUser.isIsAdmin() : true;
+    }
 }

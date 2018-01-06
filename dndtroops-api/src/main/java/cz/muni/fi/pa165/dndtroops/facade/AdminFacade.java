@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.dndtroops.facade;
 import cz.muni.fi.pa165.dndtroops.dto.AdminDTO;
 import cz.muni.fi.pa165.dndtroops.dto.CreateAdminDTO;
+import cz.muni.fi.pa165.dndtroops.dto.UserAuthenticateDTO;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface AdminFacade {
      * @param admin a Admin creation data
      * @return fully initialized Admin
      */
-    AdminDTO createAdministrator(CreateAdminDTO admin);
+    AdminDTO createAdministrator(AdminDTO admin,String unencryptedPassword);
 
     /**
      * updated Admin
@@ -49,5 +50,15 @@ public interface AdminFacade {
      * @param admin to be removed
      */
     void removeAdministrator(AdminDTO admin);
+    
+    /**
+    * Try to authenticate a user. Return true only if the hashed password matches the records.
+    */
+    boolean authenticate(UserAuthenticateDTO u);
+
+    /**
+     * Check if the given user is admin.
+     */
+    boolean isAdmin(AdminDTO admin);    	
 
 }

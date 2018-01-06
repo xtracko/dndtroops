@@ -16,7 +16,7 @@ public interface AdminService {
      * Creates new Administrator
      * @param admin
      */
-    void createAdministrator(Administrator admin);
+    void createAdministrator(Administrator admin,  String password);
 
     /**
      * Changes Administrator with the same admin.id. Changes only values that differ
@@ -49,7 +49,21 @@ public interface AdminService {
      * @param admin to be removed
      */
     void removeAdministrator(Administrator admin);
+    
+    /**
+     * Tries to authenticate user
+     * @param user user
+     * @param password password hash
+     * @return true if user is authenticated, false otherwise
+     */
+    boolean authenticate(Administrator admin, String password);
 
+    /**
+     * Determines whether user is admin
+     * @param user user
+     * @return true if user is admin, false otherwise
+     */
+    boolean isAdmin(Administrator admin);
 
     /**
      * Complete mission for troop

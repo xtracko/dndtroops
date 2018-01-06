@@ -28,15 +28,38 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="${pageContext.request.contextPath}"><f:message key="navigation.home"/></a>
+            <div style="font-size: 18px; color: rgb(157,157,157); margin-top:10px;padding-top: 2px;margin-right: 20px"><f:message key="navigation.home"/></div>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
+            
+            <c:if test="${not empty authenticatedUser}">     
             <ul class="nav navbar-nav">
                 <li><my:a href="/role/list"><f:message key="navigation.roles"/></my:a></li>
                 <li><my:a href="/troop/list"><f:message key="navigation.troops"/></my:a></li>
                 <li><my:a href="/hero/list"><f:message key="navigation.heroes"/></my:a></li>
             </ul>
+            </c:if>
+             <c:if test="${empty authenticatedUser}">
+                 <div class="pull-right"  style="margin-top: 10px;">
+                <div class="panel panel-default" style="margin-top: 10px @important">
+                    <div style = "padding:5px 5px 5px 5px;  ">
+                      <my:a href="/auth/login">Login  <span class="glyphicon glyphicon-log-in"></span></my:a>
+                    </div>
+                </div>
+            </div>
+            </c:if>
+         <!-- authenticated user info -->    
+           <c:if test="${not empty authenticatedUser}">
+            <div class="pull-right"  style="margin-top: 10px;">
+                <div class="panel panel-default" style="margin-top: 10px @important">
+                    <div style = "padding:5px 5px 5px 5px;  ">
+                      <b>User:</b>  <c:out value="${authenticatedUser.name}" />  <my:a href="/auth/logout">  <span class="glyphicon glyphicon-log-out" style = "padding-left: 10px"></span></my:a>
+                    </div>
+                </div>
+            </div>
+        </c:if>      
         </div><!--/.nav-collapse -->
+    
     </div>
 </nav>
 
@@ -49,19 +72,7 @@
         </div>
     </c:if>
 
-    <!-- authenticated user info -->
-    <c:if test="${not empty authenticatedUser}">
-        <div class="row">
-            <div class="col-xs-6 col-sm-8 col-md-9 col-lg-10"></div>
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <c:out value="${authenticatedUser.givenName} ${authenticatedUser.surname}"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </c:if>
+   
 
     <!-- alerts -->
     <c:if test="${not empty alert_danger}">
