@@ -48,7 +48,7 @@ public class HeroServiceImpl implements HeroService {
 
     @Override
     public void deleteHero(Hero hero) {
-        heroDao.deleteHero(hero);
+        heroDao.removeHero(hero);
     }
 
     @Override

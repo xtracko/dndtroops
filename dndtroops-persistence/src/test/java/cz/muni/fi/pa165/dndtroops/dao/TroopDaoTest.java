@@ -117,7 +117,7 @@ public class TroopDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void removesCorrectly() {
-        troopDao.deleteTroop(t1);
+        troopDao.removeTroop(t1);
 
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(troopDao.findTroopById(t1.getId()))

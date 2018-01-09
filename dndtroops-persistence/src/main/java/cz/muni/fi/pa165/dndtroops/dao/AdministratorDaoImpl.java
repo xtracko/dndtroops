@@ -1,6 +1,3 @@
-/**
- * @author Miroslav Macor
- */
 package cz.muni.fi.pa165.dndtroops.dao;
 
 import cz.muni.fi.pa165.dndtroops.entities.Administrator;
@@ -10,6 +7,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+
+/**
+ * @author Miroslav Macor
+ */
 
 @Repository
 public class AdministratorDaoImpl implements AdministratorDao {

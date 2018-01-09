@@ -30,9 +30,9 @@ public interface HeroDao {
     /**
      * Delete persisted Hero.
      *
-     * @param hero a persisted Hero to deleteTroop
+     * @param hero a persisted Hero to removeTroop
      */
-    public void deleteHero(Hero hero);
+    public void removeHero(Hero hero);
     
     /**
       * Find persisted Hero by it's unique ID. If no such hero is found null is returned.

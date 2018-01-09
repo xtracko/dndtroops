@@ -32,7 +32,7 @@ public class HeroDaoImpl implements HeroDao {
     }
 
     @Override
-    public void deleteHero(Hero hero) {
+    public void removeHero(Hero hero) {
         em.remove(hero);
     }
 

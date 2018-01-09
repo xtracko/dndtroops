@@ -76,9 +76,9 @@ public class RoleDaoTest extends AbstractTestNGSpringContextTests {
     }
         
     @Test
-    public void deleteRole() {
+    public void removeRole() {
         Long testId = r1.getId();            
-        roleDao.deleteRole(r1);            
+        roleDao.removeRole(r1);
         List<Role> found = roleDao.findAllRoles();
 	
         Assert.assertEquals(found.size(), 2);

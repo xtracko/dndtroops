@@ -25,7 +25,7 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    public void deleteRole(Role role) {
+    public void removeRole(Role role) {
         em.remove(role);
     }
 

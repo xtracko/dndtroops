@@ -21,7 +21,7 @@ public interface TroopDao {
     *
     * @param Troop to be removed.
     */
-    void deleteTroop(Troop t );
+    void removeTroop(Troop t );
 
     /*
     * Merge the state of the given entity into the current persistence context.

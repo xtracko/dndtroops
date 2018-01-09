@@ -1,12 +1,12 @@
-/**
- * @author Miroslav Macor
- */
-
 package cz.muni.fi.pa165.dndtroops.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
+
+/**
+ * @author Miroslav Macor
+ */
 
 @Entity
 public class Administrator {
@@ -63,47 +63,20 @@ public class Administrator {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 83 * hash + Objects.hashCode(this.id);
-        hash = 83 * hash + Objects.hashCode(this.name);
-        hash = 83 * hash + (this.isAdmin ? 1 : 0);
-        hash = 83 * hash + Objects.hashCode(this.passwordHash);
-        return hash;
+        return Objects.hash(name);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Administrator other = (Administrator) obj;
-        if (this.isAdmin != other.isAdmin) {
-            return false;
-        }
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (!Objects.equals(this.passwordHash, other.passwordHash)) {
-            return false;
-        }
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+        if (this == obj) return true;
+        if (obj == null || !(obj instanceof Administrator)) return false;
+
+        Administrator administrator = (Administrator) obj;
+        return Objects.equals(name, administrator.getName());
     }
 
     @Override
     public String toString() {
         return "Administrator{" + "id=" + id + ", name=" + name + ", isAdmin=" + isAdmin + ", passwordHash=" + passwordHash + '}';
     }
-
-    
-    
-    
 }

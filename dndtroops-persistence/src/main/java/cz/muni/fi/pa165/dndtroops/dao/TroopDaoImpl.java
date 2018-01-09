@@ -25,7 +25,7 @@ public class TroopDaoImpl implements TroopDao {
     }
 
     @Override
-    public void deleteTroop(Troop t ) {
+    public void removeTroop(Troop t ) {
         em.remove(t);
     }
 

@@ -56,7 +56,7 @@ public class RolesController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public final void deleteRole(@PathVariable("id") long id) {
-        logger.debug("REST deleteRole({})", id);
+        logger.debug("REST removeRole({})", id);
 
         try {
             roleFacade.deleteRole(id);

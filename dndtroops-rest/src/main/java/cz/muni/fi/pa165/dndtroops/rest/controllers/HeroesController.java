@@ -52,7 +52,7 @@ public class HeroesController {
     
     @RequestMapping(value = "/deleteHero/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public final void deleteHero(@PathVariable("id") long id) {
-        logger.debug("REST deleteHero({})", id);
+        logger.debug("REST removeHero({})", id);
 
         try {
             heroFacade.deleteHero(heroFacade.getHeroById(id));
@@ -111,7 +111,7 @@ public class HeroesController {
     }
     @RequestMapping(value = "/deleteRole/{id}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public final void deleteRole(@PathVariable("id") long id, @RequestBody HeroDTO hero) {
-        logger.debug("REST deleteRole({})",id);
+        logger.debug("REST removeRole({})",id);
         
         RoleDTO role = roleFacade.findById(id);
         if (role == null) {

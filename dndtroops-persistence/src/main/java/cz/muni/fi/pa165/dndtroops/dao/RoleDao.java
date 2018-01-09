@@ -22,9 +22,9 @@ public interface RoleDao {
     /**
      * Delete persisted Role.
      *
-     * @param role a persisted Role to deleteTroop
+     * @param role a persisted Role to removeTroop
      */
-    void deleteRole(Role role);
+    void removeRole(Role role);
 
     /**
      * Update persisted role

@@ -106,7 +106,7 @@ public class HeroServiceTest extends AbstractTransactionalTestNGSpringContextTes
     @Test
     public void deleteHeroTest() {
         heroService.deleteHero(superman);
-        verify(heroDao).deleteHero(superman);
+        verify(heroDao).removeHero(superman);
     }
 
     @Test

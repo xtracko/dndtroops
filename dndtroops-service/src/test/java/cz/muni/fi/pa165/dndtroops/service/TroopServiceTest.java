@@ -139,7 +139,7 @@ public class TroopServiceTest extends AbstractTransactionalTestNGSpringContextTe
     @Test
     public void deleteTroop() {
         troopService.deleteTroop(t1);
-        verify(troopDao).deleteTroop(t1);;
+        verify(troopDao).removeTroop(t1);;
     }
 
     @Test

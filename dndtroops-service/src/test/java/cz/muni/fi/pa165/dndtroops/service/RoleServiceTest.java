@@ -88,7 +88,7 @@ public class RoleServiceTest extends AbstractTransactionalTestNGSpringContextTes
         softly.assertThat(rogue.getPower()).isEqualTo(Power.MARTIAL_ARTS);
         softly.assertAll();
 
-        verify(roleDao).updateRole(rogue);        
+        verify(roleDao).updateRole(rogue);
     }
 
 
@@ -96,7 +96,7 @@ public class RoleServiceTest extends AbstractTransactionalTestNGSpringContextTes
     public void deleteRoleTest() {
         roleService.deleteRole(soldier);
 
-        verify(roleDao).deleteRole(soldier);
+        verify(roleDao).removeRole(soldier);
         verify(heroDao).findHeroesByRole(soldier);
     }
 

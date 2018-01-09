@@ -149,7 +149,4 @@ public class HeroDaoTest extends AbstractTestNGSpringContextTests {
         assertThat(heroDao.findAllHeroes())
                 .hasSize(3);
     }
-
-
-
 }
