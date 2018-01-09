@@ -116,7 +116,7 @@ public class HeroController {
         log.debug("list()");
 
         model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
-        model.addAttribute("heroes", heroFacade.getAllHeroes());
+        model.addAttribute("heroes", heroFacade.findAllHeroes());
 
         return "hero/list";
     }
@@ -126,7 +126,7 @@ public class HeroController {
         log.debug("create()");
 
         model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
-        model.addAttribute("roles", roleFacade.getAllRoles());
+        model.addAttribute("roles", roleFacade.findAllRoles());
         try {
             List<TroopDTO> troops = troopFacade.findAllTroops();
             
@@ -165,7 +165,7 @@ public class HeroController {
                 log.trace("FieldError: {}", fe);
             }
             model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
-            model.addAttribute("roles", roleFacade.getAllRoles());
+            model.addAttribute("roles", roleFacade.findAllRoles());
             model.addAttribute("troops", troopFacade.findAllTroops());
             return "hero/create";
         }
@@ -185,14 +185,14 @@ public class HeroController {
     public String edit(@PathVariable long id, Model model, RedirectAttributes redirectAttributes, HttpServletRequest req) {
         log.debug("edit(id={})", id);
 
-        HeroDTO hero = heroFacade.getHeroById(id);
+        HeroDTO hero = heroFacade.findHeroById(id);
 
         if (hero == null) {
             redirectAttributes.addFlashAttribute("alert_danger", "Hero with ID " + id + " does not exists.");
             return "redirect:/hero/list";
         }
         model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
-        model.addAttribute("roles", roleFacade.getAllRoles());
+        model.addAttribute("roles", roleFacade.findAllRoles());
         model.addAttribute("troops", troopFacade.findAllTroops());
         model.addAttribute("hero", hero);
         return "hero/edit";
@@ -230,8 +230,8 @@ public class HeroController {
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes, HttpServletRequest req) {
-        HeroDTO hero = heroFacade.getHeroById(id);
-        heroFacade.deleteHero(hero);
+        HeroDTO hero = heroFacade.findHeroById(id);
+        heroFacade.removeHero(hero);
         log.debug("delete({})", id);
         model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
         redirectAttributes.addFlashAttribute("alert_success", "Hero \"" + hero.getName() + "\" was deleted.");

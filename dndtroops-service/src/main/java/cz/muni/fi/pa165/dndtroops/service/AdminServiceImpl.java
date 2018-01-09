@@ -38,7 +38,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Administrator findAdministatorById(Long id) { return administratorDao.findAdministatorById(id); }
+    public Administrator findAdministratorById(Long id) { return administratorDao.findAdministatorById(id); }
 
     @Override
     public Administrator findAdministratorByName(String name) { return administratorDao.findAdministratorByName(name);
@@ -51,8 +51,8 @@ public class AdminServiceImpl implements AdminService {
     public void removeAdministrator(Administrator admin) {administratorDao.removeAdministrator(admin);}
 
     @Override
-    public Troop complateMissionForTroop(Troop troop, int xpGained, int goldGained, String newMission){
-        List<Hero> heroes = heroService.getHeroesByTroop(troop);
+    public Troop completeMissionForTroop(Troop troop, int xpGained, int goldGained, String newMission){
+        List<Hero> heroes = heroService.findHeroesByTroop(troop);
         for(Hero hero: heroes){
             hero.setXp(hero.getXp() + xpGained / heroes.size());
         }
@@ -78,7 +78,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public boolean isAdmin(Administrator admin) {
-        return  findAdministatorById(admin.getId()).isIsAdmin();
+        return  findAdministratorById(admin.getId()).isIsAdmin();
     }
 
     

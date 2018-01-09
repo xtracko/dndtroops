@@ -33,14 +33,14 @@ public class RolesController {
         logger.debug("REST getRoles({})", (power != null) ? power : "");
 
         if (power == null) {
-            return roleFacade.getAllRoles();
+            return roleFacade.findAllRoles();
         }
 
         if (!Power.contains(power)) {
             throw new InvalidParameterException();
         }
 
-        return roleFacade.getAllRolesByPower(Power.valueOf(power));
+        return roleFacade.findAllRolesByPower(Power.valueOf(power));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -59,7 +59,7 @@ public class RolesController {
         logger.debug("REST removeRole({})", id);
 
         try {
-            roleFacade.deleteRole(id);
+            roleFacade.removeRole(id);
         } catch (Exception ex) {
             logger.warn(ex.getMessage());
             throw  new ResourceNotFoundException();
@@ -79,14 +79,14 @@ public class RolesController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public final RoleDTO editRole(@PathVariable("id") long id, @RequestBody RoleDTO role) {
-        logger.debug("REST editRole()");
+        logger.debug("REST updateRole()");
 
         if (id != role.getId()) {
             throw new InvalidParameterException();
         }
 
         try {
-            return roleFacade.editRole(role);
+            return roleFacade.updateRole(role);
         } catch(Exception ex) {
             logger.warn(ex.getMessage());
             throw new ResourceNotFoundException();

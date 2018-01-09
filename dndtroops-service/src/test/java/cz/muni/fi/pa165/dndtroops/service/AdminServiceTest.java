@@ -13,10 +13,12 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
+/**
+ * @author Vojtěch Duchoň
+ */
 
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class AdminServiceTest extends AbstractTransactionalTestNGSpringContextTests {
-
     @Autowired
     @InjectMocks
     private AdminService adminService;
@@ -33,32 +35,4 @@ public class AdminServiceTest extends AbstractTransactionalTestNGSpringContextTe
         adminService.createAdministrator(admin,"pass");
         assertEquals(admin, adminService.findAdministratorByName(name));
     }
-
-
-
-
-    @Test
-    public void testCreateAdministrator() throws Exception {
-    }
-
-    @Test
-    public void testUpdateAdministrator() throws Exception {
-    }
-
-    @Test
-    public void testFindAdministatorById() throws Exception {
-    }
-
-    @Test
-    public void testFindAdministratorByName() throws Exception {
-    }
-
-    @Test
-    public void testFindAllAdministrators() throws Exception {
-    }
-
-    @Test
-    public void testRemoveAdministrator() throws Exception {
-    }
-
 }

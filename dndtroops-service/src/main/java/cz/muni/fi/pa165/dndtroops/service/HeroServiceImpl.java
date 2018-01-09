@@ -47,7 +47,7 @@ public class HeroServiceImpl implements HeroService {
     }
 
     @Override
-    public void deleteHero(Hero hero) {
+    public void removeHero(Hero hero) {
         heroDao.removeHero(hero);
     }
 
@@ -76,7 +76,7 @@ public class HeroServiceImpl implements HeroService {
     }
 
     @Override
-    public Hero getHeroById(Long heroId) {
+    public Hero findHeroById(Long heroId) {
         if (heroId == null) {
             throw new IllegalArgumentException("HeroId cannot be null!");
         }
@@ -84,7 +84,7 @@ public class HeroServiceImpl implements HeroService {
     }
 
     @Override
-    public Hero getHeroByName(String name) {
+    public Hero findHeroByName(String name) {
         if (name == null) {
             throw new IllegalArgumentException("Name cannot be null!");
         }
@@ -92,7 +92,7 @@ public class HeroServiceImpl implements HeroService {
     }
 
     @Override
-    public List<Hero> getHeroesByRole(Role role) {
+    public List<Hero> findHeroesByRole(Role role) {
         if (role == null) {
             throw new IllegalArgumentException("Role cannot be null!");
         }
@@ -100,7 +100,7 @@ public class HeroServiceImpl implements HeroService {
     }
 
     @Override
-    public List<Hero> getHeroesByTroop(Troop troop) {
+    public List<Hero> findHeroesByTroop(Troop troop) {
         if (troop == null) {
             throw new IllegalArgumentException("Troop cannot be null!");
         }
@@ -108,13 +108,13 @@ public class HeroServiceImpl implements HeroService {
     }
 
     @Override
-    public List<Hero> getHeroesByXp(int xp) {
+    public List<Hero> findHeroesByXp(int xp) {
 
         return heroDao.findHeroesByXp(xp);
     }
 
     @Override
-    public List<Hero> getAllHeroes() {
+    public List<Hero> findAllHeroes() {
         return heroDao.findAllHeroes();
     }
 

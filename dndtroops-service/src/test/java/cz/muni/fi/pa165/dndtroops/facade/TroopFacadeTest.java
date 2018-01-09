@@ -51,12 +51,12 @@ public class TroopFacadeTest extends AbstractTestNGSpringContextTests {
 
     @AfterMethod
     public void tearDown() throws Exception {
-        heroFacade.getAllHeroes().forEach(hero -> {
-            heroFacade.deleteHero(hero);
+        heroFacade.findAllHeroes().forEach(hero -> {
+            heroFacade.removeHero(hero);
         });
 
         troopFacade.findAllTroops().forEach(troop -> {
-            troopFacade.deleteTroop(troop.getId());
+            troopFacade.removeTroop(troop.getId());
         });
     }
 
@@ -69,8 +69,8 @@ public class TroopFacadeTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void testDeleteTroop() throws Exception {
-        troopFacade.deleteTroop(troopsB.getId());
+    public void testRemoveTroop() throws Exception {
+        troopFacade.removeTroop(troopsB.getId());
 
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(troopFacade.findAllTroops())

@@ -29,7 +29,7 @@ public interface AdminService {
      * @param id of Administrator
      * @return Administrator with sanme id
      */
-    Administrator findAdministatorById(Long id);
+    Administrator findAdministratorById(Long id);
 
     /**
      * Finds Administrator by name
@@ -52,7 +52,7 @@ public interface AdminService {
     
     /**
      * Tries to authenticate user
-     * @param user user
+     * @param admin admin
      * @param password password hash
      * @return true if user is authenticated, false otherwise
      */
@@ -60,7 +60,7 @@ public interface AdminService {
 
     /**
      * Determines whether user is admin
-     * @param user user
+     * @param admin admin
      * @return true if user is admin, false otherwise
      */
     boolean isAdmin(Administrator admin);
@@ -73,7 +73,7 @@ public interface AdminService {
      * @param newMission gained for mission
      * @return updated troop
      */
-    Troop complateMissionForTroop(Troop troop, int xpGained, int goldGained, String newMission);
+    Troop completeMissionForTroop(Troop troop, int xpGained, int goldGained, String newMission);
 
     /**
      * Creates new party for list of heroes

@@ -9,40 +9,45 @@ import java.util.List;
  */
 public interface TroopService {
     /**
-     * creates new troop
-     * @param t
+     * Creates new troop
+     *
+     * @param t a troop to create in database
      */
     void createTroop(Troop t );
 
     /**
-     * deletes troop
-     * @param t
+     * Removes troop
+     *
+     * @param t troop to remove from database
      */
-    void deleteTroop(Troop t );
+    void removeTroop(Troop t );
 
     /**
-     * updates troop
-     * @param t
+     * Updates troop
+     *
+     * @param t troop to update in database
      */
     void updateTroop(Troop t );
 
     /**
-     * finds troop by id
-     * @param id
-     * @return
+     * Finds troop by id
+     *
+     * @param id an ID of a Troop to find
+     * @return a Troop with the given ID or null if no such Troop exists
      */
     Troop findTroopById(Long id);
 
     /**
-     * finds troop by name
-     * @param name
-     * @return
+     * Finds troop by name
+     *
+     * @param name a name of a Troop to find
+     * @return a Troop with the given name or null if no such Troop exists
      */
     Troop findTroopByName(String name);
 
     /**
-     * find all troops
-     * @return
+     * Find all troops
+     * @return all persisted troops
      */
     List<Troop> findAllTroops();
 

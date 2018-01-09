@@ -34,13 +34,13 @@ public class RoleFacadeImpl implements RoleFacade {
     }
 
     @Override
-    public void deleteRole(long id) {
-        roleService.deleteRole(roleService.findRoleById(id));
+    public void removeRole(long id) {
+        roleService.removeRole(roleService.findRoleById(id));
     }
 
     @Override
-    public RoleDTO editRole(RoleDTO role) {
-        return beanMappingService.mapTo(roleService.editRole(beanMappingService.mapTo(role, Role.class)), RoleDTO.class);
+    public RoleDTO updateRole(RoleDTO role) {
+        return beanMappingService.mapTo(roleService.updateRole(beanMappingService.mapTo(role, Role.class)), RoleDTO.class);
     }
     
     @Override
@@ -49,13 +49,13 @@ public class RoleFacadeImpl implements RoleFacade {
     }
 
     @Override
-    public List<RoleDTO> getAllRoles() {
-        return beanMappingService.mapTo(roleService.getAllRoles(), RoleDTO.class);
+    public List<RoleDTO> findAllRoles() {
+        return beanMappingService.mapTo(roleService.findAllRoles(), RoleDTO.class);
     }
 
     @Override
-    public List<RoleDTO> getAllRolesByPower(Power power) {
-        return beanMappingService.mapTo(roleService.getAllRolesByPower(power), RoleDTO.class);
+    public List<RoleDTO> findAllRolesByPower(Power power) {
+        return beanMappingService.mapTo(roleService.findRolesByPower(power), RoleDTO.class);
     }
 
     @Override

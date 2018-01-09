@@ -28,11 +28,11 @@ public interface HeroFacade {
     public void updateHero(HeroDTO hero);
  
     /**
-     * delete persisted Hero.
+     * Remove persisted Hero.
      *
       * @param hero persisted hero
      */
-    public void deleteHero(HeroDTO hero);
+    public void removeHero(HeroDTO hero);
     
     /**
      * Change troop of Hero.
@@ -71,7 +71,7 @@ public interface HeroFacade {
       * @param heroId an ID of a HeroDTO to get
       * @return Herowith the required ID or null if such HeroDTO does not exists
       */
-    public HeroDTO getHeroById(Long heroId);
+    public HeroDTO findHeroById(Long heroId);
     
     /**
       * Find persisted HeroDTO by it's name If no heroes were found null is returned
@@ -79,7 +79,7 @@ public interface HeroFacade {
       * @param name of a HeroDTO to get
       * @return HeroDTO with the required name or null if such HeroDTO does not exists
       */
-    public HeroDTO getHeroByName(String name);
+    public HeroDTO findHeroByName(String name);
     
     /**
       * Find list of persisted Heroes by it's role. If no heroes were found null is returned
@@ -87,7 +87,7 @@ public interface HeroFacade {
       * @param role - role of hero
       * @return List of all persisted Heroes with required role or null if no heroes were found
       */
-    public List<HeroDTO> getHeroesByRole(RoleDTO role);
+    public List<HeroDTO> findHeroesByRole(RoleDTO role);
     
     /**
       * Find list of persisted Heroes by it's troop. If no heroes were found null is returned
@@ -95,7 +95,7 @@ public interface HeroFacade {
       * @param troop - troop of hero
       * @return List of all persisted Heroes with required troop or null if no heroes were found
       */
-    public List<HeroDTO> getHeroesByTroop(TroopDTO troop);
+    public List<HeroDTO> findHeroesByTroop(TroopDTO troop);
     
     /**
       * Find list of persisted Heroes by it's xp. If no heroes were found null is returned
@@ -103,13 +103,13 @@ public interface HeroFacade {
       * @param xp  xp of a Heroes to get
       * @return List of all persisted Heroes with required xp or null if no heroes were found
       */
-    public List<HeroDTO> getHeroesByXp(int xp);
+    public List<HeroDTO> findHeroesByXp(int xp);
     
     /**
       * Find all persisted Heroes and return them as a List. If no heroes were found null is returned
       *
       * @return List of all persisted Heroes
       */
-    public List<HeroDTO> getAllHeroes();
+    public List<HeroDTO> findAllHeroes();
 
 }

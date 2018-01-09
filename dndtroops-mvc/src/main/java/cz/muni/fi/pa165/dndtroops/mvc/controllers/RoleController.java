@@ -52,10 +52,10 @@ public class RoleController {
         
         if (power == null) {
             log.debug("list()");
-            model.addAttribute("roles", roleFacade.getAllRoles());
+            model.addAttribute("roles", roleFacade.findAllRoles());
         } else if (Power.contains(power)) {
             log.debug("list(power={})", power);
-            model.addAttribute("roles", roleFacade.getAllRolesByPower(Power.valueOf(power)));
+            model.addAttribute("roles", roleFacade.findAllRolesByPower(Power.valueOf(power)));
         } else {
             model.addAttribute("roles", new ArrayList<>());
             model.addAttribute("alert_danger", "Unknown power " + power + ".");
@@ -131,7 +131,7 @@ public class RoleController {
         }
 
         try {
-            roleFacade.editRole(data);
+            roleFacade.updateRole(data);
             redirectAttributes.addFlashAttribute("alert_success", "Role with ID " + id + " was successfully edited.");
         } catch (Exception ex) {
             log.warn("cannot edit role with ID {}", id);
@@ -146,7 +146,7 @@ public class RoleController {
         log.debug("delete(id={})", id);
         model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
         try {
-            roleFacade.deleteRole(id);
+            roleFacade.removeRole(id);
             redirectAttributes.addFlashAttribute("alert_success", "Role successfully was deleted.");
         } catch (Exception ex) {
             log.warn("cannot delete role with ID {}", id);

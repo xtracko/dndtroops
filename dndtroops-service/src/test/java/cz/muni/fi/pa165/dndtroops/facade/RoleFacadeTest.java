@@ -74,7 +74,7 @@ public class RoleFacadeTest extends AbstractTransactionalTestNGSpringContextTest
     @Rollback(true) 
     public void updateRoleTest(){  
         rogue.setName("Samurai");
-        roleFacade.editRole(rogue);
+        roleFacade.updateRole(rogue);
 
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(roleFacade.findById(rogue.getId()))
@@ -85,11 +85,11 @@ public class RoleFacadeTest extends AbstractTransactionalTestNGSpringContextTest
     
     @Test
     @Transactional  
-    public void deleteRoleTest() {
-        roleFacade.deleteRole(rogue.getId());
+    public void removeRoleTest() {
+        roleFacade.removeRole(rogue.getId());
 
         SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(roleFacade.getAllRoles())
+        softly.assertThat(roleFacade.findAllRoles())
                 .hasSize(2)
                 .contains(soldier, mage);
         softly.assertAll();
@@ -97,7 +97,7 @@ public class RoleFacadeTest extends AbstractTransactionalTestNGSpringContextTest
     
     @Test
     @Rollback(true)  
-    public void getHeroByIdTest() {
+    public void findRoleByIdTest() {
         assertThat(roleFacade.findById(soldier.getId()))
                 .isNotNull()
                 .hasFieldOrPropertyWithValue("id", soldier.getId());
@@ -105,18 +105,24 @@ public class RoleFacadeTest extends AbstractTransactionalTestNGSpringContextTest
     
     @Test
     @Rollback(true)   
-    public void getAllRolesTest() {
-        assertThat(roleFacade.getAllRoles())
+    public void findAllRolesTest() {
+        assertThat(roleFacade.findAllRoles())
                 .hasSize(3)
                 .contains(soldier, mage);
     }
     
     @Test
     @Rollback(true) 
-    public void getAllRolesByPowerTest() {
-        assertThat(roleFacade.getAllRolesByPower(Power.MAGIC))
+    public void findAllRolesByPowerTest() {
+        assertThat(roleFacade.findAllRolesByPower(Power.MAGIC))
                 .hasSize(1)
                 .contains(mage);
-    }  
-    
+    }
+
+    @Test
+    @Rollback(true)
+    public void computeAttackingForceTest() {
+        assertThat(roleFacade.computeAttackingForce(soldier))
+                .isPositive();
+    }
 }

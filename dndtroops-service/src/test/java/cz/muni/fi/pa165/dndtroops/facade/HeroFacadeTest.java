@@ -80,16 +80,16 @@ public class HeroFacadeTest extends AbstractTestNGSpringContextTests {
 
     @AfterMethod
     public void teardown() {
-        heroFacade.getAllHeroes().forEach(hero -> {
-            heroFacade.deleteHero(hero);
+        heroFacade.findAllHeroes().forEach(hero -> {
+            heroFacade.removeHero(hero);
         });
 
-        roleFacade.getAllRoles().forEach(role -> {
-            roleFacade.deleteRole(role.getId());
+        roleFacade.findAllRoles().forEach(role -> {
+            roleFacade.removeRole(role.getId());
         });
 
         troopFacade.findAllTroops().forEach(troop -> {
-            troopFacade.deleteTroop(troop.getId());
+            troopFacade.removeTroop(troop.getId());
         });
     }
 
@@ -101,21 +101,21 @@ public class HeroFacadeTest extends AbstractTestNGSpringContextTests {
         softly.assertThat(batman.getId()).isNotNull();
         softly.assertThat(superman.getId()).isNotNull();
 
-        softly.assertThat(heroFacade.getHeroByName("Joker").getRoles())
+        softly.assertThat(heroFacade.findHeroByName("Joker").getRoles())
                 .hasSize(1)
                 .containsExactlyInAnyOrder(human);
-        softly.assertThat(heroFacade.getHeroByName("Batman").getRoles())
+        softly.assertThat(heroFacade.findHeroByName("Batman").getRoles())
                 .hasSize(1)
                 .containsExactlyInAnyOrder(human);
-        softly.assertThat(heroFacade.getHeroByName("Superman").getRoles())
+        softly.assertThat(heroFacade.findHeroByName("Superman").getRoles())
                 .hasSize(1)
                 .containsExactlyInAnyOrder(alien);
 
-        softly.assertThat(heroFacade.getHeroByName("Joker").getTroop())
+        softly.assertThat(heroFacade.findHeroByName("Joker").getTroop())
                 .isNotNull();
-        softly.assertThat(heroFacade.getHeroByName("Batman").getTroop())
+        softly.assertThat(heroFacade.findHeroByName("Batman").getTroop())
                 .isNotNull();
-        softly.assertThat(heroFacade.getHeroByName("Superman").getTroop())
+        softly.assertThat(heroFacade.findHeroByName("Superman").getTroop())
                 .isNotNull();
 
         softly.assertAll();
@@ -127,25 +127,25 @@ public class HeroFacadeTest extends AbstractTestNGSpringContextTests {
         heroFacade.updateHero(batman);
 
         SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(heroFacade.getHeroByName("Batman"))
+        softly.assertThat(heroFacade.findHeroByName("Batman"))
                 .isNotNull()
                 .hasFieldOrPropertyWithValue("troop", villains);
-        softly.assertThat(heroFacade.getHeroesByTroop(villains))
+        softly.assertThat(heroFacade.findHeroesByTroop(villains))
                 .contains(batman);
-        softly.assertThat(heroFacade.getHeroesByTroop(superheroes))
+        softly.assertThat(heroFacade.findHeroesByTroop(superheroes))
                 .doesNotContain(batman);
         softly.assertAll();
     }
 
     @Test
-    public void deleteHeroTest() {
-        heroFacade.deleteHero(batman);
+    public void removeHeroTest() {
+        heroFacade.removeHero(batman);
 
         SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(heroFacade.getAllHeroes())
+        softly.assertThat(heroFacade.findAllHeroes())
                 .hasSize(2)
                 .contains(joker, superman);
-        softly.assertThat(heroFacade.getHeroesByTroop(superheroes))
+        softly.assertThat(heroFacade.findHeroesByTroop(superheroes))
                 .doesNotContain(batman);
         softly.assertAll();
     }
@@ -155,7 +155,7 @@ public class HeroFacadeTest extends AbstractTestNGSpringContextTests {
         heroFacade.changeTroop(batman, villains);
 
         SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(heroFacade.getHeroByName("Batman"))
+        softly.assertThat(heroFacade.findHeroByName("Batman"))
                 .isNotNull()
                 .hasFieldOrPropertyWithValue("troop", villains);
         softly.assertAll();
@@ -165,7 +165,7 @@ public class HeroFacadeTest extends AbstractTestNGSpringContextTests {
     public void addRoleTest() {
         heroFacade.addRole(batman, alien);
 
-        assertThat(heroFacade.getHeroByName("Batman").getRoles())
+        assertThat(heroFacade.findHeroByName("Batman").getRoles())
                 .hasSize(2)
                 .contains(human, alien);
     }
@@ -174,7 +174,7 @@ public class HeroFacadeTest extends AbstractTestNGSpringContextTests {
     public void removeRoleTest() {
         heroFacade.removeRole(batman, human);
 
-        assertThat(heroFacade.getHeroByName("Batman").getRoles())
+        assertThat(heroFacade.findHeroByName("Batman").getRoles())
                 .isEmpty();
     }
 
@@ -182,46 +182,46 @@ public class HeroFacadeTest extends AbstractTestNGSpringContextTests {
     public void changeXpTest() {
         heroFacade.changeXp(batman, 3);
 
-        assertThat(heroFacade.getHeroByName("Batman"))
+        assertThat(heroFacade.findHeroByName("Batman"))
                 .isNotNull()
                 .hasFieldOrPropertyWithValue("xp", 3);
     }
 
     @Test
-    public void getHeroByIdTest() {
-        assertThat(heroFacade.getHeroById(batman.getId()))
+    public void findHeroByIdTest() {
+        assertThat(heroFacade.findHeroById(batman.getId()))
                 .isNotNull()
                 .hasFieldOrPropertyWithValue("id", batman.getId());
     }
 
     @Test
-    public void getHeroByNameTest() {
-        assertThat(heroFacade.getHeroByName("Batman"))
+    public void findHeroByNameTest() {
+        assertThat(heroFacade.findHeroByName("Batman"))
                 .isNotNull()
                 .hasFieldOrPropertyWithValue("name", "Batman");
     }
 
     @Test
-    public void getHeroesByRoleTest() {
-        assertThat(heroFacade.getHeroesByRole(human))
+    public void findHeroesByRoleTest() {
+        assertThat(heroFacade.findHeroesByRole(human))
                 .containsExactlyInAnyOrder(joker, batman);
     }
 
     @Test
-    public void getHeroesByTroopTest() {
-        assertThat(heroFacade.getHeroesByTroop(superheroes))
+    public void findHeroesByTroopTest() {
+        assertThat(heroFacade.findHeroesByTroop(superheroes))
                 .containsExactlyInAnyOrder(batman, superman);
     }
 
     @Test
-    public void getHeroesByXpTest() {
-        assertThat(heroFacade.getHeroesByXp(1))
+    public void findHeroesByXpTest() {
+        assertThat(heroFacade.findHeroesByXp(1))
                 .containsExactlyInAnyOrder(joker, batman);
     }
 
     @Test
-    public void getAllHeroesTest() {
-        assertThat(heroFacade.getAllHeroes())
+    public void findAllHeroesTest() {
+        assertThat(heroFacade.findAllHeroes())
                 .containsExactlyInAnyOrder(joker, batman, superman);
     }
 

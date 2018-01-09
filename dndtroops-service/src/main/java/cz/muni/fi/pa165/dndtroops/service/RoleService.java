@@ -24,14 +24,14 @@ public interface RoleService {
      *
      * @param role
      */
-    void deleteRole(Role role);
+    void removeRole(Role role);
 
     /**
-     * Edit Role data
+     * Update Role data.
      *
-     * @param role a Role to edit
+     * @param role a Role to update
      */
-    Role editRole(Role role);
+    Role updateRole(Role role);
 
     /**
      * Find Role by an ID
@@ -46,7 +46,7 @@ public interface RoleService {
      *
      * @return all existing Roles
      */
-    List<Role> getAllRoles();
+    List<Role> findAllRoles();
 
     /**
      * List all Roles which have some specific Power
@@ -54,7 +54,7 @@ public interface RoleService {
      * @param power a Power of a Roles to find
      * @return list of Roles
      */
-    List<Role> getAllRolesByPower(Power power);
+    List<Role> findRolesByPower(Power power);
 
     /**
      * Compute attacking force based on random attempt

@@ -35,7 +35,7 @@ public class TroopServiceImpl implements TroopService {
     }
 
     @Override
-    public void deleteTroop(Troop t) {
+    public void removeTroop(Troop t) {
         troopDao.removeTroop(t);
     }
 
@@ -62,8 +62,8 @@ public class TroopServiceImpl implements TroopService {
         if (Objects.equals(a, b))
             throw new IllegalArgumentException("Cannot battle among same troops");
 
-        List<HeroState> aStates = heroService.getHeroesByTroop(a).stream().map(HeroState::new).collect(toList());
-        List<HeroState> bStates = heroService.getHeroesByTroop(b).stream().map(HeroState::new).collect(toList());
+        List<HeroState> aStates = heroService.findHeroesByTroop(a).stream().map(HeroState::new).collect(toList());
+        List<HeroState> bStates = heroService.findHeroesByTroop(b).stream().map(HeroState::new).collect(toList());
 
         randomService.shuffle(aStates);
         randomService.shuffle(bStates);

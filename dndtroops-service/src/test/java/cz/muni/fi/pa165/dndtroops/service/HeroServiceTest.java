@@ -104,8 +104,8 @@ public class HeroServiceTest extends AbstractTransactionalTestNGSpringContextTes
     }
 
     @Test
-    public void deleteHeroTest() {
-        heroService.deleteHero(superman);
+    public void removeHeroTest() {
+        heroService.removeHero(superman);
         verify(heroDao).removeHero(superman);
     }
 
@@ -158,38 +158,38 @@ public class HeroServiceTest extends AbstractTransactionalTestNGSpringContextTes
     }
 
     @Test
-    public void getHeroByIdTest() {
+    public void findHeroByIdTest() {
         when(heroDao.findHeroById(1L))
                 .thenReturn(batman);
 
-        assertThat(heroService.getHeroById(1L))
+        assertThat(heroService.findHeroById(1L))
                 .isEqualToComparingFieldByField(batman);
     }
 
     @Test
-    public void getHeroByNameTest() {
+    public void findHeroByNameTest() {
         when(heroDao.findHeroByName("Batman"))
                 .thenReturn(batman);
 
-        assertThat(heroService.getHeroByName("Batman"))
+        assertThat(heroService.findHeroByName("Batman"))
                 .isEqualToComparingFieldByField(batman);
     }
 
     @Test
-    public void getHeroesByRoleTest() {
+    public void findHeroesByRoleTest() {
         when(heroDao.findHeroesByRole(alien)).thenAnswer(invocation -> {
             List<Hero> aliens = new ArrayList<>();
             aliens.add(superman);
             return aliens;
         });
 
-        assertThat(heroService.getHeroesByRole(alien))
+        assertThat(heroService.findHeroesByRole(alien))
                 .hasSize(1)
                 .contains(superman);
     }
 
     @Test
-    public void getHeroesByTroopTest() {
+    public void findHeroesByTroopTest() {
         when(heroDao.findHeroesByTroop(superheroes)).thenAnswer(invocation -> {
             List<Hero> heroes = new ArrayList<>();
             heroes.add(batman);
@@ -197,26 +197,26 @@ public class HeroServiceTest extends AbstractTransactionalTestNGSpringContextTes
             return heroes;
         });
 
-        assertThat(heroService.getHeroesByTroop(superheroes))
+        assertThat(heroService.findHeroesByTroop(superheroes))
                 .hasSize(2)
                 .contains(batman, superman);
     }
 
     @Test
-    public void getHeroesByXpTest() {
+    public void findHeroesByXpTest() {
         when(heroDao.findHeroesByXp(1)).thenAnswer(invocation -> {
             List<Hero> heroes = new ArrayList<>();
             heroes.add(batman);
             return heroes;
         });
 
-        assertThat(heroService.getHeroesByXp(1))
+        assertThat(heroService.findHeroesByXp(1))
                 .hasSize(1)
                 .contains(batman);
     }
 
     @Test
-    public void getAllHeroesTest() {
+    public void findAllHeroesTest() {
         when(heroDao.findAllHeroes()).thenAnswer(invocation -> {
             List<Hero> heroes = new ArrayList<>();
             heroes.add(batman);
@@ -224,7 +224,7 @@ public class HeroServiceTest extends AbstractTransactionalTestNGSpringContextTes
             return heroes;
         });
 
-        assertThat(heroService.getAllHeroes())
+        assertThat(heroService.findAllHeroes())
                 .hasSize(2)
                 .contains(batman, superman);
     }

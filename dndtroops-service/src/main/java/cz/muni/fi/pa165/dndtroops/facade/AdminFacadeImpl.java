@@ -46,8 +46,8 @@ public class AdminFacadeImpl implements AdminFacade {
     }
 
     @Override
-    public AdminDTO findAdministatorById(Long id){
-        return beanMappingService.mapTo(adminService.findAdministatorById(id), AdminDTO.class);
+    public AdminDTO findAdministratorById(Long id){
+        return beanMappingService.mapTo(adminService.findAdministratorById(id), AdminDTO.class);
     }
     @Override
     public AdminDTO findAdministratorByName(String name){

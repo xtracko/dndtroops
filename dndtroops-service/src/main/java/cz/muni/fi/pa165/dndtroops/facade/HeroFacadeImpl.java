@@ -43,40 +43,40 @@ public class HeroFacadeImpl implements HeroFacade {
     }
 
     @Override
-    public void deleteHero(HeroDTO hero) {
-        heroService.deleteHero(heroService.getHeroById(hero.getId()));
+    public void removeHero(HeroDTO hero) {
+        heroService.removeHero(heroService.findHeroById(hero.getId()));
     }
 
     @Override
-    public HeroDTO getHeroById(Long heroId) {
-        return beanMappingService.mapTo(heroService.getHeroById(heroId), HeroDTO.class);
+    public HeroDTO findHeroById(Long heroId) {
+        return beanMappingService.mapTo(heroService.findHeroById(heroId), HeroDTO.class);
     }
 
     @Override
-    public HeroDTO getHeroByName(String name) {
-        return beanMappingService.mapTo(heroService.getHeroByName(name), HeroDTO.class);
+    public HeroDTO findHeroByName(String name) {
+        return beanMappingService.mapTo(heroService.findHeroByName(name), HeroDTO.class);
     }
 
     @Override
-    public List<HeroDTO> getHeroesByRole(RoleDTO role) {
+    public List<HeroDTO> findHeroesByRole(RoleDTO role) {
         Role mapped = beanMappingService.mapTo(role, Role.class);
-        return beanMappingService.mapTo(heroService.getHeroesByRole(mapped), HeroDTO.class);
+        return beanMappingService.mapTo(heroService.findHeroesByRole(mapped), HeroDTO.class);
     }
 
     @Override
-    public List<HeroDTO> getHeroesByTroop(TroopDTO troop) {
+    public List<HeroDTO> findHeroesByTroop(TroopDTO troop) {
         Troop mapped = beanMappingService.mapTo(troop, Troop.class);
-        return beanMappingService.mapTo(heroService.getHeroesByTroop(mapped), HeroDTO.class);
+        return beanMappingService.mapTo(heroService.findHeroesByTroop(mapped), HeroDTO.class);
     }
 
     @Override
-    public List<HeroDTO> getHeroesByXp(int xp) {
-        return beanMappingService.mapTo(heroService.getHeroesByXp(xp), HeroDTO.class);
+    public List<HeroDTO> findHeroesByXp(int xp) {
+        return beanMappingService.mapTo(heroService.findHeroesByXp(xp), HeroDTO.class);
     }
 
     @Override
-    public List<HeroDTO> getAllHeroes() {
-        return beanMappingService.mapTo(heroService.getAllHeroes(), HeroDTO.class);
+    public List<HeroDTO> findAllHeroes() {
+        return beanMappingService.mapTo(heroService.findAllHeroes(), HeroDTO.class);
     }
 
 

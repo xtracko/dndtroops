@@ -55,7 +55,7 @@ public class HeroesController {
         logger.debug("REST removeHero({})", id);
 
         try {
-            heroFacade.deleteHero(heroFacade.getHeroById(id));
+            heroFacade.removeHero(heroFacade.findHeroById(id));
         } catch (Exception ex) {
             logger.warn(ex.getMessage());
             throw  new ResourceNotFoundException();
@@ -64,7 +64,7 @@ public class HeroesController {
 
     @RequestMapping(value = "/editHero/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public final void editHero(@PathVariable("id") long id, @RequestBody HeroDTO hero) {
-        logger.debug("REST editRole()");
+        logger.debug("REST updateRole()");
 
         if (id != hero.getId()) {
             throw new InvalidParameterException();
@@ -139,7 +139,7 @@ public class HeroesController {
     @RequestMapping(value = "/getHero/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final HeroDTO getHero(@PathVariable("id") long id) {
         logger.debug("REST getHero({})", id);
-        HeroDTO heroDTO = heroFacade.getHeroById(id);
+        HeroDTO heroDTO = heroFacade.findHeroById(id);
         if (heroDTO == null) {
             throw new ResourceNotFoundException();
         }
@@ -149,7 +149,7 @@ public class HeroesController {
     @RequestMapping(value = "/getHero/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final HeroDTO getHero(@RequestParam(value = "name", required = true) String name) {
         logger.debug("REST getHero({})", name);
-        HeroDTO heroDTO = heroFacade.getHeroByName(name);
+        HeroDTO heroDTO = heroFacade.findHeroByName(name);
         if (heroDTO == null) {
             throw new ResourceNotFoundException();
         }
@@ -158,16 +158,16 @@ public class HeroesController {
     
     @RequestMapping(value = "/getAllHeroes",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<HeroDTO> getAllHeroes(){
-        logger.debug("REST getAllHeroes()");     
-        return heroFacade.getAllHeroes();
+        logger.debug("REST findAllHeroes()");
+        return heroFacade.findAllHeroes();
     }
     
     
     
     @RequestMapping(value = "/getHeroesByRole/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<HeroDTO> getHeroesByRole(@PathVariable("id") long id) {
-        logger.debug("REST getHeroesByRole({})", id);
-        List<HeroDTO> heroesDTO = heroFacade.getHeroesByRole(roleFacade.findById(id));
+        logger.debug("REST findHeroesByRole({})", id);
+        List<HeroDTO> heroesDTO = heroFacade.findHeroesByRole(roleFacade.findById(id));
         if (heroesDTO.isEmpty()) {
             throw new ResourceNotFoundException();
         }
@@ -176,8 +176,8 @@ public class HeroesController {
     
     @RequestMapping(value = "/getHeroesByTroop/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<HeroDTO> getHeroesByTroop(@PathVariable("id") long id) {
-        logger.debug("REST getHeroesByTroop({})", id);
-        List<HeroDTO> heroesDTO = heroFacade.getHeroesByTroop(troopFacade.findTroopById(id));
+        logger.debug("REST findHeroesByTroop({})", id);
+        List<HeroDTO> heroesDTO = heroFacade.findHeroesByTroop(troopFacade.findTroopById(id));
         if (heroesDTO.isEmpty()) {
             throw new ResourceNotFoundException();
         }
@@ -186,8 +186,8 @@ public class HeroesController {
     
     @RequestMapping(value = "/getHeroesByXp/",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<HeroDTO> getHeroesByXp(@RequestParam(value = "xp") int xp) {
-        logger.debug("REST getHeroesByXp({})", xp);
-        List<HeroDTO> heroesDTO = heroFacade.getHeroesByXp(xp);
+        logger.debug("REST findHeroesByXp({})", xp);
+        List<HeroDTO> heroesDTO = heroFacade.findHeroesByXp(xp);
         if (heroesDTO.isEmpty()) {
             throw new ResourceNotFoundException();
         }

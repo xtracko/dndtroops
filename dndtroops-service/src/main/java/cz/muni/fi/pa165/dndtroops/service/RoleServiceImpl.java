@@ -31,7 +31,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void deleteRole(Role role) {
+    public void removeRole(Role role) {
         roleDao.removeRole(role);
         heroDao.findHeroesByRole(role).forEach(hero -> {
             hero.removeRole(role);
@@ -39,7 +39,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Role editRole(Role role) {
+    public Role updateRole(Role role) {
         return roleDao.updateRole(role);
     }
 
@@ -49,12 +49,12 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public List<Role> getAllRoles() {
+    public List<Role> findAllRoles() {
         return roleDao.findAllRoles();
     }
 
     @Override
-    public List<Role> getAllRolesByPower(Power power) {
+    public List<Role> findRolesByPower(Power power) {
         return roleDao.findAllRolesByPower(power);
     }
 

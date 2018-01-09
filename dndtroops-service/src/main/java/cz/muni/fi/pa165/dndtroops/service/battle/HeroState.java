@@ -6,6 +6,10 @@ import cz.muni.fi.pa165.dndtroops.entities.Role;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Jiří Novotný
+ */
+
 public class HeroState {
     public final Hero hero;
     private int healthState;

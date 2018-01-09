@@ -5,13 +5,11 @@ import cz.muni.fi.pa165.dndtroops.dto.UserAuthenticateDTO;
 
 import java.util.List;
 
-
 /**
  * @author Miroslav Macor
  */
 
 public interface AdminFacade {
-
     /**
      * Creates Admin
      * @param admin a Admin creation data
@@ -28,9 +26,9 @@ public interface AdminFacade {
     /**
      * Returns Administrator with the id or null
      * @param id of Administrator
-     * @return Administrator with sanme id
+     * @return Administrator with same id or null if no such Administrator exists
      */
-    AdminDTO findAdministatorById(Long id);
+    AdminDTO findAdministratorById(Long id);
 
     /**
      * Finds Administrator by name

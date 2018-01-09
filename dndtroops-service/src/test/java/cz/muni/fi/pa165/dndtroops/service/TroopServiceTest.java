@@ -137,8 +137,8 @@ public class TroopServiceTest extends AbstractTransactionalTestNGSpringContextTe
     }
 
     @Test
-    public void deleteTroop() {
-        troopService.deleteTroop(t1);
+    public void removeTroop() {
+        troopService.removeTroop(t1);
         verify(troopDao).removeTroop(t1);;
     }
 
@@ -147,8 +147,8 @@ public class TroopServiceTest extends AbstractTransactionalTestNGSpringContextTe
         Troop one = new Troop("One", "idk", 10);
         Troop two = new Troop("Two", "idk", 10);
 
-        when(heroService.getHeroesByTroop(one)).thenReturn(Collections.emptyList());
-        when(heroService.getHeroesByTroop(two)).thenReturn(Collections.emptyList());
+        when(heroService.findHeroesByTroop(one)).thenReturn(Collections.emptyList());
+        when(heroService.findHeroesByTroop(two)).thenReturn(Collections.emptyList());
 
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(troopService.battle(one, two)).isNull();
@@ -164,8 +164,8 @@ public class TroopServiceTest extends AbstractTransactionalTestNGSpringContextTe
 
         Hero two_hero = new Hero("Two Hero", two, 1, 1);
 
-        when(heroService.getHeroesByTroop(one)).thenReturn(Collections.emptyList());
-        when(heroService.getHeroesByTroop(two)).thenReturn(Collections.singletonList(two_hero));
+        when(heroService.findHeroesByTroop(one)).thenReturn(Collections.emptyList());
+        when(heroService.findHeroesByTroop(two)).thenReturn(Collections.singletonList(two_hero));
 
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(troopService.battle(one, two)).isSameAs(two);
@@ -182,8 +182,8 @@ public class TroopServiceTest extends AbstractTransactionalTestNGSpringContextTe
         Hero one_hero = new Hero("Two Hero", one, 10, 1);
         Hero two_hero = new Hero("Two Hero", two, 1, 1);
 
-        when(heroService.getHeroesByTroop(one)).thenReturn(Collections.singletonList(one_hero));
-        when(heroService.getHeroesByTroop(two)).thenReturn(Collections.singletonList(two_hero));
+        when(heroService.findHeroesByTroop(one)).thenReturn(Collections.singletonList(one_hero));
+        when(heroService.findHeroesByTroop(two)).thenReturn(Collections.singletonList(two_hero));
 
         doAnswer(invocation -> {
             HeroState a = invocation.getArgumentAt(0, HeroState.class);
@@ -212,8 +212,8 @@ public class TroopServiceTest extends AbstractTransactionalTestNGSpringContextTe
         Hero one_hero = new Hero("Two Hero", one, 10, 1);
         Hero two_hero = new Hero("Two Hero", two, 10, 1);
 
-        when(heroService.getHeroesByTroop(one)).thenReturn(Collections.singletonList(one_hero));
-        when(heroService.getHeroesByTroop(two)).thenReturn(Collections.singletonList(two_hero));
+        when(heroService.findHeroesByTroop(one)).thenReturn(Collections.singletonList(one_hero));
+        when(heroService.findHeroesByTroop(two)).thenReturn(Collections.singletonList(two_hero));
 
         doAnswer(invocation -> {
             HeroState a = invocation.getArgumentAt(0, HeroState.class);

@@ -51,31 +51,31 @@ public interface HeroDao {
     public Hero findHeroByName(String name);
     
     /**
-      * Find list of persisted Heroes by it's role. If no heroes were found null is returned
+      * Find list of persisted Heroes by it's role. If no heroes were found empty list is returned
       *
       * @param role role of a Hero to find
-      * @return List of all persisted Heroes with required role or null if no heroes were found
+      * @return List of all persisted Heroes with required role or empty list if no heroes were found
       */
     public List<Hero> findHeroesByRole(Role role);
     
     /**
-      * Find list of persisted Heroes by it's troop. If no heroes were found null is returned
+      * Find list of persisted Heroes by it's troop. If no heroes were found empty list is returned
       *
       * @param troop an troop of a Heroes to find
-      * @return List of all persisted Heroes with required troop or null if no heroes were found
+      * @return List of all persisted Heroes with required troop or empty list if no heroes were found
       */
     public List<Hero> findHeroesByTroop(Troop troop);
 
     /**
-      * Find list of persisted Heroes by it's xp. If no heroes were found null is returned
+      * Find list of persisted Heroes by it's xp. If no heroes were found empty list is returned
       *
       * @param xp  xp of a Heroes to find
-      * @return List of all persisted Heroes with required xp or null if no heroes were found
+      * @return List of all persisted Heroes with required xp or empty list if no heroes were found
       */
     public List<Hero> findHeroesByXp(int xp);
     
     /**
-      * Find all persisted Heroes and return them as a List. If no heroes were found null is returned
+      * Find all persisted Heroes and return them as a List. If no heroes were found empty list is returned
       *
       * @return List of all persisted Heroes
       */

@@ -74,14 +74,14 @@ public class RoleServiceTest extends AbstractTransactionalTestNGSpringContextTes
     }
 
     @Test
-    public void editRoleTest() {
+    public void updateRoleTest() {
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(rogue.getName()).isEqualTo("Ninja");
         softly.assertThat(rogue.getDescription()).isEqualTo("Skilled rogue-ish warrior, trained by monks");
         softly.assertThat(rogue.getPower()).isEqualTo(Power.MARTIAL_ARTS);
 
         rogue.setName("Samurai");
-        roleService.editRole(rogue);
+        roleService.updateRole(rogue);
 
         softly.assertThat(rogue.getName()).isEqualTo("Samurai");
         softly.assertThat(rogue.getDescription()).isEqualTo("Skilled rogue-ish warrior, trained by monks");
@@ -93,8 +93,8 @@ public class RoleServiceTest extends AbstractTransactionalTestNGSpringContextTes
 
 
     @Test
-    public void deleteRoleTest() {
-        roleService.deleteRole(soldier);
+    public void removeRoleTest() {
+        roleService.removeRole(soldier);
 
         verify(roleDao).removeRole(soldier);
         verify(heroDao).findHeroesByRole(soldier);
@@ -102,7 +102,7 @@ public class RoleServiceTest extends AbstractTransactionalTestNGSpringContextTes
 
 
     @Test
-    public void getAllRolesNonEmptyTest() {
+    public void findAllRolesNonEmptyTest() {
         when(roleDao.findAllRoles()).thenAnswer(invocation -> {
             List<Role> roles = new ArrayList<>();
             roles.add(rogue);
@@ -110,25 +110,22 @@ public class RoleServiceTest extends AbstractTransactionalTestNGSpringContextTes
             return roles;
         });
 
-        assertThat(roleService.getAllRoles())
+        assertThat(roleService.findAllRoles())
                 .hasSize(2)
                 .contains(rogue, soldier);
         
     }
    
      @Test
-    public void getAllRolesByNonExistingPowerTest() {
-        when(roleDao.findAllRolesByPower(Power.MAGIC)).thenAnswer(invocation -> {
-            List<Role> roles = new ArrayList<>();
-            return roles;
-        });
+    public void findAllRolesByNonExistingPowerTest() {
+        when(roleDao.findAllRolesByPower(Power.MAGIC)).thenAnswer(invocation -> new ArrayList<>());
 
-        assertThat(roleService.getAllRoles())
+        assertThat(roleService.findAllRoles())
                 .hasSize(0);     
     }
     
     @Test
-    public void getAllRolesByPowerTest() {
+    public void findAllRolesByPowerTest() {
         when(roleDao.findAllRolesByPower(Power.MARTIAL_ARTS)).thenAnswer(invocation -> {
             List<Role> roles = new ArrayList<>();
             
@@ -136,7 +133,7 @@ public class RoleServiceTest extends AbstractTransactionalTestNGSpringContextTes
             return roles;
         });
 
-        assertThat(roleService.getAllRolesByPower(Power.MARTIAL_ARTS))
+        assertThat(roleService.findRolesByPower(Power.MARTIAL_ARTS))
                 .hasSize(1)
                 .contains(rogue);
     }

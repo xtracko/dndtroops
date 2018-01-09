@@ -25,14 +25,14 @@ public interface RoleFacade {
      *
      * @param id
      */
-     void deleteRole(long id);
+     void removeRole(long id);
 
     /**
      * Edit Role
      *
      * @param role a Role to edit
      */
-    RoleDTO editRole(RoleDTO role);
+    RoleDTO updateRole(RoleDTO role);
 
     /**
      * Find role by its ID
@@ -47,7 +47,7 @@ public interface RoleFacade {
      *
      * @return all existing Roles
      */ 
-    List<RoleDTO> getAllRoles();
+    List<RoleDTO> findAllRoles();
 
     /**
      * Retrieve all Roles with a specific Power
@@ -55,7 +55,7 @@ public interface RoleFacade {
      * @param power a power of Roles to find by
      * @return all Roles with a specific power
      */
-    List<RoleDTO> getAllRolesByPower(Power power);
+    List<RoleDTO> findAllRolesByPower(Power power);
 
     /**
      * Compute attacking force based on random attempt

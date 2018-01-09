@@ -40,7 +40,7 @@ public class RootController {
     public String scores(Model model,HttpServletRequest req) {
         log.debug("scores()");
 
-        List<HeroDTO> heroes = heroFacade.getAllHeroes();
+        List<HeroDTO> heroes = heroFacade.findAllHeroes();
 
         heroes.sort(Collections.reverseOrder(
                 Comparator.comparingLong(hero -> hero.getTroop().getGoldenMoney())

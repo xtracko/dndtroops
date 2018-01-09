@@ -108,7 +108,7 @@ public class TroopController {
         
         model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
         try {
-            troopFacade.deleteTroop(id);
+            troopFacade.removeTroop(id);
             redirectAttributes.addFlashAttribute("alert_success", "Troop was successfully deleted.");
         } catch (Exception ex) {
             log.warn("cannot delete troop with ID {}", id);
@@ -174,7 +174,7 @@ public class TroopController {
         }
 
         model.addAttribute("troop", troop);
-        model.addAttribute("heroes", heroFacade.getHeroesByTroop(troop));
+        model.addAttribute("heroes", heroFacade.findHeroesByTroop(troop));
 
         return "troop/view";
     }

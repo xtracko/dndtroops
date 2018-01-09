@@ -54,7 +54,7 @@ public class RolesControllerTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void getAllRoles() throws Exception {
-        doReturn(Collections.unmodifiableList(this.createRoles())).when(roleFacade).getAllRoles();
+        doReturn(Collections.unmodifiableList(this.createRoles())).when(roleFacade).findAllRoles();
 
         mockMvc.perform(get("/roles"))
                 .andExpect(status().isOk())
@@ -63,7 +63,7 @@ public class RolesControllerTest extends AbstractTestNGSpringContextTests {
                 .andExpect(jsonPath("$.[?(@.id==2)].name").value("Marksman"))
                 .andExpect(jsonPath("$.[?(@.id==3)].name").value("Tank"));
 
-        verify(roleFacade).getAllRoles();
+        verify(roleFacade).findAllRoles();
     }
 
     @Test
@@ -92,7 +92,7 @@ public class RolesControllerTest extends AbstractTestNGSpringContextTests {
         mockMvc.perform(delete("/roles/1"))
                 .andExpect(status().isOk());
 
-        verify(roleFacade).deleteRole(1L);
+        verify(roleFacade).removeRole(1L);
     }
 
     @Test
@@ -114,7 +114,7 @@ public class RolesControllerTest extends AbstractTestNGSpringContextTests {
     public void editRoleTest() throws Exception {
         RoleDTO roleDTO = new RoleDTO(1L, "Assassin", "Attack Damage Carry", Power.MARTIAL_ARTS, 40, 30);
 
-        doReturn(roleDTO).when(roleFacade).editRole(any());
+        doReturn(roleDTO).when(roleFacade).updateRole(any());
 
         mockMvc.perform(put("/roles/1")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -122,7 +122,7 @@ public class RolesControllerTest extends AbstractTestNGSpringContextTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Assassin"));
 
-        verify(roleFacade).editRole(any());
+        verify(roleFacade).updateRole(any());
     }
 
     private List<RoleDTO> createRoles() {
