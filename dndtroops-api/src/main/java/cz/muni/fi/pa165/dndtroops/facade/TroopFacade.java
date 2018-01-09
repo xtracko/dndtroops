@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.dndtroops.facade;
 
-import cz.muni.fi.pa165.dndtroops.dto.HeroDTO;
 import cz.muni.fi.pa165.dndtroops.dto.TroopCreateDTO;
 import cz.muni.fi.pa165.dndtroops.dto.TroopDTO;
 

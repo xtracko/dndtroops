@@ -1,11 +1,7 @@
 package cz.muni.fi.pa165.dndtroops.dao;
-import cz.muni.fi.pa165.dndtroops.entities.Role;
-
 import cz.muni.fi.pa165.dndtroops.PersistenceSampleApplicationContext;
+import cz.muni.fi.pa165.dndtroops.entities.Role;
 import cz.muni.fi.pa165.dndtroops.enums.Power;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -16,6 +12,10 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
+
 
 /**
  * Test class for class RoleDao
@@ -25,7 +25,6 @@ import org.testng.annotations.Test;
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
 public class RoleDaoTest extends AbstractTestNGSpringContextTests {
-
     @PersistenceContext
     public EntityManager em;
 
@@ -47,8 +46,7 @@ public class RoleDaoTest extends AbstractTestNGSpringContextTests {
         roleDao.createRole(r2);
         roleDao.createRole(r3);  
     }
-        
-        
+
     @Test
     public void findById(){
         Long testId = r1.getId();        

@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.dndtroops.facade;
 
 import cz.muni.fi.pa165.dndtroops.dto.AdminDTO;
-import cz.muni.fi.pa165.dndtroops.dto.CreateAdminDTO;
 import cz.muni.fi.pa165.dndtroops.dto.UserAuthenticateDTO;
 import cz.muni.fi.pa165.dndtroops.entities.Administrator;
 import cz.muni.fi.pa165.dndtroops.service.AdminService;

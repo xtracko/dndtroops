@@ -1,9 +1,9 @@
 package cz.muni.fi.pa165.dndtroops.service;
 
 
-import cz.muni.fi.pa165.dndtroops.entities.Troop;
 import cz.muni.fi.pa165.dndtroops.entities.Hero;
 import cz.muni.fi.pa165.dndtroops.entities.Role;
+import cz.muni.fi.pa165.dndtroops.entities.Troop;
 import cz.muni.fi.pa165.dndtroops.service.battle.HeroState;
 
 import java.util.List;

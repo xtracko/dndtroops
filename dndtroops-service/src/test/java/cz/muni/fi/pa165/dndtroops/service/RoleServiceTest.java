@@ -3,26 +3,25 @@ package cz.muni.fi.pa165.dndtroops.service;
 import cz.muni.fi.pa165.dndtroops.ServiceConfiguration;
 import cz.muni.fi.pa165.dndtroops.dao.HeroDao;
 import cz.muni.fi.pa165.dndtroops.dao.RoleDao;
-import cz.muni.fi.pa165.dndtroops.entities.Hero;
 import cz.muni.fi.pa165.dndtroops.entities.Role;
 import cz.muni.fi.pa165.dndtroops.enums.Power;
-import java.util.ArrayList;
-import java.util.List;
 import org.assertj.core.api.Assertions;
-import static org.assertj.core.api.Assertions.assertThat;
 import org.assertj.core.api.SoftAssertions;
 import org.hibernate.service.spi.ServiceException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
 
 /**
  * @author Martin Sestak

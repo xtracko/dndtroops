@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.dndtroops.dao;
 import cz.muni.fi.pa165.dndtroops.entities.Hero;
 import cz.muni.fi.pa165.dndtroops.entities.Role;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
+
 import java.util.List;
 
 /**

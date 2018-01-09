@@ -5,11 +5,11 @@
 package cz.muni.fi.pa165.dndtroops.entities;
 
 import cz.muni.fi.pa165.dndtroops.enums.Power;
-import java.io.Serializable;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity

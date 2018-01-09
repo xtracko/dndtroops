@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.dndtroops.service;
 
 import cz.muni.fi.pa165.dndtroops.dao.TroopDao;
-import cz.muni.fi.pa165.dndtroops.entities.Hero;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
 import cz.muni.fi.pa165.dndtroops.service.battle.HeroState;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +9,8 @@ import org.springframework.stereotype.Service;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Function;
 
 import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toMap;
 
 /**
  *  @author Vojtěch Duchoň and Jiří Novotný (changes to the non-trivial bussiness functionality)

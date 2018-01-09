@@ -7,16 +7,13 @@ import cz.muni.fi.pa165.dndtroops.entities.Role;
 import cz.muni.fi.pa165.dndtroops.entities.Troop;
 import cz.muni.fi.pa165.dndtroops.enums.Power;
 import cz.muni.fi.pa165.dndtroops.service.battle.HeroState;
-import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
 import org.hibernate.service.spi.ServiceException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.verification.VerificationMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 

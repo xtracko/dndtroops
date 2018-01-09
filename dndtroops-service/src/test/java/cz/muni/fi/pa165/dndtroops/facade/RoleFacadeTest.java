@@ -1,18 +1,20 @@
 package cz.muni.fi.pa165.dndtroops.facade;
 
 import cz.muni.fi.pa165.dndtroops.ServiceConfiguration;
-import cz.muni.fi.pa165.dndtroops.dto.*;
+import cz.muni.fi.pa165.dndtroops.dto.CreateRoleDTO;
+import cz.muni.fi.pa165.dndtroops.dto.RoleDTO;
 import cz.muni.fi.pa165.dndtroops.enums.Power;
 import org.assertj.core.api.SoftAssertions;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-import static org.assertj.core.api.Assertions.assertThat;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.springframework.transaction.annotation.Transactional;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Martin Sestak

@@ -7,16 +7,8 @@ import cz.muni.fi.pa165.dndtroops.entities.Troop;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.List;

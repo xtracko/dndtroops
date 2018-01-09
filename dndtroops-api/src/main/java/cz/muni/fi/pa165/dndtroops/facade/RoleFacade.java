@@ -4,7 +4,6 @@ import cz.muni.fi.pa165.dndtroops.dto.CreateRoleDTO;
 import cz.muni.fi.pa165.dndtroops.dto.RoleDTO;
 import cz.muni.fi.pa165.dndtroops.enums.Power;
 
-import javax.management.relation.Role;
 import java.util.List;
 
 /**

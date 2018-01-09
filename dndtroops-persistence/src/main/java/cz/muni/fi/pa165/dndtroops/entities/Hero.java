@@ -1,13 +1,13 @@
 package cz.muni.fi.pa165.dndtroops.entities;
 
-import java.io.Serializable;
-
-import java.util.*;
-
 import javax.persistence.*;
-
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Martin Sestak and Jiří Novotný (changes to the non-trivial bussiness functionality)
