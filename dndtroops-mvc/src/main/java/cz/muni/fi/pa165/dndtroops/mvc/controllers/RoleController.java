@@ -179,8 +179,8 @@ public class RoleController {
      * @return role list page after sucessfull edit of role
      */
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-    public String edit(@PathVariable long id, @Valid @ModelAttribute("data") RoleDTO data, BindingResult bindingResult, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes,HttpServletRequest req) {
-        log.debug("edit(id={}, data={})", id, data);
+    public String edit(@PathVariable long id, @Valid @ModelAttribute("role") RoleDTO role, BindingResult bindingResult, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes,HttpServletRequest req) {
+        log.debug("edit(id={}, data={})", id, role);
          model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
         if (bindingResult.hasErrors()) {
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
@@ -194,7 +194,7 @@ public class RoleController {
         }
 
         try {
-            roleFacade.updateRole(data);
+            roleFacade.updateRole(role);
             redirectAttributes.addFlashAttribute("alert_success", "Role with ID " + id + " was successfully edited.");
         } catch (Exception ex) {
             log.warn("cannot edit role with ID {}", id);
