@@ -6,7 +6,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 /**
- *
+ *  Class for validation of CreateHeroDTO
  * @author Martin Sestak
  */
 public class CreateHeroDTOValidator implements Validator {

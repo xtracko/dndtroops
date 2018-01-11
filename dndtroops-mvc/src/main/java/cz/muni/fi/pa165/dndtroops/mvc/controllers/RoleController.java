@@ -36,6 +36,10 @@ public class RoleController {
     @Autowired
     private RoleFacade roleFacade;
 
+    /**
+     *
+     * @param binder
+     */
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         if (binder.getTarget() instanceof CreateRoleDTO) {
@@ -46,6 +50,14 @@ public class RoleController {
         }
     }
 
+    /**
+     * Method for role list page initialization
+     * @param power
+     * @param model
+     * @param req
+     * @param redirectAttributes
+     * @return initialized page
+     */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(@RequestParam(required = false) String power, Model model,HttpServletRequest req,RedirectAttributes redirectAttributes) {
         model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
@@ -69,6 +81,13 @@ public class RoleController {
         return "role/list";
     }
 
+    /**
+     * Method for role creation page initialization
+     * @param model
+     * @param req
+     * @param redirectAttributes
+     * @return initialized page
+     */
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create(Model model,HttpServletRequest req,RedirectAttributes redirectAttributes) {
         log.debug("create()");
@@ -83,6 +102,16 @@ public class RoleController {
         return "role/create";
     }
 
+    /**
+     * Method for processing of role creation
+     * @param data
+     * @param bindingResult
+     * @param model
+     * @param redirectAttributes
+     * @param uriBuilder
+     * @param req
+     * @return role list page after sucessfull creation of role
+     */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@Valid @ModelAttribute("data") CreateRoleDTO data, BindingResult bindingResult,
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder,HttpServletRequest req) {
@@ -110,6 +139,14 @@ public class RoleController {
         }
     }
 
+    /**
+     * Method for role edit page initialization
+     * @param id
+     * @param model
+     * @param redirectAttributes
+     * @param req
+     * @return initialized page
+     */
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable long id, Model model, RedirectAttributes redirectAttributes,HttpServletRequest req) {
         log.debug("edit(id={})", id);
@@ -130,6 +167,17 @@ public class RoleController {
         return "role/edit";
     }
 
+    /**
+     * Method for processing of role edit
+     * @param id
+     * @param data
+     * @param bindingResult
+     * @param model
+     * @param uriBuilder
+     * @param redirectAttributes
+     * @param req
+     * @return role list page after sucessfull edit of role
+     */
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public String edit(@PathVariable long id, @Valid @ModelAttribute("data") RoleDTO data, BindingResult bindingResult, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes,HttpServletRequest req) {
         log.debug("edit(id={}, data={})", id, data);
@@ -156,6 +204,15 @@ public class RoleController {
         return "redirect:/role/list";
     }
 
+    /**
+     * Method for deleting chosen role
+     * @param id
+     * @param model
+     * @param uriBuilder
+     * @param redirectAttributes
+     * @param req
+     * @return role list page after role was sucessfully deleted
+     */
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes,HttpServletRequest req) {
         log.debug("delete(id={})", id);
@@ -177,6 +234,13 @@ public class RoleController {
         return "redirect:/role/list";
     }
     
+    /**
+     * Method for checking if user is authenticated and if have correct access rights
+     * @param shouldBeAdmin true if method should check admin rights
+     * @param redirectAttributes
+     * @param req
+     * @return true if user is authenticated and ahve correct access rigths
+     */ 
     private boolean isAuthenticated(HttpServletRequest req, RedirectAttributes redirectAttributes,
                                     Boolean shouldBeAdmin) {
         AdminDTO authUser = (AdminDTO) req.getSession().getAttribute("authenticatedUser");

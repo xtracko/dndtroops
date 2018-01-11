@@ -6,6 +6,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 /**
+ * Class for validation of TroopDTO
  * @author Jiří Novotný
  *
  * Before the 2nd milestone we have lost a teamate who was responsible for Troop entity.I am only doing the minimal

@@ -6,6 +6,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 /**
+ * Class for validation of CreateRoleDTO
  * @author Jiří Novotný
  */
 

@@ -42,7 +42,10 @@ public class HeroController {
     @Autowired
     private TroopFacade troopFacade;
 
-
+    /**
+     *
+     * @param binder
+     */
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         if (binder.getTarget() instanceof HeroCreateDTO) {
@@ -109,6 +112,13 @@ public class HeroController {
         }
     }
 
+    /**
+     * Method for hero list page initialization
+     * @param model
+     * @param req
+     * @param redirectAttributes
+     * @return initialized page
+     */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model,
                        HttpServletRequest req,
@@ -126,6 +136,13 @@ public class HeroController {
         return "hero/list";
     }
 
+    /**
+     * Method for hero creation page initialization
+     * @param model
+     * @param req
+     * @param redirectAttributes
+     * @return initialized page
+     */
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create(Model model, HttpServletRequest req,RedirectAttributes redirectAttributes) {
         log.debug("create()");
@@ -158,6 +175,16 @@ public class HeroController {
         return "hero/create";
     }
 
+    /**
+     * Method for processing of hero creation
+     * @param data
+     * @param bindingResult
+     * @param model
+     * @param redirectAttributes
+     * @param req
+     * @param uriBuilder
+     * @return hero list page after hero was sucessfully created
+     */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@Valid @ModelAttribute("data") HeroCreateDTO data, BindingResult bindingResult,
                          Model model, RedirectAttributes redirectAttributes, HttpServletRequest req, UriComponentsBuilder uriBuilder) {
@@ -191,6 +218,14 @@ public class HeroController {
         }
     }
 
+    /**
+     * Method for hero edit page initialization
+     * @param id
+     * @param model
+     * @param redirectAttributes
+     * @param req
+     * @return initialized page
+     */
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable long id, Model model, RedirectAttributes redirectAttributes, HttpServletRequest req) {
         log.debug("edit(id={})", id);
@@ -212,6 +247,17 @@ public class HeroController {
         return "hero/edit";
     }
 
+    /**
+     * Method for processing of heroedit
+     * @param id
+     * @param hero
+     * @param bindingResult
+     * @param model
+     * @param uriBuilder
+     * @param redirectAttributes
+     * @param req
+     * @return hero list page after hero was sucessfully edited
+     */
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public String edit(@PathVariable long id, @Valid @ModelAttribute("hero") HeroDTO hero, BindingResult bindingResult, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes, HttpServletRequest req) {
         log.debug("edit(id={}, data={})", id, hero);
@@ -246,6 +292,15 @@ public class HeroController {
         return "redirect:/hero/list";
     }
 
+    /**
+     * Method for deleting chosen hero
+     * @param id
+     * @param model
+     * @param uriBuilder
+     * @param redirectAttributes
+     * @param req
+     * @return hero list page after hero was sucessfully deleted
+     */
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes, HttpServletRequest req) {
         if(!isAuthenticated(req, redirectAttributes, true)){
@@ -261,7 +316,14 @@ public class HeroController {
         redirectAttributes.addFlashAttribute("alert_success", "Hero \"" + hero.getName() + "\" was deleted.");
         return "redirect:" + uriBuilder.path("/hero/list").toUriString();
     }
-
+    
+    /**
+     * Method for checking if user is authenticated and if have correct access rights
+     * @param shouldBeAdmin true if method should check admin rights
+     * @param redirectAttributes
+     * @param req
+     * @return true if user is authenticated and ahve correct access rigths
+     */
     private boolean isAuthenticated(HttpServletRequest req, RedirectAttributes redirectAttributes,
                                     Boolean shouldBeAdmin) {
         AdminDTO authUser = (AdminDTO) req.getSession().getAttribute("authenticatedUser");

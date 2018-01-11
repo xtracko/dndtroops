@@ -6,7 +6,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 /**
- *
+ * Class for validation of HeroDTO
  * @author Martin
  */
 public class HeroDTOValidator implements Validator{

@@ -27,6 +27,12 @@ public class RootController {
     @Autowired
     private HeroFacade heroFacade;
 
+    /**
+     *
+     * @param model
+     * @param req
+     * @return
+     */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(Model model, HttpServletRequest req) {
         log.debug("home()");
@@ -36,6 +42,12 @@ public class RootController {
         return "home";
     }
 
+    /**
+     *
+     * @param model
+     * @param req
+     * @return
+     */
     @RequestMapping(value = "/scores", method = RequestMethod.GET)
     public String scores(Model model,HttpServletRequest req) {
         log.debug("scores()");

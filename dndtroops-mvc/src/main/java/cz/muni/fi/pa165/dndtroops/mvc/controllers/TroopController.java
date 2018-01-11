@@ -41,6 +41,10 @@ public class TroopController {
     @Autowired
     private HeroFacade heroFacade;
 
+    /**
+     *
+     * @param binder
+     */
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         if (binder.getTarget() instanceof TroopCreateDTO) {
@@ -51,6 +55,13 @@ public class TroopController {
         }
     }
 
+    /**
+     * Method for troop list page initialization
+     * @param model
+     * @param req
+     * @param redirectAttributes
+     * @return initialized page
+     */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model,HttpServletRequest req, RedirectAttributes redirectAttributes) {
         log.debug("list()");
@@ -71,6 +82,13 @@ public class TroopController {
         return "troop/list";
     }
 
+    /**
+     * Method for troop creation page initialization
+     * @param model
+     * @param req
+     * @param redirectAttributes
+     * @return initialized page
+     */
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create(Model model,HttpServletRequest req, RedirectAttributes redirectAttributes) {
         log.debug("create()");
@@ -86,6 +104,15 @@ public class TroopController {
         return "troop/create";
     }
 
+    /**
+     * Method for processing of troop creation
+     * @param data
+     * @param bindingResult
+     * @param model
+     * @param redirectAttributes
+     * @param req
+     * @return troop list page after sucessfull creation of troop
+     */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@Valid @ModelAttribute("data") TroopCreateDTO data, BindingResult bindingResult, Model model,
                          RedirectAttributes redirectAttributes,HttpServletRequest req) {
@@ -114,6 +141,14 @@ public class TroopController {
         }
     }
 
+    /**
+     *M ethod for deleting chosen troop
+     * @param id
+     * @param model
+     * @param redirectAttributes
+     * @param req
+     * @return troop list page after troop was sucessfully deleted
+     */
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, Model model, RedirectAttributes redirectAttributes,HttpServletRequest req) {
         log.debug("delete(id={})", id);
@@ -134,6 +169,14 @@ public class TroopController {
         return "redirect:/troop/list";
     }
 
+    /**
+     *  Method for troop edit page initialization
+     * @param id
+     * @param model
+     * @param redirectAttributes
+     * @param req
+     * @return initialized page
+     */
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable long id, Model model, RedirectAttributes redirectAttributes,HttpServletRequest req) {
         log.debug("edit(id={})", id);
@@ -154,6 +197,16 @@ public class TroopController {
         return "troop/edit";
     }
 
+    /**
+     * Method for processing of troop edit
+     * @param id
+     * @param data
+     * @param bindingResult
+     * @param model
+     * @param redirectAttributes
+     * @param req
+     * @return troop list page after sucessfull edit of troop
+     */
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public String edit(@PathVariable long id, @Valid @ModelAttribute("data") TroopDTO data, BindingResult bindingResult,
                        Model model, RedirectAttributes redirectAttributes,HttpServletRequest req) {
@@ -182,6 +235,14 @@ public class TroopController {
         return "redirect:/troop/list";
     }
 
+    /**
+     * Method for detailed view of troop
+     * @param id
+     * @param model
+     * @param redirectAttributes
+     * @param req
+     * @return page with selected troop details
+     */
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
     public String view(@PathVariable long id, Model model, RedirectAttributes redirectAttributes,HttpServletRequest req) {
         log.debug("view(id={})", id);
@@ -206,6 +267,13 @@ public class TroopController {
         return "troop/view";
     }
     
+    /**
+     * Method for checking if user is authenticated and if have correct access rights
+     * @param shouldBeAdmin true if method should check admin rights
+     * @param redirectAttributes
+     * @param req
+     * @return true if user is authenticated and ahve correct access rigths
+     */ 
     private boolean isAuthenticated(HttpServletRequest req, RedirectAttributes redirectAttributes,
                                     Boolean shouldBeAdmin) {
         AdminDTO authUser = (AdminDTO) req.getSession().getAttribute("authenticatedUser");

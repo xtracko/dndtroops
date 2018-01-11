@@ -27,7 +27,12 @@ public class AuthController {
     @Autowired
     private AdminFacade adminFacade;
     
-     @RequestMapping(value = "/login", method = RequestMethod.GET)
+    /**
+     * Method for login page initialization
+     * @param req
+     * @return initialized page
+     */
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String authForm(HttpServletRequest req) {
       log.info("GET request: /auth/login");
         HttpSession session = req.getSession(true);
@@ -38,6 +43,14 @@ public class AuthController {
         return "auth/login";
     }
     
+    /**
+     * Method for login processing
+     * @param username
+     * @param password
+     * @param redirectAttributes
+     * @param req
+     * @return hero list page after sucessfull authentication 
+     */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String authenticate(
             @RequestParam String username,
@@ -65,6 +78,12 @@ public class AuthController {
         return adminDTO.isIsAdmin() ? "redirect:/hero/list" : "redirect:/hero/list";
     }
     
+    /**
+     * Method for logout
+     * @param req
+     * @param redirectAttributes
+     * @return home directory
+     */
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest req,
                          RedirectAttributes redirectAttributes) {

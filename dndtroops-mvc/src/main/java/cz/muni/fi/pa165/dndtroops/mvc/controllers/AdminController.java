@@ -29,6 +29,13 @@ public class AdminController {
     @Autowired
     private TroopFacade troopFacade;
 
+    /**
+     * Method for battle page initialization
+     * @param model
+     * @param redirectAttributes
+     * @param req
+     * @return initialized page
+     */
     @RequestMapping(value = "/battle", method = RequestMethod.GET)
     public String battle(Model model, RedirectAttributes redirectAttributes,HttpServletRequest req) {
         log.debug("battle()");
@@ -51,6 +58,14 @@ public class AdminController {
         return "admin/battle";
     }
 
+    /**
+     * Method for troop battle
+     * @param battle
+     * @param model
+     * @param redirectAttributes
+     * @param req
+     * @return path to page with scores
+     */
     @RequestMapping(value = "/battle", method = RequestMethod.POST)
     public String battle(@ModelAttribute("battle") BattleModel battle, Model model, RedirectAttributes redirectAttributes, HttpServletRequest req) {
         try {
@@ -85,6 +100,13 @@ public class AdminController {
 
         return "redirect:/scores";
     }
+    /**
+     * Method for checking if user is authenticated and if have correct access rights
+     * @param shouldBeAdmin true if method should check admin rights
+     * @param redirectAttributes
+     * @param req
+     * @return true if user is authenticated and ahve correct access rigths
+     */
     private boolean isAuthenticated(HttpServletRequest req, RedirectAttributes redirectAttributes,
                                     Boolean shouldBeAdmin) {
         AdminDTO authUser = (AdminDTO) req.getSession().getAttribute("authenticatedUser");
