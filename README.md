@@ -30,11 +30,13 @@ curl localhost:8080/pa165/rest/roles
 ```bash
 curl localhost:8080/pa165/rest/roles/{id}
 ```
+, where `{id}` is an ID of an item to view
 
 ###### Delete
 ```bash
 curl -X DELETE localhost:8080/pa165/rest/roles/{id}
 ```
+, where `{id}` is an ID of an item to delete
 
 ###### Create
 ```bash
@@ -45,3 +47,4 @@ curl -X POST -H "Content-Type: application/json" localhost:8080/pa165/rest/roles
 ```bash
 curl -X PUT -H "Content-Type: application/json" localhost:8080/pa165/rest/roles/{id} --data '{"id":{id},"name":"Noob","description":"Easy target", "power":"MARTIAL_ARTS","damage":2,"cooldown":3}'
 ```
+, where `{id}` is an ID of an item to change
