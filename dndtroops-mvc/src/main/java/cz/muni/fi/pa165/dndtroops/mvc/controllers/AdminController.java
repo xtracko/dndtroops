@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Jiří Novotný
@@ -32,13 +32,18 @@ public class AdminController {
     @RequestMapping(value = "/battle", method = RequestMethod.GET)
     public String battle(Model model, RedirectAttributes redirectAttributes,HttpServletRequest req) {
         log.debug("battle()");
-
+        model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
+        
+        if(!isAuthenticated(req, redirectAttributes, true)){
+                redirectAttributes.addFlashAttribute("alert_danger", "You dont have rights for this action. Please login as administrator.");
+                return "redirect:/auth/login";
+        }
         List<TroopDTO> troops = troopFacade.findAllTroops();
 
         if (troops.isEmpty()) {
             redirectAttributes.addFlashAttribute("alert_danger", "No troops to battle. Create a couple of troops first.");
         }
-        model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
+        
         model.addAttribute("notroops", troops.isEmpty());
         model.addAttribute("troops", troops);
         model.addAttribute("battle", new BattleModel());
@@ -79,5 +84,20 @@ public class AdminController {
         }
 
         return "redirect:/scores";
+    }
+    private boolean isAuthenticated(HttpServletRequest req, RedirectAttributes redirectAttributes,
+                                    Boolean shouldBeAdmin) {
+        AdminDTO authUser = (AdminDTO) req.getSession().getAttribute("authenticatedUser");
+        if (authUser == null) {
+            if (redirectAttributes != null) {
+                redirectAttributes.addFlashAttribute("alert_danger", "Admin role required");
+            }
+            
+
+            log.error("user should be authenticated or admin for this operation");
+            return false;
+        }
+
+        return shouldBeAdmin? authUser.isIsAdmin():true;
     }
 }

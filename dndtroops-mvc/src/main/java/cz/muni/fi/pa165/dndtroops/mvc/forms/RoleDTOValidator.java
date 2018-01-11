@@ -18,15 +18,17 @@ public class RoleDTOValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "field.required");
-
+System.out.println("**********1**************");
         RoleDTO roleDTO = (RoleDTO) target;
 
         if (Float.compare(roleDTO.getDamage(), 1) < 0) {
             errors.rejectValue("damage", "field.value_at_least_one");
+            System.out.println("**********2**************");
         }
 
         if (Float.compare(roleDTO.getCooldown(), 0) < 0) {
             errors.rejectValue("cooldown", "field.value_non-negative");
+            System.out.println("**********3**************");
         }
     }
 }

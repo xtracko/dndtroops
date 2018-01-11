@@ -114,6 +114,11 @@ public class HeroController {
                        HttpServletRequest req,
                        RedirectAttributes redirectAttributes) {
         log.debug("list()");
+        
+        if(!isAuthenticated(req, redirectAttributes, false)){
+                redirectAttributes.addFlashAttribute("alert_danger", "You dont have rights for this action. Please login.");
+                return "redirect:/auth/login";
+        }
 
         model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
         model.addAttribute("heroes", heroFacade.findAllHeroes());
@@ -126,6 +131,11 @@ public class HeroController {
         log.debug("create()");
 
         model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
+        
+        if(!isAuthenticated(req, redirectAttributes, true)){
+                redirectAttributes.addFlashAttribute("alert_danger", "You dont have rights for this action. Please login as administrator.");
+                return "redirect:/auth/login";
+        }
         model.addAttribute("roles", roleFacade.findAllRoles());
         try {
             List<TroopDTO> troops = troopFacade.findAllTroops();
@@ -186,7 +196,11 @@ public class HeroController {
         log.debug("edit(id={})", id);
 
         HeroDTO hero = heroFacade.findHeroById(id);
-
+        if(!isAuthenticated(req, redirectAttributes, true)){
+                redirectAttributes.addFlashAttribute("alert_danger", "You dont have rights for this action. Please login as administrator.");
+                return "redirect:/auth/login";
+        }
+        
         if (hero == null) {
             redirectAttributes.addFlashAttribute("alert_danger", "Hero with ID " + id + " does not exists.");
             return "redirect:/hero/list";
@@ -212,6 +226,8 @@ public class HeroController {
                 model.addAttribute(fe.getField() + "_error", true);
                 log.trace("FieldError: {}", fe);
             }
+            model.addAttribute("roles", roleFacade.findAllRoles());
+            model.addAttribute("troops", troopFacade.findAllTroops());
             return "hero/edit";
         }
 
@@ -222,6 +238,8 @@ public class HeroController {
             log.warn("cannot edit role with ID {}", id);
 
             redirectAttributes.addFlashAttribute("alert_danger", "Cannot edit Hero with ID " + id + ". Reason: " + ex.getMessage());
+            model.addAttribute("roles", roleFacade.findAllRoles());
+            model.addAttribute("troops", troopFacade.findAllTroops());
             return "redirect:/hero/edit";
         }
 
@@ -230,9 +248,15 @@ public class HeroController {
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes, HttpServletRequest req) {
+        if(!isAuthenticated(req, redirectAttributes, true)){
+                redirectAttributes.addFlashAttribute("alert_danger", "You dont have rights for this action. Please login as administrator.");
+                return "redirect:/auth/login";
+        }
+        
         HeroDTO hero = heroFacade.findHeroById(id);
         heroFacade.removeHero(hero);
         log.debug("delete({})", id);
+        
         model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
         redirectAttributes.addFlashAttribute("alert_success", "Hero \"" + hero.getName() + "\" was deleted.");
         return "redirect:" + uriBuilder.path("/hero/list").toUriString();
@@ -245,11 +269,12 @@ public class HeroController {
             if (redirectAttributes != null) {
                 redirectAttributes.addFlashAttribute("alert_danger", "Admin role required");
             }
+            
 
             log.error("user should be authenticated or admin for this operation");
             return false;
         }
 
-        return !shouldBeAdmin || authUser.isIsAdmin();
+        return shouldBeAdmin? authUser.isIsAdmin():true;
     }
 }

@@ -19,9 +19,9 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Jiří Novotný
@@ -52,10 +52,16 @@ public class TroopController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(Model model,HttpServletRequest req) {
+    public String list(Model model,HttpServletRequest req, RedirectAttributes redirectAttributes) {
         log.debug("list()");
         
         model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
+        
+        if(!isAuthenticated(req, redirectAttributes, true)){
+                redirectAttributes.addFlashAttribute("alert_danger", "You dont have rights for this action. Please login.");
+                return "redirect:/auth/login";
+        }
+        
         try {
             model.addAttribute("troops", troopFacade.findAllTroops());
         } catch (Exception ex) {
@@ -66,10 +72,16 @@ public class TroopController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String create(Model model,HttpServletRequest req) {
+    public String create(Model model,HttpServletRequest req, RedirectAttributes redirectAttributes) {
         log.debug("create()");
         
         model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
+        
+        if(!isAuthenticated(req, redirectAttributes, true)){
+                redirectAttributes.addFlashAttribute("alert_danger", "You dont have rights for this action. Please login as administrator.");
+                return "redirect:/auth/login";
+        }
+        
         model.addAttribute("data", new TroopCreateDTO());
         return "troop/create";
     }
@@ -107,6 +119,10 @@ public class TroopController {
         log.debug("delete(id={})", id);
         
         model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
+        if(!isAuthenticated(req, redirectAttributes, true)){
+                redirectAttributes.addFlashAttribute("alert_danger", "You dont have rights for this action. Please login as administrator.");
+                return "redirect:/auth/login";
+        }
         try {
             troopFacade.removeTroop(id);
             redirectAttributes.addFlashAttribute("alert_success", "Troop was successfully deleted.");
@@ -124,6 +140,11 @@ public class TroopController {
 
         TroopDTO troop = troopFacade.findTroopById(id);
         model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
+        
+        if(!isAuthenticated(req, redirectAttributes, true)){
+                redirectAttributes.addFlashAttribute("alert_danger", "You dont have rights for this action. Please login as administrator.");
+                return "redirect:/auth/login";
+        }
         if (troop == null) {
             redirectAttributes.addFlashAttribute("alert_danger", "Troop with ID " + id + " does not exists.");
             return "redirect:/troop/list";
@@ -168,6 +189,12 @@ public class TroopController {
         TroopDTO troop = troopFacade.findTroopById(id);
         
         model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
+        
+        if(!isAuthenticated(req, redirectAttributes, true)){
+                redirectAttributes.addFlashAttribute("alert_danger", "You dont have rights for this action. Please login.");
+                return "redirect:/auth/login";
+        }
+        
         if (troop == null) {
             redirectAttributes.addFlashAttribute("alert_danger", "Cannot troop with ID " + id + " does not exists");
             return "redirect:/troop/list";
@@ -177,5 +204,21 @@ public class TroopController {
         model.addAttribute("heroes", heroFacade.findHeroesByTroop(troop));
 
         return "troop/view";
+    }
+    
+    private boolean isAuthenticated(HttpServletRequest req, RedirectAttributes redirectAttributes,
+                                    Boolean shouldBeAdmin) {
+        AdminDTO authUser = (AdminDTO) req.getSession().getAttribute("authenticatedUser");
+        if (authUser == null) {
+            if (redirectAttributes != null) {
+                redirectAttributes.addFlashAttribute("alert_danger", "Admin role required");
+            }
+            
+
+            log.error("user should be authenticated or admin for this operation");
+            return false;
+        }
+
+        return shouldBeAdmin? authUser.isIsAdmin():true;
     }
 }

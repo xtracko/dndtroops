@@ -93,4 +93,10 @@ public class RoleDTO {
         return Objects.hashCode(getName());
     }
 
+    @Override
+    public String toString() {
+        return "RoleDTO{" + "id=" + id + ", name=" + name + ", description=" + description + ", power=" + power + ", damage=" + damage + ", cooldown=" + cooldown + '}';
+    }
+
+    
 }
