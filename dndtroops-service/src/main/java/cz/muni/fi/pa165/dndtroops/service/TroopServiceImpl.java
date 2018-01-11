@@ -36,7 +36,7 @@ public class TroopServiceImpl implements TroopService {
 
     @Override
     public void removeTroop(Troop t) {
-        troopDao.removeTroop(t);
+        troopDao.deleteTroop(t);
     }
 
     @Override

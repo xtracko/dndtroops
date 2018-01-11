@@ -32,7 +32,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public void removeRole(Role role) {
-        roleDao.removeRole(role);
+        roleDao.deleteRole(role);
         heroDao.findHeroesByRole(role).forEach(hero -> {
             hero.removeRole(role);
         });
