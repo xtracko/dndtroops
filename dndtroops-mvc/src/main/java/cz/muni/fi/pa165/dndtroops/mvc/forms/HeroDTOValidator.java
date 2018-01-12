@@ -23,7 +23,7 @@ public class HeroDTOValidator implements Validator{
 
         HeroDTO heroDTO = (HeroDTO) o;
         if (Float.compare(heroDTO.getHealth(), 0) < 0)
-            errors.rejectValue("health", "field.non-negative");
+            errors.rejectValue("health", "field.value_non-negative");
     }
     
 }

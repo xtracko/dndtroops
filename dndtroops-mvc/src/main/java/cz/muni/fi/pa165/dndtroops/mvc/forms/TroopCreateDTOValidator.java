@@ -26,7 +26,7 @@ public class TroopCreateDTOValidator implements Validator {
         TroopCreateDTO troopCreateDTO = (TroopCreateDTO) target;
 
         if (troopCreateDTO.getGoldenMoney() < 0) {
-            errors.rejectValue("goldenMoney", "field.non-negative");
+            errors.rejectValue("goldenMoney", "field.value_non-negative");
         }
     }
 }

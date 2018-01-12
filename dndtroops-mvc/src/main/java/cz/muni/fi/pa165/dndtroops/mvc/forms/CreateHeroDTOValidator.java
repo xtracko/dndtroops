@@ -22,7 +22,7 @@ public class CreateHeroDTOValidator implements Validator {
 
         HeroCreateDTO heroCreateDTO = (HeroCreateDTO) o;
         if (Float.compare(heroCreateDTO.getHealth(), 0) < 0)
-            errors.rejectValue("damageVariance", "field.non-negative");
+            errors.rejectValue("damageVariance", "field.value_non-negative");
     }
     
 }
