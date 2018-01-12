@@ -170,7 +170,7 @@ public class RoleController {
     /**
      * Method for processing of role edit
      * @param id
-     * @param data
+     * @param role
      * @param bindingResult
      * @param model
      * @param uriBuilder

@@ -155,7 +155,7 @@ public class TroopController {
         
         model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
         if(!isAuthenticated(req, redirectAttributes, true)){
-                redirectAttributes.addFlashAttribute("alert_danger", "You dont have rights for this action. Please login as administrator.");
+                redirectAttributes.addFlashAttribute("alert_danger", "You don't have rights for this action. Please login as administrator.");
                 return "redirect:/auth/login";
         }
         try {
@@ -163,7 +163,7 @@ public class TroopController {
             redirectAttributes.addFlashAttribute("alert_success", "Troop was successfully deleted.");
         } catch (Exception ex) {
             log.warn("cannot delete troop with ID {}", id);
-            redirectAttributes.addFlashAttribute("alert_danger", "Cannot delete troop with ID " + id + ". This also could mean that the Troop owns some heroes and you should remove the heroes before deleting the troop. Reason: " + ex.getMessage());
+            redirectAttributes.addFlashAttribute("alert_danger", "Cannot delete troop with ID " + id + " because the troop owns some heroes. Firstly, you should remove the owned heroes before deleting the troop.");
         }
 
         return "redirect:/troop/list";
