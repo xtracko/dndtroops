@@ -37,9 +37,11 @@
                 <td>${hero.troop.goldenMoney}</td>
                 <td><c:out value="${hero.troop.id}"/></td>
 
-                <td>
-                    <my:a href="/troop/view/${hero.troop.id}" class="btn btn-primary btn-sm">View Troop</my:a>
-                </td>
+                <c:if test="${not empty authenticatedUser}">
+                    <td>
+                        <my:a href="/troop/view/${hero.troop.id}" class="btn btn-primary btn-sm">View Troop</my:a>
+                    </td>
+                </c:if>
             </tr>
         </c:forEach>
         </tbody>
