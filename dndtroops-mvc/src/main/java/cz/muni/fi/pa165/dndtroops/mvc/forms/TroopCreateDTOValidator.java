@@ -22,11 +22,5 @@ public class TroopCreateDTOValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "field.required");
-
-        TroopCreateDTO troopCreateDTO = (TroopCreateDTO) target;
-
-        if (troopCreateDTO.getGoldenMoney() < 0) {
-            errors.rejectValue("goldenMoney", "field.value_non-negative");
-        }
     }
 }

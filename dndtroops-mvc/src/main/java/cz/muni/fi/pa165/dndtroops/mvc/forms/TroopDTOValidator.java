@@ -23,11 +23,5 @@ public class TroopDTOValidator implements Validator {
     public void validate(Object target, Errors errors) {
         ValidationUtils.rejectIfEmpty(errors, "id", "field.required");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "field.required");
-
-        TroopDTO troopDTO = (TroopDTO) target;
-
-        if (troopDTO.getGoldenMoney() < 0) {
-            errors.rejectValue("goldenMoney", "field.value_non-negative");
-        }
     }
 }
