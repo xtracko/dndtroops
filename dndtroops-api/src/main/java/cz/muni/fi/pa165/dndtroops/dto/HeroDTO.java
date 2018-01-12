@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.dndtroops.dto;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,12 +15,16 @@ import java.util.Objects;
 public class HeroDTO implements Serializable {
     private Long id;
 
+    @NotNull
     private String name;
-    
+
+    @NotNull
     private TroopDTO troop;
 
+    @Min(value = 1)
     private int health = 100;
 
+    @Min(value = 0)
     private int xp = 0;
     
     private List<RoleDTO> roles = new ArrayList<>();

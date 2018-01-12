@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.dndtroops.dto;
 
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
@@ -7,15 +8,16 @@ import java.util.Objects;
  */
 
 public class CreateAdminDTO {
+    @NotNull
     private String name;
-    private boolean isAdmin;
-    
+
+    private boolean isAdmin = false;
+
     private String passwordHash;
     
-    public CreateAdminDTO(String name){
+    public CreateAdminDTO(String name) {
         this.name = name;
         this.isAdmin=false;
-        
     }
 
     public String getName() {

@@ -17,11 +17,11 @@ public class Administrator {
     @NotNull
     @Column(nullable = false, unique = true)
     private String name;
-    
+
     @NotNull
     @Column(nullable = false)
-    private boolean isAdmin;
-    
+    private boolean isAdmin = false;
+
     private String passwordHash;
 
 

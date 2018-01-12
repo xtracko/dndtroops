@@ -1,12 +1,19 @@
 package cz.muni.fi.pa165.dndtroops.dto;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 public class TroopDTO {
-
+    @NotNull
     private Long id;
+
+    @NotNull
     private String name;
+
     private String mission;
+
+    @Min(value = 0)
     private long goldenMoney;
 
 

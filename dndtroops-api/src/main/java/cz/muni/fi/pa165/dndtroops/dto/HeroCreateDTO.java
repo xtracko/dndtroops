@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.dndtroops.dto;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,10 +12,9 @@ import java.util.Objects;
  */
 public class HeroCreateDTO {
     @NotNull
-    @Size(min = 3, max = 255)
     private String name;
 
-    
+    @NotNull
     private TroopDTO troop;
 
     @Min(value = 1)

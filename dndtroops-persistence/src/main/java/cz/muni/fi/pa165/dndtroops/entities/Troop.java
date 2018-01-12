@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.dndtroops.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
@@ -19,6 +20,7 @@ public class Troop {
 
     private String mission;
 
+    @Min(value = 0)
     private long goldenMoney;
 
     /*

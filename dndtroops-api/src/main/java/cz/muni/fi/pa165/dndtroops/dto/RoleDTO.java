@@ -6,15 +6,26 @@ package cz.muni.fi.pa165.dndtroops.dto;
 
 import cz.muni.fi.pa165.dndtroops.enums.Power;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 public class RoleDTO {
-
+    @NotNull
     private Long id;
+
+    @NotNull
     private String name;
+
     private String description;
+
+    @NotNull
     private Power power;
+
+    @Min(value = 1)
     private int damage;
+
+    @Min(value = 0)
     private int cooldown;
 
     public RoleDTO() {
