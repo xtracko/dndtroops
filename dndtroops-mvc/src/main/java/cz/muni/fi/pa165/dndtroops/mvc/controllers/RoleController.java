@@ -62,7 +62,7 @@ public class RoleController {
     public String list(@RequestParam(required = false) String power, Model model,HttpServletRequest req,RedirectAttributes redirectAttributes) {
         model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
         
-        if(!isAuthenticated(req, redirectAttributes, true)){
+        if(!isAuthenticated(req, redirectAttributes, false)){
                 redirectAttributes.addFlashAttribute("alert_danger", "You dont have rights for this action. Please login.");
                 return "redirect:/auth/login";
         }

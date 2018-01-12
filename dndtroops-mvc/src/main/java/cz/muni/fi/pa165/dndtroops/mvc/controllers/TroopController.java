@@ -68,7 +68,7 @@ public class TroopController {
         
         model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
         
-        if(!isAuthenticated(req, redirectAttributes, true)){
+        if(!isAuthenticated(req, redirectAttributes, false)){
                 redirectAttributes.addFlashAttribute("alert_danger", "You dont have rights for this action. Please login.");
                 return "redirect:/auth/login";
         }
@@ -251,7 +251,7 @@ public class TroopController {
         
         model.addAttribute("authenticatedUser", (AdminDTO) req.getSession().getAttribute("authenticatedUser"));
         
-        if(!isAuthenticated(req, redirectAttributes, true)){
+        if(!isAuthenticated(req, redirectAttributes, false)){
                 redirectAttributes.addFlashAttribute("alert_danger", "You dont have rights for this action. Please login.");
                 return "redirect:/auth/login";
         }
